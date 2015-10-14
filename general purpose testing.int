@@ -1,0 +1,11 @@
+// BEGIN_INTERNALS
+/*
+LAST_COMPILE_TIME: 1444849478
+DIR: _maps code code\modules code\modules\client code\modules\obj code\modules\obj\atom code\modules\turfs icons icons\obj 
+AUTO_FILE_DIR: OFF
+MAP_ICON_TYPE: 0
+LAST_COMPILE_VERSION: 508.1299
+WINDOW: _maps\base.dmm;code\modules\obj\obj.dm;code\modules\obj\atom\atom.dm;code\modules\obj\atom\atom_movable.dm;code\modules\turfs\turf.dm;code\modules\client\client_movement.dm;code\modules\client\client_verbs.dm
+FILE: code\modules\obj\obj.dm
+*/
+// END_INTERNALS

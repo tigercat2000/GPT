@@ -1,0 +1,29 @@
+// DM Environment file for general purpose testing.dme.
+// All manual changes should be made outside the BEGIN_ and END_ blocks.
+// New source code should be placed in .dm files: choose File/New --> Code File.
+
+// BEGIN_INTERNALS
+// END_INTERNALS
+
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+
+// BEGIN_PREFERENCES
+#define DEBUG
+// END_PREFERENCES
+
+// BEGIN_INCLUDE
+#include "_maps\base.dmm"
+#include "code\world.dm"
+#include "code\modules\client\client_movement.dm"
+#include "code\modules\client\client_verbs.dm"
+#include "code\modules\mob\mob.dm"
+#include "code\modules\mob\mob_defines.dm"
+#include "code\modules\obj\obj.dm"
+#include "code\modules\obj\atom\atom.dm"
+#include "code\modules\obj\atom\atom_movable.dm"
+#include "code\modules\turfs\turf.dm"
+#include "interface\byond.dmf"
+// END_INCLUDE
+
