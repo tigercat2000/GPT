@@ -1,6 +1,6 @@
 /turf
 	icon = 'icons/turfs/turf.dmi'
-	icon_state = "floor1"
+	icon_state = "floor"
 
 /turf/Enter(atom/movable/mover, atom/forget)
 	if(!mover)
@@ -9,7 +9,6 @@
 	if(isturf(mover.loc))
 		for(var/obj/obstacle in mover.loc)
 			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != forget)
-				mover.Bump(obstacle, 1)
 				return 0
 
 	var/list/large_dense = list()
@@ -22,7 +21,6 @@
 
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc) && (forget != obstacle))
-			mover.Bump(obstacle, 1)
 			return 0
 	return 1
 

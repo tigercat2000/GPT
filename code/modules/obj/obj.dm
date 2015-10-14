@@ -8,5 +8,5 @@
 	name = "rack"
 	icon_state = "rack"
 
-	Bumped(atom/A)
-		world << "BUMP FROM [A]"
+/obj/structure/rack/attack_hand(mob/user)
+	world << "[user] attacked me halp"

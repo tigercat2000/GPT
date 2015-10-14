@@ -1,2 +1,4 @@
 /mob
-	var/movement_delay = 3
+	var/movement_delay = 2
+	var/next_move = null
+	var/atom/movable/pulling = null
