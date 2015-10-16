@@ -1,6 +1,6 @@
 /mob/verb/say_verb(var/message as text)
 	set name = "Say"
-	set desc = "Diss someone's mama!"
+	set category = "IC"
 
 	if(lentext(message) < 1024)
 		say(message)

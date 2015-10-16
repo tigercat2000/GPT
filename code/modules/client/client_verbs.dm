@@ -1,2 +1,2 @@
-/client/verb/testing()
+/client/verb/test()
 	set name = "Testing"

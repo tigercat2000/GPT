@@ -1,11 +1,11 @@
 // BEGIN_INTERNALS
 /*
-LAST_COMPILE_TIME: 1444854467
-DIR: _maps code code\modules code\modules\atom code\modules\client code\modules\mob code\modules\obj 
+LAST_COMPILE_TIME: 1445013862
+DIR: code code\modules code\modules\client icons icons\effects icons\turfs 
 AUTO_FILE_DIR: OFF
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 508.1299
-WINDOW: code\modules\mob\mob_verbs.dm;code\modules\mob\mob_defines.dm;code\modules\atom\atom_movable.dm;code\modules\client\client_movement.dm;code\modules\mob\mob.dm
-FILE: code\modules\mob\mob.dm
+WINDOW: code\world.dm
+FILE: code\world.dm
 */
 // END_INTERNALS
