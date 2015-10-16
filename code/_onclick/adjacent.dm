@@ -71,15 +71,6 @@
 		if(T.Adjacent(neighbor,src)) return 1
 	return 0
 
-// This is necessary for storage items not on your person.
-/obj/item/Adjacent(var/atom/neighbor, var/recurse = 1)
-	if(neighbor == loc) return 1
-	if(istype(loc,/obj/item))
-		if(recurse > 0)
-			return loc.Adjacent(neighbor,recurse - 1)
-		return 0
-	return ..()
-
 /*
 	This checks if you there is uninterrupted airspace between that turf and this one.
 	This is defined as any dense ON_BORDER object, or any dense object without throwpass.

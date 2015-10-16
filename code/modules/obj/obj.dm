@@ -1,6 +1,7 @@
 /obj
 	icon = 'icons/obj/obj.dmi'
 
+
 /obj/structure
 	name = "structure"
 

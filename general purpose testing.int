@@ -1,11 +1,11 @@
 // BEGIN_INTERNALS
 /*
-LAST_COMPILE_TIME: 1445013862
-DIR: code code\modules code\modules\client icons icons\effects icons\turfs 
+LAST_COMPILE_TIME: 1445018342
+DIR: code code\__DEFINES code\modules code\modules\atom code\modules\debug code\modules\lighting code\modules\mob 
 AUTO_FILE_DIR: OFF
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 508.1299
-WINDOW: code\world.dm
-FILE: code\world.dm
+WINDOW: code\modules\obj\obj.dm;code\modules\mob\mob.dm;code\controllers\garbage_collector.dm;code\modules\atom\atom.dm;code\modules\atom\atom_movable.dm;code\modules\lighting\lighting_system.dm;code\__DEFINES\lighting.dm;code\modules\lighting\lighting_overlay.dm;code\modules\lighting\lighting_atom.dm;code\modules\lighting\lighting_turf.dm;code\modules\lighting\light_source.dm;code\modules\lighting\lighting_process.dm;code\modules\debug\VV.dm
+FILE: code\modules\debug\VV.dm
 */
 // END_INTERNALS

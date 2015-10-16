@@ -2,6 +2,8 @@
 	icon = 'icons/turfs/turf.dmi'
 	icon_state = "floor"
 
+	var/dynamic_lighting = 1
+
 /turf/Enter(atom/movable/mover, atom/forget)
 	if(!mover)
 		return 1

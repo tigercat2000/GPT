@@ -1,6 +1,5 @@
 /atom/movable
-	density = 1
-
+	var/anchored = 0
 	var/atom/movable/pulledby = null
 
 // Previously known as Crossed()
@@ -13,3 +12,7 @@
 		A.Bumped(src)
 
 	. = ..()
+
+/atom/movable/Destroy()
+	. = ..()
+	loc = null

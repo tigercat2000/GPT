@@ -1,7 +1,3 @@
-/mob
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "human"
-
 /mob/proc/movement_delay()
 	return movement_delay
 
@@ -15,6 +11,10 @@
 				stop_pulling()
 				return
 
+		if(pulling && pulling.anchored)
+			stop_pulling()
+			return
+
 		var/diag = get_dir(src, pulling)
 		if((diag - 1) & diag);
 		else diag = null
@@ -27,6 +27,14 @@
 		stop_pulling()
 		. = ..()
 
+/mob/Login()
+	if(!loc)
+		if(starting_pos.len)
+			loc = pick(starting_pos)
+	. = ..()
+
+/mob/Destroy()
+	return QDEL_HINT_HARDDEL_NOW
 
 /mob/SPOOKY
 	name = "SPOOKYSHIT"

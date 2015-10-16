@@ -16,3 +16,7 @@
 		if(M == src)
 			M << self_message
 		else	..()
+
+/atom/Destroy()
+	..()
+	return QDEL_HINT_QUEUE

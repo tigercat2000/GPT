@@ -1,3 +1,5 @@
+/client/var/datum/marked_datum = null
+
 /client/Topic(href, href_list, hsrc)
 	..()
 	view_var_Topic(href, href_list, hsrc)
@@ -199,19 +201,22 @@
 
 	body += "<td width='50%'><div align='center'><a href='?_src_=vars;datumrefresh=\ref[D]'>Refresh</a>"
 
+	body += {"	<form>
+				<select name="file" size="1"
+				onchange="loadPage(this.form.elements\[0\])"
+				target="_parent._top"
+				onmouseclick="this.focus()"
+				style="background-color:#ffffff">
+			"}
+
+	body += {"	<option value>Select option</option>
+				<option value> </option>
+			"}
+
+	body += "<option value='?_src_=vars;mark_object=\ref[D]'>Mark Object</option>"
+	body += "<option value='?_src_=vars;proc_call=\ref[D]'>Call Proc</option>"
+
 	if(isobj(D))
-		body += {"	<form>
-					<select name="file" size="1"
-					onchange="loadPage(this.form.elements\[0\])"
-					target="_parent._top"
-					onmouseclick="this.focus()"
-					style="background-color:#ffffff">
-				"}
-
-		body += {"	<option value>Select option</option>
-					<option value> </option>
-				"}
-
 		body += "<option value='?_src_=vars;delall=\ref[D]'>Delete all of type</option>"
 
 	body += "</select></form>"
@@ -229,6 +234,8 @@
 	var/list/names = list()
 	for (var/V in D.vars)
 		names += V
+
+	names = sortList(names)
 
 	for (var/V in names)
 		body += debug_variable(V, D.vars[V], 0, D)
@@ -433,6 +440,21 @@ body
 			if("right")	A.dir = turn(A.dir, -45)
 			if("left")	A.dir = turn(A.dir, 45)
 		href_list["datumrefresh"] = href_list["rotatedatum"]
+
+	else if(href_list["mark_object"])
+		var/datum/D = locate(href_list["mark_object"])
+		if(!istype(D))
+			usr << "This can only be done to instances of type /datum"
+			return
+
+		marked_datum = D
+		href_list["datumrefresh"] = href_list["mark_object"]
+
+	else if(href_list["proc_call"])
+		var/T = locate(href_list["proc_call"])
+
+		if(T)
+			callproc_datum(T)
 
 	return
 
@@ -672,11 +694,11 @@ var/list/VVckey_edit = list("key", "ckey")
 
 	for(var/p in forbidden_varedit_object_types)
 		if( istype(O,p) )
-			usr << "<span class='danger'>It is forbidden to edit this object's variables.</span>"
+			usr << "<span class='warning'>It is forbidden to edit this object's variables.</span>"
 			return
 
 	if(istype(O, /client) && (param_var_name == "ckey" || param_var_name == "key"))
-		usr << "<span class='danger'>You cannot edit ckeys on client objects.</span>"
+		usr << "<span class='warning'>You cannot edit ckeys on client objects.</span>"
 		return
 
 	var/class
@@ -736,6 +758,8 @@ var/list/VVckey_edit = list("key", "ckey")
 		var/list/names = list()
 		for (var/V in O.vars)
 			names += V
+
+		names = sortList(names)
 
 		variable = input("Which var?","Var") as null|anything in names
 		if(!variable)	return
@@ -806,23 +830,23 @@ var/list/VVckey_edit = list("key", "ckey")
 			if(dir)
 				usr << "If a direction, direction is: [dir]"
 
-		class = input("What kind of variable?","Variable Type",default) as null|anything in list("text",
-			"num","type","reference","mob reference", "icon","file","list","edit referenced object","restore to default")
+		if(marked_datum)
+			class = input("What kind of variable?","Variable Type",default) as null|anything in list("text",
+				"num","type","reference","mob reference", "icon","file","list","edit referenced object","restore to default","marked datum ([marked_datum.type])")
+		else
+			class = input("What kind of variable?","Variable Type",default) as null|anything in list("text",
+				"num","type","reference","mob reference", "icon","file","list","edit referenced object","restore to default")
 
 		if(!class)
 			return
 
-	var/original_name
-
-	if (!istype(O, /atom))
-		original_name = "\ref[O] ([O])"
-	else
-		original_name = O:name
+	if(marked_datum && class == "marked datum ([marked_datum.type])")
+		class = "marked datum"
 
 	switch(class)
 
 		if("list")
-			mod_list(O.vars[variable], O, original_name, variable)
+			mod_list(O.vars[variable])
 			return
 
 		if("restore to default")
@@ -832,14 +856,23 @@ var/list/VVckey_edit = list("key", "ckey")
 			return .(O.vars[variable])
 
 		if("text")
-			var/var_new = input("Enter new text:","Text",O.vars[variable]) as null|text
+			var/var_new = input("Enter new text:","Text",O.vars[variable]) as null|message
 			if(var_new==null) return
 			O.vars[variable] = var_new
 
 		if("num")
-			var/var_new =  input("Enter new number:","Num",O.vars[variable]) as null|num
-			if(var_new==null) return
-			O.vars[variable] = var_new
+			if(variable=="light_range")
+				var/var_new = input("Enter new number:","Num",O.vars[variable]) as null|num
+				if(var_new == null) return
+				O.set_light(var_new)
+			else if(variable=="stat")
+				var/var_new = input("Enter new number:","Num",O.vars[variable]) as null|num
+				if(var_new == null) return
+				O.vars[variable] = var_new
+			else
+				var/var_new =  input("Enter new number:","Num",O.vars[variable]) as null|num
+				if(var_new==null) return
+				O.vars[variable] = var_new
 
 		if("type")
 			var/var_new = input("Enter type:","Type",O.vars[variable]) as null|anything in typesof(/obj,/mob,/area,/turf)
@@ -865,5 +898,8 @@ var/list/VVckey_edit = list("key", "ckey")
 			var/var_new = input("Pick icon:","Icon",O.vars[variable]) as null|icon
 			if(var_new==null) return
 			O.vars[variable] = var_new
+
+		if("marked datum")
+			O.vars[variable] = marked_datum
 
 	world.log << "### VarEdit by [src]: [O.type] [variable]=[html_encode("[O.vars[variable]]")]"

@@ -1,0 +1,1 @@
+var/list/starting_pos = list()
