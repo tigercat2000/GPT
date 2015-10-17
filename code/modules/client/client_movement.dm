@@ -7,12 +7,14 @@
 
 	move_delay = world.time
 	move_delay += mob.movement_delay()
+
+	if(!mob.canmove)
+		return 0
+
 	. = ..()
 
 
 //restrictions
-
-
 /mob/proc/Move_Pulled(atom/A)
 	if(!pulling)
 		return

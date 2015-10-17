@@ -5,8 +5,12 @@
 
 	var/movement_delay = 2
 	var/next_move = null
-	var/atom/movable/pulling = null
-
-	see_invisible = 21
+	var/canmove = 1
+	var/walking = 0
 
 	animate_movement = 2 //SLIDE
+
+	var/atom/movable/pulling = null
+	var/datum/hud/hud_used = null
+
+	see_invisible = 21

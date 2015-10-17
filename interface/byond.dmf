@@ -475,7 +475,7 @@ window "outputwindow"
 window "rpane"
 	elem "rpane"
 		type = MAIN
-		pos = none
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
@@ -515,7 +515,7 @@ window "rpane"
 	elem "rpanewindow"
 		type = CHILD
 		pos = 0,0
-		size = 0x0
+		size = 640x499
 		anchor1 = 0,0
 		anchor2 = 100,100
 		font-family = ""
@@ -535,7 +535,7 @@ window "rpane"
 		left = ""
 		right = "outputwindow"
 		is-vert = false
-		splitter = 50
+		splitter = 30
 		show-splitter = true
 		lock = none
 	elem "textb"
@@ -547,7 +547,7 @@ window "rpane"
 		font-family = ""
 		font-size = 0
 		font-style = ""
-		text-color = none
+		text-color = #000000
 		background-color = none
 		is-visible = false
 		is-disabled = false
@@ -575,7 +575,7 @@ window "rpane"
 		font-family = ""
 		font-size = 0
 		font-style = ""
-		text-color = none
+		text-color = #000000
 		background-color = none
 		is-visible = false
 		is-disabled = false
@@ -603,7 +603,7 @@ window "rpane"
 		font-family = ""
 		font-size = 0
 		font-style = ""
-		text-color = none
+		text-color = #000000
 		background-color = none
 		is-visible = false
 		is-disabled = false

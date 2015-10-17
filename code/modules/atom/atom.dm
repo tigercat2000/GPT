@@ -12,10 +12,12 @@
 		M << message
 
 /mob/visible_message(var/message, var/self_message)
-	for(var/mob/M in viewers(src))
-		if(M == src)
-			M << self_message
-		else	..()
+	if(!self_message)
+		. = ..()
+	else
+		src << self_message
+		for(var/mob/M in viewers(src) - src)
+			M << message
 
 /atom/Destroy()
 	..()
