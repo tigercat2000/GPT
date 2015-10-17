@@ -1,11 +1,11 @@
 // BEGIN_INTERNALS
 /*
-LAST_COMPILE_TIME: 1445018342
-DIR: code code\__DEFINES code\modules code\modules\atom code\modules\debug code\modules\lighting code\modules\mob 
+LAST_COMPILE_TIME: 1445045366
+DIR: _maps _maps\map_files _maps\map_files\primary code code\_onclick code\controllers code\controllers\Processes code\modules code\modules\lighting code\modules\obj code\modules\obj\lights code\modules\turfs icons icons\obj icons\turfs 
 AUTO_FILE_DIR: OFF
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 508.1299
-WINDOW: code\modules\obj\obj.dm;code\modules\mob\mob.dm;code\controllers\garbage_collector.dm;code\modules\atom\atom.dm;code\modules\atom\atom_movable.dm;code\modules\lighting\lighting_system.dm;code\__DEFINES\lighting.dm;code\modules\lighting\lighting_overlay.dm;code\modules\lighting\lighting_atom.dm;code\modules\lighting\lighting_turf.dm;code\modules\lighting\light_source.dm;code\modules\lighting\lighting_process.dm;code\modules\debug\VV.dm
-FILE: code\modules\debug\VV.dm
+WINDOW: _maps\map_files\primary\z1.dmm;stddef.dm;code\_onclick\click.dm;code\_onclick\special_clicks.dm;code\modules\obj\obj.dm;code\controllers\Processes\objects.dm;code\world.dm;code\_preworld_setup.dm;code\modules\obj\lights\light.dm;icons\obj\lighting.dmi;code\modules\turfs\turf.dm;code\modules\turfs\turf_types.dm;code\modules\lighting\lighting_turf.dm;code\modules\lighting\lighting_process.dm
+FILE: code\modules\turfs\turf_types.dm
 */
 // END_INTERNALS

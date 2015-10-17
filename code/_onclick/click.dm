@@ -10,11 +10,24 @@
 
 	face_atom(A)
 
+	if(handle_special_clicks(A, params))
+		return 1
+
+
 	if(isturf(A) || isturf(A.loc))
 		if(A.Adjacent(src))
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, 1)
+
+
+/mob/proc/handle_special_clicks(var/atom/A, var/params)
+	var/list/modifiers = params2list(params)
+	if(modifiers["ctrl"])
+		CtrlClickOn(A)
+		. = 1
+
+
 
 /mob/proc/changeNext_move(num)
 	next_move = world.time + num

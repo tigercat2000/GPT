@@ -11,10 +11,7 @@
 
 
 //restrictions
-/client/Northeast() return
-/client/Northwest() return
-/client/Southeast() return
-/client/Southwest() return
+
 
 /mob/proc/Move_Pulled(atom/A)
 	if(!pulling)

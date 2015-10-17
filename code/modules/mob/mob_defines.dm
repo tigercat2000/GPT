@@ -8,3 +8,5 @@
 	var/atom/movable/pulling = null
 
 	see_invisible = 21
+
+	animate_movement = 2 //SLIDE
