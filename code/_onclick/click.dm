@@ -75,4 +75,4 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	usr.dir = direction
+	src.dir = direction

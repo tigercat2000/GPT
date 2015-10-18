@@ -1,0 +1,46 @@
+"a" = (/turf,/area/room)
+"b" = (/obj/light{tag = "icon-tube0 (EAST)"; icon_state = "tube0"; dir = 4},/turf,/area/room)
+"c" = (/turf/wall/reinforced,/area/room)
+"d" = (/obj/structure/window{tag = "icon-window (NORTH)"; icon_state = "window"; dir = 1},/obj/structure/window{tag = "icon-window (WEST)"; icon_state = "window"; dir = 8},/obj/structure/window,/turf,/area/room)
+"e" = (/obj/structure/window{tag = "icon-window (NORTH)"; icon_state = "window"; dir = 1},/obj/structure/window{tag = "icon-window (EAST)"; icon_state = "window"; dir = 4},/obj/structure/window,/turf,/area/room)
+"f" = (/obj/light{tag = "icon-tube0 (WEST)"; icon_state = "tube0"; dir = 8},/turf,/area/room)
+"g" = (/obj/structure/window{tag = "icon-window (EAST)"; icon_state = "window"; dir = 4},/obj/structure/window{tag = "icon-window (WEST)"; icon_state = "window"; dir = 8},/obj/structure/window{tag = "icon-window (NORTH)"; icon_state = "window"; dir = 1},/turf,/area/room)
+"h" = (/obj/landmark/start,/turf,/area/room)
+"i" = (/obj/structure/window{tag = "icon-window (EAST)"; icon_state = "window"; dir = 4},/obj/structure/window{tag = "icon-window (WEST)"; icon_state = "window"; dir = 8},/obj/structure/window,/turf,/area/room)
+"j" = (/obj/landmark{name = "sciWalk"; tag = "sciWalk"},/turf,/area/room)
+"k" = (/obj/landmark{name = "syndWalk"; tag = "syndWalk"},/turf,/area/room)
+"l" = (/obj/landmark{name = "sciSpawn"; tag = "sciSpawn"},/turf,/area/room)
+"m" = (/obj/landmark{name = "syndSpawn"; tag = "syndSpawn"},/turf,/area/room)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaabcdecfaaaaaaaaaaaaaaaa
+aaaaaaaaaghhgaaaaaaaaaaaaaaaaa
+aaaaaaaaaihhiaaaaaaaaaaaaaaaaa
+aaaaaaaabcdecfaaaaaaaaaaaaaaaa
+aaaaaaaaaajkaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaalaamaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}

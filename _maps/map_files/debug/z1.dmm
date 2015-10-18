@@ -1,11 +1,13 @@
 "a" = (/turf,/area/debug)
 "b" = (/obj/light/street_post,/turf,/area/debug)
 "c" = (/obj/light,/turf,/area/debug)
-"d" = (/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
-"e" = (/obj/structure/rack,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
-"f" = (/obj/landmark/start,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
-"g" = (/obj/item/debugger,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
-"h" = (/obj/structure/rack/special,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
+"d" = (/turf/wall/reinforced{dynamic_lighting = 0; luminosity = 1; name = "fullbright reinforced"},/area/debug)
+"e" = (/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
+"f" = (/obj/structure/rack,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
+"g" = (/obj/landmark/start,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
+"h" = (/obj/item/debugger,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
+"i" = (/obj/structure/rack/special,/turf{dynamic_lighting = 0; luminosity = 1; name = "fullbright turf"},/area/debug)
+"j" = (/turf/wall{dynamic_lighting = 0; luminosity = 1; name = "fullbright wall"},/area/debug)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaa
@@ -16,16 +18,16 @@ aaaaabaaaaaaaaacaaaa
 aaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaad
-dddddddddddddddddddd
-dddddddddddddddddddd
-dddddefgdddddddddddd
-dddddhdddddddddddddd
-dddddddddddddddddddd
-dddddddddddddddddddd
-dddddddddddddddddddd
-dddddddddddddddddddd
-dddddddddddddddddddd
-dddddddddddddddddddd
-dddddddddddddddddddd
+aaaaaaaaaaaaaaaaddae
+eeeeeeeeeeeeeedeeeee
+eeeeeeeeeeeeeededdde
+eeeeefgheeeedeeeddde
+eeeeeieeeeeeeeeeddde
+eeeeeeeeeeeeeeeeeeee
+eeeeeeeeeeeeeeeejjee
+eeeeeeeeeeeeeejeeeee
+eeeeeddeeeeeeejejjje
+eeeeejjeeeeejeeejjje
+eeeeeeeeeeeeeeeejjje
+eeeeeeeeeeeeeeeeeeee
 "}

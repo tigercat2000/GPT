@@ -5,6 +5,15 @@
 	var/dynamic_lighting = 1
 	var/list/footstep_sounds = list()
 
+/turf/New()
+	. = ..()
+	if(smooth)
+		smooth_icon(src)
+
+/turf/Destroy()
+	. = ..()
+	smooth_icon_neighbors(src)
+
 /turf/Enter(atom/movable/mover, atom/forget)
 	if(!mover)
 		return 1
@@ -43,3 +52,13 @@
 			playsound(AM, picked_sound, 30, 1)
 		else
 			playsound(AM, picked_sound, 60, 1)
+
+//Creates a new turf
+/turf/proc/ChangeTurf(path)
+	if(!path)			return
+	if(path == type)	return src
+
+	var/turf/W = new path(src)
+	smooth_icon_neighbors(src)
+
+	return W
