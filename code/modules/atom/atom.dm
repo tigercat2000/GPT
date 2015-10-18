@@ -20,8 +20,8 @@
 			M << message
 
 /atom/Destroy()
-	..()
-	return QDEL_HINT_QUEUE
+	invisibility = 101
+	. = ..()
 
 /atom/proc/update_icon()
 	return 0

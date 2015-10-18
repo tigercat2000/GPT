@@ -1,6 +1,6 @@
 /atom/movable
 	var/anchored = 0
-	var/atom/movable/pulledby = null
+	var/mob/pulledby = null
 
 // Previously known as Crossed()
 // This is automatically called when something enters your square
@@ -14,8 +14,15 @@
 	. = ..()
 
 /atom/movable/Destroy()
-	. = ..()
+	for(var/atom/movable/AM in contents)
+		qdel(AM)
 	loc = null
+	if (pulledby)
+		if (pulledby.pulling == src)
+			pulledby.pulling = null
+		pulledby = null
+	..()
+	return QDEL_HINT_QUEUE
 
 /atom/movable/proc/forceMove(atom/destination)
 	if(destination)
