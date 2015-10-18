@@ -31,6 +31,8 @@
 			M.client.screen -= adding
 		if(other)
 			M.client.screen -= other
+		if(M.equipped_item)
+			M.client.screen -= M.equipped_item
 
 	else
 		hud_shown = 1
@@ -38,3 +40,4 @@
 			M.client.screen += adding
 		if(other)
 			M.client.screen += other
+		M.update_inv_equipped()

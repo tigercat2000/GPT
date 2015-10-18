@@ -1,4 +1,4 @@
-/proc/__MAP_MOB_INTRO(mob/M) //snowflakey but better than a whole datum system for this shit
+/hook/clientNewLogin/proc/__map_fluff_primary(mob/M) //snowflakey but better than a whole datum system for this shit
 	if(istype(M) && M.client)
 
 		var/obj/O = new                                  //
@@ -12,9 +12,12 @@
 		M << "<span class='warning'>Welcome to the void...</span>"
 		M.canmove = 0
 
-		animate(O, alpha = 0, time = 100)
-		sleep(100)
+		animate(O, alpha = 0, time = 50)
+		sleep(50)
 
 		M << "<span class='alien'>Enjoy your stay...</span>"
 		M.canmove = 1
 		M.client.screen -= O
+
+		return 1
+	return 0

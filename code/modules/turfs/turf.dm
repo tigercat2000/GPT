@@ -3,6 +3,7 @@
 	icon_state = "floor"
 
 	var/dynamic_lighting = 1
+	var/list/footstep_sounds = list()
 
 /turf/Enter(atom/movable/mover, atom/forget)
 	if(!mover)
@@ -31,3 +32,14 @@
 
 	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
 		return !density
+
+/turf/Entered(atom/movable/AM, atom/oldLoc)
+	. = ..()
+
+	if(prob(35) && ismob(AM) && footstep_sounds.len)
+		var/mob/M = AM
+		var/picked_sound = pick(footstep_sounds)
+		if(M.walking)
+			playsound(AM, picked_sound, 30, 1)
+		else
+			playsound(AM, picked_sound, 60, 1)

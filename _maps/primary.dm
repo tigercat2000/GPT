@@ -10,7 +10,6 @@
     #include "map_files\primary\primary_intro.dm"
 
     #define LOADED_MAP "Primary"
-    #define MAP_HAS_INTRO
 
 #else
 

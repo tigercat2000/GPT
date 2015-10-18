@@ -39,3 +39,12 @@ var/mob/dview/dview_mob = new
 	if(istype(A, /client))
 		return 1
 	return 0
+
+/proc/get_area(O)
+	var/turf/loc = get_turf(O)
+	if(loc)
+		var/area/res = loc.loc
+		.= res
+
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")

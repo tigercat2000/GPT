@@ -6,6 +6,9 @@
 
 /world/New()
 	. = ..()
+
+	callHook("startup")
+
 	processScheduler = new
 	world.log << "## processScheduler started"
 	spawn(1)

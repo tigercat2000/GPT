@@ -13,12 +13,32 @@
 	if(handle_special_clicks(A, params))
 		return 1
 
+	if(next_move > world.time)
+		return
+
+	var/obj/item/W = get_equipped_item()
+
+	if(W == A)
+		W.attack_self(src)
+		update_inv_equipped()
+
 
 	if(isturf(A) || isturf(A.loc))
 		if(A.Adjacent(src))
-			if(ismob(A))
-				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
+			if(W)
+				var/resolved = A.attackby(W, src, params)
+				if(!resolved && A && W)
+					W.afterattack(A, src, 1, params)
+
+			else
+				if(ismob(A))
+					changeNext_move(CLICK_CD_MELEE)
+				UnarmedAttack(A, 1)
+		else
+			if(W)
+				W.afterattack(A, src, 0, params)
+			else
+				RangedAttack(A, params)
 
 
 /mob/proc/handle_special_clicks(var/atom/A, var/params)
@@ -34,6 +54,9 @@
 
 /mob/proc/UnarmedAttack(var/atom/A, var/proximity_flag)
 	A.attack_hand(src)
+
+/mob/proc/RangedAttack(var/atom/A, var/params)
+	return 0
 
 /atom/proc/attack_hand(var/mob/user)
 	return 0
