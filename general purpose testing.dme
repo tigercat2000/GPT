@@ -15,7 +15,7 @@
 
 // BEGIN_INCLUDE
 #include "__DEBUG.dm"
-#include "_maps\cinematic.dm"
+#include "_maps\primary.dm"
 #include "_maps\map_files\cine\cine_mobs.dm"
 #include "code\_preworld_setup.dm"
 #include "code\world.dm"

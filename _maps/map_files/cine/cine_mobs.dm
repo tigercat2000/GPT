@@ -33,6 +33,6 @@
 			say(".... How do you know my name? GUARDS!")
 
 /mob/scientist/hear_say(var/formatted_message, var/mob/speaker)
-	last_heard_message
-
-	= formatted_message
+	if(speaker != src)
+		last_heard_message = formatted_message
+	. = ..()

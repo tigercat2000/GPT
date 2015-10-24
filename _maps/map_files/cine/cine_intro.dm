@@ -111,6 +111,7 @@ var/cinematic_playing = 0
 		sleep(ARBITRARY_CINE_DELAY)
 		sci.say("Alright.")
 		walk_to(M, syndicate_position, 0, 7)
+		M.allow_pissy = 0
 		sleep(ARBITRARY_CINE_DELAY)
 		sci.face_atom(pick(players))
 		sci.say("So! Any questions?")
