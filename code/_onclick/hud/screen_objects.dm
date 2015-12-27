@@ -4,6 +4,8 @@
 	layer = 20
 	var/obj/master
 
+	appearance_flags = NO_CLIENT_COLOR
+
 /obj/screen/Destroy()
 	master = null
 	. = ..()

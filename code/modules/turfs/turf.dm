@@ -1,8 +1,10 @@
+/var/list/turf/turfs = list()
+
 /turf
+	name = "floor"
 	icon = 'icons/turfs/turf.dmi'
 	icon_state = "floor"
 
-	var/dynamic_lighting = 1
 	var/list/footstep_sounds = list()
 
 /turf/New()
@@ -10,9 +12,13 @@
 	if(smooth)
 		smooth_icon(src)
 
+	global.turfs += src
+
 /turf/Destroy()
 	. = ..()
 	smooth_icon_neighbors(src)
+
+	global.turfs -= src
 
 /turf/Enter(atom/movable/mover, atom/forget)
 	if(!mover)

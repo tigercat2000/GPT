@@ -1,3 +1,4 @@
+// directions
 var/const
 	NORTH = 1
 	SOUTH = 2
@@ -9,6 +10,7 @@ var/const
 	SOUTHWEST = 10
 	UP = 16
 	DOWN = 32
+// eye and sight
 var/const
 	BLIND = 1
 	SEE_MOBS = 4
@@ -25,6 +27,7 @@ var/const
 	MOB_PERSPECTIVE = 0
 	EYE_PERSPECTIVE = 1
 	EDGE_PERSPECTIVE = 2
+// layers
 var/const
 	FLOAT_LAYER = -1
 	AREA_LAYER = 1
@@ -35,15 +38,23 @@ var/const
 	EFFECTS_LAYER = 5000
 	TOPDOWN_LAYER = 10000
 	BACKGROUND_LAYER = 20000
+// map formats
 var/const
 	TOPDOWN_MAP = 0
 	ISOMETRIC_MAP = 1
 	SIDE_MAP = 2
 	TILED_ICON_MAP = 32768
+// gliding
 #define NO_STEPS 0
 #define FORWARD_STEPS 1
 #define SLIDE_STEPS 2
 #define SYNC_STEPS 3
+// appearance_flags
+#define LONG_GLIDE 1
+#define RESET_COLOR 2
+#define RESET_ALPHA 4
+#define RESET_TRANSFORM 8
+#define NO_CLIENT_COLOR 16
 var/const
 	TRUE = 1
 	FALSE = 0
@@ -213,6 +224,10 @@ matrix
 #define BACK_EASING 6
 #define EASE_IN 64
 #define EASE_OUT 128
+
+// animation flags
+#define ANIMATION_END_NOW 1
+#define ANIMATION_LINEAR_TRANSFORM 2
 
 // blend_mode
 var/const

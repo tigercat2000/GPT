@@ -78,8 +78,8 @@
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<head>
-		[head_content]
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		[head_content]
 	</head>
 	<body scroll=auto>
 		<div class='uiWrapper'>

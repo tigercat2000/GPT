@@ -5,6 +5,9 @@
 	var/ambience_played = 0
 	var/next_allowed_topic_time
 
+	var/ghosting = 0
+
+
 /client/Topic(href, href_list, hsrc)
 	if(!usr || usr != mob)
 		return

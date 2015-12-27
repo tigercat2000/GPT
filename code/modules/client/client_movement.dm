@@ -11,6 +11,12 @@
 	if(!mob.canmove)
 		return 0
 
+	if(ghosting)
+		var/turf/T = get_step(mob, direct)
+		if(T)
+			mob.loc = T
+			return 1
+
 	. = ..()
 
 

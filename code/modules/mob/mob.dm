@@ -1,6 +1,8 @@
 /mob/New()
 	. = ..()
-	mob_list += src
+
+	mob_list |= src
+
 
 /mob/Destroy()
 	mob_list -= src

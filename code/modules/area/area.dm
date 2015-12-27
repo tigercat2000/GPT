@@ -13,9 +13,7 @@
 /area/Entered(A)
 	. = ..()
 
-	world.log << "[A] entered [src]"
-
-	if(ismob(A) && prob(35))
+	if(ismob(A) && prob(35) && ambientsounds.len)
 		var/mob/M = A
 		var/sound = pick(ambientsounds)
 

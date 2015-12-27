@@ -1,5 +1,6 @@
 /obj/structure/rack
 	name = "rack"
+	icon = 'icons/obj/obj.dmi'
 	icon_state = "rack"
 
 /obj/structure/rack/special
@@ -23,7 +24,6 @@
 /obj/structure/rack/special/proc/interact(mob/user)
 	var/dat = ""
 	dat += "<a href='?src=\ref[src];summon=light'>Summon Light</a>"
-	dat += "<a href='?src=\ref[src];trig_shit=1'>Trig</a>"
 
 	var/datum/browser/popup = new(user, "altar", "Altar", 240, 240)
 	popup.set_content(dat)
@@ -31,7 +31,11 @@
 
 /obj/structure/rack/special/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+
+	var/mob/user = usr
+	if(!istype(user))
+		return 0
 
 	switch(href_list["summon"])
 		if("light")

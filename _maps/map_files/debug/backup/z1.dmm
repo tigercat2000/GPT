@@ -1,0 +1,135 @@
+"aa" = (/turf/icon/white,/area/debug)
+"ab" = (/turf/icon/white/blue,/area/debug)
+"ac" = (/turf/icon/white/blue/corner,/area/debug)
+"ad" = (/turf/icon/white/blue/corner{tag = "icon-whitebluecorner (EAST)"; icon_state = "whitebluecorner"; dir = 4},/area/debug)
+"ae" = (/turf/icon/white/blue/corner{tag = "icon-whitebluecorner (NORTH)"; icon_state = "whitebluecorner"; dir = 1},/area/debug)
+"af" = (/turf/icon/white/blue/corner{tag = "icon-whitebluecorner (WEST)"; icon_state = "whitebluecorner"; dir = 8},/area/debug)
+"ag" = (/turf/icon/white/blue/full,/area/debug)
+"ah" = (/turf,/area/debug)
+"ai" = (/turf/icon/white/bot,/area/debug)
+"aj" = (/turf/icon/white/green,/area/debug)
+"ak" = (/turf/icon/white/green/corner,/area/debug)
+"al" = (/turf/icon/white/green/corner{tag = "icon-whitegreencorner (EAST)"; icon_state = "whitegreencorner"; dir = 4},/area/debug)
+"am" = (/turf/icon/white/green/corner{tag = "icon-whitegreencorner (NORTH)"; icon_state = "whitegreencorner"; dir = 1},/area/debug)
+"an" = (/turf/icon/white/green/corner{tag = "icon-whitegreencorner (WEST)"; icon_state = "whitegreencorner"; dir = 8},/area/debug)
+"ao" = (/turf/icon/white/green/full,/area/debug)
+"ap" = (/turf/icon/white/delivery,/area/debug)
+"aq" = (/turf/icon/white/purple,/area/debug)
+"ar" = (/turf/icon/white/purple/corner,/area/debug)
+"as" = (/turf/icon/white/purple/corner{tag = "icon-whitepurplecorner (EAST)"; icon_state = "whitepurplecorner"; dir = 4},/area/debug)
+"at" = (/turf/icon/white/purple/corner{tag = "icon-whitepurplecorner (NORTH)"; icon_state = "whitepurplecorner"; dir = 1},/area/debug)
+"au" = (/turf/icon/white/purple/corner{tag = "icon-whitepurplecorner (WEST)"; icon_state = "whitepurplecorner"; dir = 8},/area/debug)
+"av" = (/turf/icon/white/purple/full,/area/debug)
+"aw" = (/turf/icon/white/red,/area/debug)
+"ax" = (/turf/icon/white/red/corner,/area/debug)
+"ay" = (/turf/icon/white/red/corner{tag = "icon-whiteredcorner (EAST)"; icon_state = "whiteredcorner"; dir = 4},/area/debug)
+"az" = (/turf/icon/white/red/corner{tag = "icon-whiteredcorner (NORTH)"; icon_state = "whiteredcorner"; dir = 1},/area/debug)
+"aA" = (/turf/icon/white/red/corner{tag = "icon-whiteredcorner (WEST)"; icon_state = "whiteredcorner"; dir = 8},/area/debug)
+"aB" = (/turf/icon/white/red/full,/area/debug)
+"aC" = (/turf/icon/white/yellow,/area/debug)
+"aD" = (/turf/icon/white/yellow/corner,/area/debug)
+"aE" = (/turf/icon/white/yellow/corner{tag = "icon-whiteyellowcorner (EAST)"; icon_state = "whiteyellowcorner"; dir = 4},/area/debug)
+"aF" = (/turf/icon/white/yellow/corner{tag = "icon-whiteyellowcorner (NORTH)"; icon_state = "whiteyellowcorner"; dir = 1},/area/debug)
+"aG" = (/turf/icon/white/yellow/corner{tag = "icon-whiteyellowcorner (WEST)"; icon_state = "whiteyellowcorner"; dir = 8},/area/debug)
+"aH" = (/turf/icon/white/yellow/full,/area/debug)
+"aI" = (/turf/icon/blue/full,/area/debug)
+"aJ" = (/turf/icon/blue,/area/debug)
+"aK" = (/turf/icon/blue{tag = "icon-blue (EAST)"; icon_state = "blue"; dir = 4},/area/debug)
+"aL" = (/turf/icon/blue{tag = "icon-blue (NORTH)"; icon_state = "blue"; dir = 1},/area/debug)
+"aM" = (/turf/icon/blue{tag = "icon-blue (NORTHEAST)"; icon_state = "blue"; dir = 5},/area/debug)
+"aN" = (/turf/icon/blue{tag = "icon-blue (NORTHWEST)"; icon_state = "blue"; dir = 9},/area/debug)
+"aO" = (/turf/icon/blue{tag = "icon-blue (SOUTHEAST)"; icon_state = "blue"; dir = 6},/area/debug)
+"aP" = (/turf/icon/blue{tag = "icon-blue (SOUTHWEST)"; icon_state = "blue"; dir = 10},/area/debug)
+"aQ" = (/turf/icon/blue{tag = "icon-blue (WEST)"; icon_state = "blue"; dir = 8},/area/debug)
+"aR" = (/turf/icon/blue/corner,/area/debug)
+"aS" = (/turf/icon/blue/corner{tag = "icon-bluecorner (EAST)"; icon_state = "bluecorner"; dir = 4},/area/debug)
+"aT" = (/turf/icon/blue/corner{tag = "icon-bluecorner (NORTH)"; icon_state = "bluecorner"; dir = 1},/area/debug)
+"aU" = (/turf/icon/blue/corner{tag = "icon-bluecorner (WEST)"; icon_state = "bluecorner"; dir = 8},/area/debug)
+"aV" = (/turf/icon/blue/red,/area/debug)
+"aW" = (/turf/icon/blue/red{tag = "icon-bluered (EAST)"; icon_state = "bluered"; dir = 4},/area/debug)
+"aX" = (/turf/icon/blue/red{tag = "icon-bluered (NORTH)"; icon_state = "bluered"; dir = 1},/area/debug)
+"aY" = (/turf/icon/blue/red{tag = "icon-bluered (NORTHEAST)"; icon_state = "bluered"; dir = 5},/area/debug)
+"aZ" = (/turf/icon/blue/red{tag = "icon-bluered (NORTHWEST)"; icon_state = "bluered"; dir = 9},/area/debug)
+"ba" = (/turf/icon/blue/red{tag = "icon-bluered (SOUTHEAST)"; icon_state = "bluered"; dir = 6},/area/debug)
+"bb" = (/turf/icon/blue/red{tag = "icon-bluered (SOUTHWEST)"; icon_state = "bluered"; dir = 10},/area/debug)
+"bc" = (/turf/icon/blue/red{tag = "icon-bluered (WEST)"; icon_state = "bluered"; dir = 8},/area/debug)
+"bd" = (/turf/icon/blue/yellow,/area/debug)
+"be" = (/turf/icon/blue/yellow{tag = "icon-blueyellow (EAST)"; icon_state = "blueyellow"; dir = 4},/area/debug)
+"bf" = (/turf/icon/blue/yellow{tag = "icon-blueyellow (NORTH)"; icon_state = "blueyellow"; dir = 1},/area/debug)
+"bg" = (/turf/icon/blue/yellow{tag = "icon-blueyellow (NORTHEAST)"; icon_state = "blueyellow"; dir = 5},/area/debug)
+"bh" = (/turf/icon/blue/yellow{tag = "icon-blueyellow (NORTHWEST)"; icon_state = "blueyellow"; dir = 9},/area/debug)
+"bi" = (/turf/icon/blue/yellow{tag = "icon-blueyellow (SOUTHEAST)"; icon_state = "blueyellow"; dir = 6},/area/debug)
+"bj" = (/turf/icon/blue/yellow{tag = "icon-blueyellow (SOUTHWEST)"; icon_state = "blueyellow"; dir = 10},/area/debug)
+"bk" = (/turf/icon/blue/yellow{tag = "icon-blueyellow (WEST)"; icon_state = "blueyellow"; dir = 8},/area/debug)
+"bl" = (/turf/wood,/area/debug)
+"bm" = (/turf/wood/broken,/area/debug)
+"bn" = (/turf/wood/broken/one,/area/debug)
+"bo" = (/turf/wood/broken/two,/area/debug)
+"bp" = (/turf/wood/broken/three,/area/debug)
+"bq" = (/turf/wood/broken/four,/area/debug)
+"br" = (/turf/wood/broken/five,/area/debug)
+"bs" = (/turf/wood/broken/six,/area/debug)
+"bt" = (/turf/wood/broken/seven,/area/debug)
+"bu" = (/turf,/area/debug/lit)
+"bv" = (/obj/light/street_post,/turf,/area/debug/lit)
+"bw" = (/obj/light,/turf,/area/debug/lit)
+"bx" = (/turf/wall/reinforced{dynamic_lighting = 0; luminosity = 1; name = "fullbright reinforced"},/area/debug/lit)
+"by" = (/turf/wall/reinforced{dynamic_lighting = 0; luminosity = 1; name = "fullbright reinforced"},/area/debug)
+"bz" = (/obj/structure/rack,/turf,/area/debug)
+"bA" = (/obj/landmark/start,/turf,/area/debug)
+"bB" = (/obj/item/debugger,/turf,/area/debug)
+"bC" = (/obj/structure/rack/special,/turf,/area/debug)
+"bD" = (/turf/wall,/area/debug)
+
+(1,1,1) = {"
+aaabacadaeafagahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+aiajakalamanaoahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+apaqarasatauavahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahawaxayazaAaBahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahaCaDaEaFaGaHahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+aIaJaKaLaMaNaOaPaQahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahaRaSaTaUahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahaVaWaXaYaZbabbbcahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahbdbebfbgbhbibjbkahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+blbmahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahbnbobpbqbrbsbtahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bubububububvbubububububububububwbububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububububuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+bububububububububububububububububxbxbuahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahbyahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahbyahbybybyahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahbzbAbBahahahahbyahahahbybybyahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahbCahahahahahahahahahahbybybyahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahbDbDahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahbDahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahbybyahahahahahahahbDahbDbDbDahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahbDbDahahahahahbDahahahbDbDbDahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahbDbDbDahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
+"}

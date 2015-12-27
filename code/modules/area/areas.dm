@@ -7,3 +7,9 @@
 /area/debug
 	name = "Debug Area"
 	icon_state = "debug"
+	dynamic_lighting = 0
+	luminosity = 1
+
+/area/debug/lit
+	dynamic_lighting = 1
+	icon_state = "debuglit"
