@@ -1,6 +1,7 @@
 /mob
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "human"
+	plane = PLANE_MOB
 	density = 1
 
 	var/movement_delay = 2

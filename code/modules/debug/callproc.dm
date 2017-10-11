@@ -7,7 +7,7 @@
 		return
 
 	if(!hascall(A,procname))
-		usr << "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>"
+		to_chat(usr, "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>")
 		return
 
 	var/list/lst = get_callproc_args()
@@ -15,12 +15,12 @@
 		return
 
 	if(!A || !IsValidSrc(A))
-		usr << "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>"
+		to_chat(usr, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
 		return
 
 	spawn()
 		var/returnval = call(A,procname)(arglist(lst)) // Pass the lst as an argument list to the proc
-		usr << "<span class='notice'>[procname] returned: [returnval ? returnval : "null"]</span>"
+		to_chat(usr, "<span class='notice'>[procname] returned: [returnval ? returnval : "null"]</span>")
 
 /client/proc/get_callproc_args()
 	var/argnum = input("Number of arguments","Number:",0) as num|null

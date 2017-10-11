@@ -2,10 +2,10 @@
 	client.images = null
 	client.screen = list()
 
+	if(!hud_used)
+		create_mob_hud()
 	if(hud_used)
-		qdel(hud_used)
-		hud_used = null
-	hud_used = new /datum/hud(src)
+		hud_used.show_hud(hud_used.hud_version)
 
 	if(!loc)
 		if(starting_pos.len)
@@ -27,15 +27,15 @@
 
 /hook/clientNewLogin/proc/_controls_readout(mob/M)
 	if(istype(M))
-		M << "<br><br><span class='notice'>Basic controls:"
+		to_chat(M, "<span class='notice'>Basic controls:")
 		sleep(3)
-		M << "<span class='notice'>\
+		to_chat(M, "<span class='notice'>\
 		      &nbsp;F12 will hide your HUD.<br>\
 		      &nbsp;WASD controls movement.<br>\
 		      &nbsp;Use T to say something.<br>\
 		      &nbsp;Hitting TAB will switch focus between the map and input bar.<br>\
 		      &nbsp;Holding Ctrl and clicking on something will pull it. Ctrl-clicking it again will release it.<br>\
-		      &nbsp;Most object interactions are handled via clicking.</span>"
+		      &nbsp;Most object interactions are handled via clicking.</span>")
 
 		return 1
 	return 0

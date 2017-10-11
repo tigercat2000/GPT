@@ -16,14 +16,31 @@
 	if(next_move > world.time)
 		return
 
-	var/obj/item/W = get_equipped_item()
+	var/obj/item/W = get_active_hand()
 
 	if(W == A)
 		W.attack_self(src)
-		update_inv_equipped()
+		update_slot_icon(get_slot(W))
 
+	var/sdepth = A.storage_depth(src)
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
+		// No adjacency needed
+		if(W)
+			var/resolved = A.attackby(W, src, params)
+			if(!resolved && A && W)
+				W.afterattack(A, src, 1, params)
+		else
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A, 1)
 
-	if(isturf(A) || isturf(A.loc))
+		return
+
+	if(!isturf(loc))
+		return
+
+	sdepth = A.storage_depth_turf()
+	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
 		if(A.Adjacent(src))
 			if(W)
 				var/resolved = A.attackby(W, src, params)

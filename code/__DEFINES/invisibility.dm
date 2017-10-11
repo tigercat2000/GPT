@@ -1,0 +1,1 @@
+#define INVISIBILITY_LIGHTING 20	//Used by the lighting_overlay. Any value bellow that one will let you see in the dark.

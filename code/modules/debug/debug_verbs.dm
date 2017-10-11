@@ -21,3 +21,7 @@
 			mob.sight = initial(mob.sight)
 			mob.alpha = 255
 		ghosting = 0
+
+/mob/verb/filtah()
+	set name = "FILTER!"
+	filters += filter(type="drop_shadow", x=2, y=0, size=5, offset=2, color=rgb(255, 255, 255))

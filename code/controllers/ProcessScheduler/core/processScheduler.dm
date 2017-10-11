@@ -43,8 +43,6 @@ var/global/datum/controller/processScheduler/processScheduler
 
 	var/tmp/currentTick = 0
 
-	var/tmp/currentTickStart = 0
-
 	var/tmp/timeAllowance = 0
 
 	var/tmp/cpuAverage = 0
@@ -127,9 +125,9 @@ var/global/datum/controller/processScheduler/processScheduler
 			//Status changed.
 			switch(status)
 				if(PROCESS_STATUS_PROBABLY_HUNG)
-					world << ("Process '[p.name]' may be hung.")
+					to_chat(world, ("Process '[p.name]' may be hung."))
 				if(PROCESS_STATUS_HUNG)
-					world << ("Process '[p.name]' is hung and will be restarted.")
+					to_chat(world, ("Process '[p.name]' is hung and will be restarted."))
 
 /datum/controller/processScheduler/proc/queueProcesses()
 	for(var/datum/controller/process/p in processes)
@@ -247,7 +245,7 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/recordStart(var/datum/controller/process/process, var/time = null)
 	if (isnull(time))
-		time = TimeOfHour
+		time = TimeOfGame
 		last_queued[process] = world.time
 		last_start[process] = time
 	else
@@ -256,11 +254,7 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/recordEnd(var/datum/controller/process/process, var/time = null)
 	if (isnull(time))
-		time = TimeOfHour
-
-	// If world.timeofday has rolled over, then we need to adjust.
-	if (time < last_start[process])
-		last_start[process] -= 36000
+		time = TimeOfGame
 
 	var/lastRunTime = time - last_start[process]
 
@@ -349,13 +343,12 @@ var/global/datum/controller/processScheduler/processScheduler
 		updateCurrentTickData()
 		return 0
 	else
-		return TimeOfHour - currentTickStart
+		return TimeOfTick
 
 /datum/controller/processScheduler/proc/updateCurrentTickData()
 	if (world.time > currentTick)
 		// New tick!
 		currentTick = world.time
-		currentTickStart = TimeOfHour
 		updateTimeAllowance()
 		cpuAverage = (world.cpu + cpuAverage + cpuAverage) / 3
 

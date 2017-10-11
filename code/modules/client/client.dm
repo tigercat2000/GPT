@@ -7,10 +7,22 @@
 
 	var/ghosting = 0
 
+	// Their chat window, sort of important.
+	// See /goon/code/datums/browserOutput.dm
+	var/datum/chatOutput/chatOutput
+
+/client/New(TopicData)
+	chatOutput = new /datum/chatOutput(src) // Right off the bat.
+
+	. = ..()
+	chatOutput.start()
 
 /client/Topic(href, href_list, hsrc)
 	if(!usr || usr != mob)
 		return
+
+	if(href_list["_src_"] == "chat")
+		return chatOutput.Topic(href, href_list)
 
 	if(next_allowed_topic_time > world.time)
 		return
@@ -20,10 +32,22 @@
 		world.log << "Attempted use of scripts within a topic call, by [src]"
 		return
 
+
 	switch(href_list["_src_"])
 		if("usr")		hsrc = mob
 		#if defined(DEBUGGING) //this HAS to be here, but shouldn't keep debugging turned on
 		if("vars")		return view_var_Topic(href, href_list, hsrc)
 		#endif
 
+	switch(href_list["action"])
+		if("openLink")
+			src << link(href_list["link"])
+
 	. = ..()
+
+
+//checks if a client is afk
+//3000 frames = 5 minutes
+/client/proc/is_afk(duration=3000)
+	if(inactivity > duration)	return inactivity
+	return 0

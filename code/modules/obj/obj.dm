@@ -1,5 +1,6 @@
 /obj
 	icon = 'icons/obj/obj.dmi'
+	plane = PLANE_OBJ
 	var/in_use = 0
 
 /obj/proc/process()

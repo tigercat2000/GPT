@@ -30,10 +30,32 @@
 	AM.pulledby = src
 
 /mob/verb/stop_pulling()
-
 	set name = "Stop Pulling"
 	set category = "IC"
 
 	if(pulling)
 		pulling.pulledby = null
 		pulling = null
+
+/mob/verb/activate_held_item()
+	set name = "Activate Held Object"
+	set category = null
+	set src = usr
+
+	if(hand)
+		var/obj/item/W = l_hand
+		if(W)
+			W.attack_self(src)
+			update_inv_l_hand()
+	else
+		var/obj/item/W = r_hand
+		if(W)
+			W.attack_self(src)
+			update_inv_r_hand()
+
+/mob/verb/swap_hand_verb()
+	set name = ".swap-hands"
+	set category = null
+	set src = usr
+
+	swap_hand()

@@ -19,7 +19,7 @@
 		L.color = "#FF0000"
 		L.light_color = "#FF7777"
 	else
-		user << "<span class='warning'>So be it.</span>"*/
+		to_chat(user, "<span class='warning'>So be it.</span>")*/
 
 /obj/structure/rack/special/proc/interact(mob/user)
 	var/dat = ""

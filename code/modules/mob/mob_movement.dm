@@ -33,4 +33,4 @@
 
 /mob/proc/toggle_walk()
 	walking = !walking
-	src << "<span class='notice'>You are now [walking ? "walking" : "running"].</span>"
+	to_chat(src, "<span class='notice'>You are now [walking ? "walking" : "running"].</span>")

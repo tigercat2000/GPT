@@ -16,5 +16,5 @@
 		M.hear_say(formatted_message, src)
 
 /mob/proc/hear_say(var/formatted_message, var/mob/speaker)
-	src << formatted_message
+	to_chat(src, formatted_message)
 	return 1
