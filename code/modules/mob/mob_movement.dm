@@ -33,4 +33,7 @@
 
 /mob/proc/toggle_walk()
 	walking = !walking
-	to_chat(src, "<span class='notice'>You are now [walking ? "walking" : "running"].</span>")
+	to_chat(src, "<span class='notice'>You are now [walking ? "walking" : "running"].</span>")
+
+	for(var/obj/screen/speed/S in hud_used.static_inventory)
+		S.update_icon(src)

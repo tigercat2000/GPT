@@ -33,6 +33,9 @@ macro "macro"
 		name = "A+REP"
 		command = ".west"
 	elem 
+		name = "C"
+		command = ".toggle-walk"
+	elem 
 		name = "D+REP"
 		command = ".east"
 	elem 
@@ -209,7 +212,6 @@ window "mapwindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
-		drop-zone = true
 		saved-params = "icon-size"
 		on-show = ".winset\"mainwindow.mainvsplit.left=mapwindow\""
 		on-hide = ".winset\"mainwindow.mainvsplit.left=\""
@@ -335,9 +337,7 @@ window "infowindow"
 		size = 0x0
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = #ffffff
 		is-default = true
-		drop-zone = true
 		saved-params = ""
 		highlight-color = #00aa00
 		allow-html = false

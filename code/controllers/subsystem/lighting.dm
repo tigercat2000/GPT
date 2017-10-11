@@ -28,7 +28,6 @@ SUBSYSTEM_DEF(lighting)
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	if(!initialized)
 		create_all_lighting_overlays()
-		create_all_lighting_corners()
 		initialized = TRUE
 
 	..()

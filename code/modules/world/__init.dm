@@ -5,7 +5,7 @@
 	callHook("startup")
 	SetupLogs()
 
-	Master.Initialize(10, FALSE)
+	Master.Initialize(2, FALSE)
 
 
 /world/proc/SetupLogs()

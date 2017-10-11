@@ -1,4 +1,5 @@
 /var/list/datum/lighting_corner/all_lighting_corners = list()
+/var/datum/lighting_corner/dummy/dummy_lighting_corner = new
 // Because we can control each corner of every lighting overlay.
 // And corners get shared between multiple turfs (unless you're on the corners of the map, then 1 corner doesn't).
 // For the record: these should never ever ever be deleted, even if the turf doesn't have dynamic lighting.
@@ -20,6 +21,13 @@
 	var/lum_b = 0
 
 	var/needs_update = FALSE
+
+	var/cache_r  = LIGHTING_SOFT_THRESHOLD
+	var/cache_g  = LIGHTING_SOFT_THRESHOLD
+	var/cache_b  = LIGHTING_SOFT_THRESHOLD
+	var/cache_mx = 0
+
+	var/update_gen = 0
 
 /datum/lighting_corner/New(var/turf/new_turf, var/diagonal)
 	. = ..()
@@ -90,9 +98,31 @@
 		lighting_update_corners += src
 
 /datum/lighting_corner/proc/update_overlays()
+	// Cache these values a head of time so 4 individual lighting overlays don't all calculate them individually.
+	var/mx = max(lum_r, lum_g, lum_b) // Scale it so 1 is the strongest lum, if it is above 1.
+	. = 1 // factor
+	if (mx > 1)
+		. = 1 / mx
+
+	else if (mx < LIGHTING_SOFT_THRESHOLD)
+		. = 0 // 0 means soft lighting.
+
+	cache_r  = lum_r * . || LIGHTING_SOFT_THRESHOLD
+	cache_g  = lum_g * . || LIGHTING_SOFT_THRESHOLD
+	cache_b  = lum_b * . || LIGHTING_SOFT_THRESHOLD
+	cache_mx = mx
+
 	for (var/TT in masters)
 		var/turf/T = TT
 		if (T.lighting_overlay)
 			if (!T.lighting_overlay.needs_update)
 				T.lighting_overlay.needs_update = TRUE
 				lighting_update_overlays += T.lighting_overlay
+
+
+/datum/lighting_corner/dummy/New()
+	return
+
+/datum/lighting_corner/Destroy(var/force)
+	to_chat(world, stack_trace())
+	return ..()

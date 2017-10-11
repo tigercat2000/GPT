@@ -71,6 +71,6 @@
 #define LOG_SMC(msg) log_smc(msg)
 /proc/log_smc(msg)
 #ifdef DEBUGGING
-	SEND_TEXT(world, "## MSC: [msg]")
+	to_chat(world, "## MSC: [msg]")
 #endif
 	SEND_TEXT(world.log, "## MSC: [msg]")

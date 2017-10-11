@@ -22,7 +22,7 @@
 
 /turf/proc/lighting_clear_overlay()
 	if (lighting_overlay)
-		qdel(lighting_overlay)
+		qdel(lighting_overlay, force = TRUE)
 
 	for (var/datum/lighting_corner/C in corners)
 		C.update_active()
@@ -34,7 +34,10 @@
 
 	var/area/A = loc
 	if (A.dynamic_lighting)
-		new /atom/movable/lighting_overlay(src)
+		if (!lighting_corners_initialised)
+			generate_missing_corners()
+
+		new/atom/movable/lighting_overlay(src)
 
 		for (var/datum/lighting_corner/C in corners)
 			if (!C.active) // We would activate the corner, calculate the lighting for it.
@@ -84,5 +87,17 @@
 /turf/proc/get_corners()
 	if (has_opaque_atom)
 		return null // Since this proc gets used in a for loop, null won't be looped though.
-
+	if (!lighting_corners_initialised)
+		generate_missing_corners()
 	return corners
+
+/turf/proc/generate_missing_corners()
+	lighting_corners_initialised = TRUE
+	if (!corners)
+		corners = list(null, null, null, null)
+
+	for (var/i = 1 to 4)
+		if (corners[i]) // Already have a corner on this direction.
+			continue
+
+		corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])

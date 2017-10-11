@@ -59,3 +59,10 @@
 	set src = usr
 
 	swap_hand()
+
+/mob/verb/toggle_walk_verb()
+	set name = ".toggle-walk"
+	set category = null
+	set src = usr
+
+	toggle_walk()
