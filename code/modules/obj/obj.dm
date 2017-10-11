@@ -3,9 +3,6 @@
 	plane = PLANE_OBJ
 	var/in_use = 0
 
-/obj/proc/process()
-	return 0
-
 /obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	if(!nowindow && ..())
 		return 1

@@ -58,7 +58,7 @@
 	return adjacencies
 
 /proc/smooth_icon(atom/A)
-	if(qdeleted(A))
+	if(QDELETED(A))
 		return
 	spawn(0) //don't remove this, otherwise smoothing breaks
 		if(A && A.smooth)

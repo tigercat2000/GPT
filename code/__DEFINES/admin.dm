@@ -1,0 +1,1 @@
+#define COORD(src) "[src ? "([src.x],[src.y],[src.z])" : "nonexistent location"]"

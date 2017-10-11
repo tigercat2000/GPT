@@ -1,5 +1,6 @@
 /atom
 	var/flags = 0
+	var/initialized = FALSE
 
 /atom/proc/Bumped(atom/AM)
 	return
@@ -22,8 +23,63 @@
 		for(var/mob/M in viewers(src) - src)
 			to_chat(M, message)
 
+/atom/New(loc, ...)
+	var/do_initialize = SSatoms.initialized
+	if(do_initialize > INITIALIZATION_INSSATOMS)
+		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
+		if(SSatoms.InitAtom(src, args))
+			//we were deleted
+			return
+
+	var/list/created = SSatoms.created_atoms
+	if(created)
+		created += src
+
+
+//Called after New if the map is being loaded. mapload = TRUE
+//Called from base of New if the map is not being loaded. mapload = FALSE
+//This base must be called or derivatives must set initialized to TRUE
+//must not sleep
+//Other parameters are passed from New (excluding loc), this does not happen if mapload is TRUE
+//Must return an Initialize hint. Defined in __DEFINES/subsystems.dm
+
+//Note: the following functions don't call the base for optimization and must copypasta:
+// /turf/Initialize
+// /turf/open/space/Initialize
+// /mob/dead/new_player/Initialize
+
+//Do also note that this proc always runs in New for /mob/dead
+/atom/proc/Initialize(mapload, ...)
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
+
+/*
+	//atom color stuff
+	if(color)
+		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
+*/
+
+	if(light_power && light_range)
+		update_light()
+
+	if(opacity && isturf(loc))
+		var/turf/T = loc
+		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
+	return INITIALIZE_HINT_NORMAL
+
+//called if Initialize returns INITIALIZE_HINT_LATELOAD
+/atom/proc/LateInitialize()
+	return
+
+
+
+
 /atom/Destroy()
 	invisibility = 101
+
+	QDEL_NULL(light)
+
 	. = ..()
 
 /atom/proc/update_icon()
