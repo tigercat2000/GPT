@@ -13,5 +13,5 @@
 		if (!A.dynamic_lighting)
 			continue
 
-		new /atom/movable/lighting_overlay(T)
+		new /atom/movable/lighting_overlay(T, TRUE)
 		CHECK_TICK
