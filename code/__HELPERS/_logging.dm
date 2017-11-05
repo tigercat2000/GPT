@@ -63,14 +63,12 @@
 	SEND_TEXT(world.log, "## ERROR: [msg]")
 
 /proc/log_debug(msg)
-	SEND_TEXT(world, "Debug: [msg]")
+	SEND_TEXT(GLOB.admins, "Debug: [msg]")
 
 /proc/message_admins(msg)
-	SEND_TEXT(world, "Admin: [msg]")
+	SEND_TEXT(GLOB.admins, "Admin: [msg]")
 
 #define LOG_SMC(msg) log_smc(msg)
 /proc/log_smc(msg)
-#ifdef DEBUGGING
-	to_chat(world, "## MSC: [msg]")
-#endif
+	to_chat(GLOB.admins, "## MSC: [msg]")
 	SEND_TEXT(world.log, "## MSC: [msg]")

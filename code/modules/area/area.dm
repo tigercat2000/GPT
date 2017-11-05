@@ -18,7 +18,7 @@
 
 		if(M.client && !M.client.ambience_played)
 			M.client.ambience_played = 1
-			to_chat(M, sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1))
+			M << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
 			spawn(600) //This is absolutely trash
 				if(M && M.client)
 					M.client.ambience_played = 0

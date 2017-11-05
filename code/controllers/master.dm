@@ -68,7 +68,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			qdel(Master)
 		else
 			var/list/subsytem_types = subtypesof(/datum/controller/subsystem)
+			log_world(subsytem_types)
 			sortTim(subsytem_types, /proc/cmp_subsystem_init)
+			log_world("timsorted [subsytem_types]")
 			for(var/I in subsytem_types)
 				_subsystems += new I
 		Master = src

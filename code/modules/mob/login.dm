@@ -20,16 +20,14 @@
 
 		callHook("clientNewLogin", list(src))
 
-	player_list |= src
+	GLOB.players |= src
 
 	. = ..()
 
 
 /hook/clientNewLogin/proc/_controls_readout(mob/M)
 	if(istype(M))
-		to_chat(M, "<span class='notice'>Basic controls:")
-		sleep(3)
-		to_chat(M, "<span class='notice'>\
+		to_chat(M, "<span class='notice'>Basic controls:\n\
 		      &nbsp;F12 will hide your HUD.<br>\
 		      &nbsp;WASD controls movement.<br>\
 		      &nbsp;C toggles between walking/running.<br>\

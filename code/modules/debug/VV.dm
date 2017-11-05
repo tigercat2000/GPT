@@ -1620,7 +1620,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "bound_height", "bound_width
 		typecache = typecacheof(typecache)
 	. = list()
 	if(ispath(T, /mob))
-		for(var/mob/thing in mob_list)
+		for(var/mob/thing in GLOB.mob_list)
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

@@ -13,4 +13,7 @@
 	..()
 
 	starting_pos += loc
-	qdel(src)
+
+/obj/landmark/start/Initialize()
+	..()
+	return INITIALIZE_HINT_QDEL

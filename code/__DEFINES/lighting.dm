@@ -8,7 +8,7 @@
 
 #define LIGHTING_LAYER          10 // drawing layer for lighting overlays
 
-#define LIGHTING_ICON 'icons/effects/lighting_overlay.png' // icon used for lighting shading effects
+#define LIGHTING_ICON 'icons/effects/lighting_overlay.dmi' // icon used for lighting shading effects
 
 #define LIGHTING_SOFT_THRESHOLD 0.05 // If the max of the lighting lumcounts of each spectrum drops below this, disable luminosity on the lighting overlays.
 

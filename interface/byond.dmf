@@ -19,37 +19,37 @@ macro "macro"
 		command = ".northwest"
 	elem 
 		name = "West+REP"
-		command = ".west"
+		command = ".moveleft"
 	elem 
 		name = "North+REP"
-		command = ".north"
+		command = ".moveup"
 	elem 
 		name = "East+REP"
-		command = ".east"
+		command = ".moveright"
 	elem 
 		name = "South+REP"
-		command = ".south"
+		command = ".movedown"
 	elem 
 		name = "A+REP"
-		command = ".west"
+		command = ".moveleft"
 	elem 
 		name = "C"
 		command = ".toggle-walk"
 	elem 
 		name = "D+REP"
-		command = ".east"
+		command = ".moveright"
 	elem 
 		name = "F"
 		command = "dropequiped"
 	elem 
 		name = "S+REP"
-		command = ".south"
+		command = ".movedown"
 	elem 
 		name = "T"
 		command = "say"
 	elem 
 		name = "W+REP"
-		command = ".north"
+		command = ".moveup"
 	elem 
 		name = "X"
 		command = ".swap-hands"

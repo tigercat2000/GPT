@@ -54,3 +54,14 @@
 /client/proc/is_afk(duration=3000)
 	if(inactivity > duration)	return inactivity
 	return 0
+
+
+//ROTATIUM
+/client/verb/rotate_left()
+	set name = "Spin View (CCW)"
+	dir = turn(dir, 90)
+
+/client/verb/rotate_right()
+	set name = "Spin View (CW)"
+	dir = turn(dir, -90)
+
