@@ -3,7 +3,10 @@
 /atom/Click(location, control, params)
 	usr.ClickOn(src, params)
 
-/mob/proc/ClickOn(var/atom/A, var/params)
+/atom/DblClick(location, control, params)
+	usr.DblClickOn(src, params)
+
+/mob/proc/ClickOn(atom/A, params)
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
@@ -57,8 +60,10 @@
 			else
 				RangedAttack(A, params)
 
+/mob/proc/DblClickOn(atom/A, params)
+	return
 
-/mob/proc/handle_special_clicks(var/atom/A, var/params)
+/mob/proc/handle_special_clicks(atom/A, params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
@@ -69,17 +74,17 @@
 /mob/proc/changeNext_move(num)
 	next_move = world.time + num
 
-/mob/proc/UnarmedAttack(var/atom/A, var/proximity_flag)
+/mob/proc/UnarmedAttack(atom/A, proximity_flag)
 	A.attack_hand(src)
 
-/mob/proc/RangedAttack(var/atom/A, var/params)
+/mob/proc/RangedAttack(atom/A, params)
 	return 0
 
-/atom/proc/attack_hand(var/mob/user)
+/atom/proc/attack_hand(mob/user)
 	return 0
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(var/atom/A)
+/mob/proc/face_atom(atom/A)
 	if(!A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y
@@ -92,4 +97,4 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	src.dir = direction
+	set_dir(direction)

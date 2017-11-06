@@ -18,14 +18,16 @@
 			else
 				forceMove(pick(starting_pos)) //but don't just leave them hanging if not
 
-		callHook("clientNewLogin", list(src))
+		callHook("mobNewLogin", list(src))
+
+	callHook("mobLogin", list(src))
 
 	GLOB.players |= src
 
 	. = ..()
 
 
-/hook/clientNewLogin/proc/_controls_readout(mob/M)
+/hook/mobNewLogin/proc/_controls_readout(mob/M)
 	if(istype(M))
 		to_chat(M, "<span class='notice'>Basic controls:\n\
 		      &nbsp;F12 will hide your HUD.<br>\

@@ -1,4 +1,4 @@
-/mob/proc/say(var/message, var/force_noncap)
+/mob/proc/say(message, force_noncap)
 	var/formatted_message = ""
 
 	message = trim(message)
@@ -12,9 +12,11 @@
 	formatted_message += "<b>[src]</b> says,"
 	formatted_message += " \"[message]\""
 
-	for(var/mob/M in hearers(world.view, src))
-		M.hear_say(formatted_message, src)
+	say_broadcast(formatted_message)
 
-/mob/proc/hear_say(var/formatted_message, var/mob/speaker)
-	to_chat(src, formatted_message)
+/mob/proc/say_broadcast(formatted_message)
+	return 0
+
+/mob/proc/hear_say(formatted_message, mob/speaker)
+	to_chat(src, formatted_message)
 	return 1

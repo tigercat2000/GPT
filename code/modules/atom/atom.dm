@@ -121,3 +121,7 @@
 		return -1	//inside something with a null loc.
 
 	return depth
+
+
+/atom/proc/set_dir(newdir)
+	dir = newdir

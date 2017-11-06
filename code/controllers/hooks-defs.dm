@@ -5,7 +5,13 @@
 /hook/startup
 
 /**
- * First-time client login hook.
+ * First-time mob login hook.
  * Called in /mob/login.dm when loc is null; Mobs do not qdel, so their loc should only be null if they are being spawned by normal BYOND systems. In theory.
  */
-/hook/clientNewLogin
+/hook/mobNewLogin
+
+/**
+ * Every-time mob login hook.
+ * Called in /mob/login.dm whenever a client logs in.
+ */
+/hook/mobLogin

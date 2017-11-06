@@ -1,4 +1,4 @@
-/hook/clientNewLogin/proc/__map_fluff_primary(mob/M)
+/hook/mobNewLogin/proc/__map_fluff_primary(mob/M)
 	if(istype(M) && M.client)
 
 		M.client.color = "#FF7777"

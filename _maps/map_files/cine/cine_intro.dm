@@ -1,8 +1,9 @@
 var/cinematic_playing = 0
 
-/hook/clientNewLogin/proc/__cinematic_map_trigger(mob/M)
+/hook/mobNewLogin/proc/__cinematic_map_trigger(mob/M)
 	if(!cinematic_playing)
-		spawn(1) show_cinematic()
+		spawn(1)
+			show_cinematic()
 	wait_for_cine_canmove(M)
 	return 1
 
@@ -29,7 +30,7 @@ var/cinematic_playing = 0
 	var/mob/syndie/M = new(syndicate_position)
 	var/mob/scientist/sci = new(scientist_position)
 
-	var/list/players = player_list.Copy()
+	var/list/players = GLOB.players.Copy()
 	for(var/mob/player in players)
 		if(!(player.loc in starting_pos))
 			players -= player

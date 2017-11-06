@@ -4,4 +4,6 @@
 
 	view = 5		// show up to 5 tiles outward from center (11x11 view)
 
-#define DEBUGGING
+	mob = /mob/living
+
+//#define DEBUGGING

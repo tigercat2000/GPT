@@ -1,4 +1,4 @@
-/mob/verb/say_verb(var/message as text)
+/mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
 
@@ -13,7 +13,6 @@
 
 	if(AM.Adjacent(src))
 		src.start_pulling(AM)
-	return
 
 /mob/proc/start_pulling(atom/movable/AM)
 	if(!AM || !src || src == AM || !isturf(AM.loc))	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!

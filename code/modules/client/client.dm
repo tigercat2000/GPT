@@ -59,9 +59,18 @@
 //ROTATIUM
 /client/verb/rotate_left()
 	set name = "Spin View (CCW)"
-	dir = turn(dir, 90)
+	set category = "Preferences"
+	set_dir(turn(dir, 90))
 
 /client/verb/rotate_right()
 	set name = "Spin View (CW)"
-	dir = turn(dir, -90)
+	set category = "Preferences"
+	set_dir(turn(dir, -90))
 
+/client/verb/rotate_reset()
+	set name = "Spin View (Reset)"
+	set category = "Preferences"
+	set_dir(NORTH)
+
+/client/proc/set_dir(newdir)
+	dir = newdir

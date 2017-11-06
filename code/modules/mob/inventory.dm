@@ -8,13 +8,17 @@
 
 //Returns the thing in our active hand
 /mob/proc/get_active_hand()
-	if(hand)	return l_hand
-	else		return r_hand
+	if(hand)
+		return l_hand
+	else
+		return r_hand
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
-	if(hand)	return r_hand
-	else		return l_hand
+	if(hand)
+		return r_hand
+	else
+		return l_hand
 
 //Returns if a certain item can be equipped to a certain slot.
 /mob/proc/can_equip(obj/item/I, slot, disable_warning = 0)
@@ -36,7 +40,6 @@
 
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(var/obj/item/W)
-	to_chat(world, "put_in_l_hand called.")
 	return equip_to_slot_if_possible(W, slot_l_hand)
 
 //Puts the item into your r_hand if possible and calls all necessary triggers/updates. returns 1 on success.
@@ -45,7 +48,6 @@
 
 //Puts the item into our active hand if possible. returns 1 on success.
 /mob/proc/put_in_active_hand(var/obj/item/W)
-	to_chat(world, "put_in_active_hand called.")
 	if(hand)
 		return put_in_l_hand(W)
 	else
@@ -83,7 +85,6 @@
 	return 1
 
 /mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP for things like wizarditis and admin undress.
-	to_chat(world, "unEquip called")
 	if(!canUnEquip(I, force))
 		return 0
 
@@ -158,7 +159,6 @@
 //set disable_warning to disable the 'you are unable to equip that' warning.
 //unset redraw_mob to prevent the mob from being redrawn at the end.
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = 0, disable_warning = 0)
-	to_chat(world, "equip_to_slot_if_possible called.")
 	if(!istype(W))
 		return 0
 

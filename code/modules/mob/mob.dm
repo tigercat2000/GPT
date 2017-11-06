@@ -9,3 +9,8 @@
 
 /mob/proc/incapacitated()
 	return 0
+
+/mob/proc/ghostize()
+	var/mob/ghost/G = new(loc, src)
+	G.ckey = ckey
+	G.name = name + " (ghost)"

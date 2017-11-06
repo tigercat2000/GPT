@@ -1,1 +1,1 @@
-GLOBAL_LIST(admins)
+GLOBAL_LIST_EMPTY(admins)
