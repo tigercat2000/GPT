@@ -1,6 +1,5 @@
 /obj
 	icon = 'icons/obj/obj.dmi'
-	plane = PLANE_OBJ
 	var/in_use = 0
 
 /obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)

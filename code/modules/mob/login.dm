@@ -33,6 +33,7 @@
 		      &nbsp;F12 will hide your HUD.<br>\
 		      &nbsp;WASD controls movement.<br>\
 		      &nbsp;C toggles between walking/running.<br>\
+		      &nbsp;Q drops the item in your active hand.<br>\
 		      &nbsp;Use T to say something.<br>\
 		      &nbsp;Hitting TAB will switch focus between the map and input bar.<br>\
 		      &nbsp;Holding Ctrl and clicking on something will pull it. Ctrl-clicking it again will release it.<br>\

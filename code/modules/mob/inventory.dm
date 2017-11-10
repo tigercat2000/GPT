@@ -3,6 +3,9 @@
 	var/obj/item/r_hand = null
 	var/obj/item/store = null
 
+	var/obj/item/w_uniform = null
+	var/obj/item/w_shoes = null
+
 	var/hand = null
 
 
@@ -34,8 +37,9 @@
 		if(slot_store)
 			if(store)
 				return 0
+			if(!(slot_store in I.slot_list))
+				return 0
 			return 1
-
 	return 0
 
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
@@ -80,7 +84,7 @@
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
 		return 1
-	if((I.flags & NODROP) && !force)
+	if((I.flags_1 & NODROP_f1) && !force)
 		return 0
 	return 1
 
@@ -122,6 +126,10 @@
 		return slot_r_hand
 	if(I == store)
 		return slot_store
+	if(I == w_uniform)
+		return slot_w_uniform
+	if(I == w_shoes)
+		return slot_w_shoes
 
 	return null
 
@@ -133,6 +141,10 @@
 			r_hand = I ? I : null
 		if(slot_store)
 			store = I ? I : null
+		if(slot_w_uniform)
+			w_uniform = I ? I : null
+		if(slot_w_shoes)
+			w_shoes = I ? I : null
 
 /mob/proc/update_slot_icon(slot)
 	switch(slot)
@@ -142,6 +154,10 @@
 			update_inv_r_hand()
 		if(slot_store)
 			update_inv_store()
+		if(slot_w_uniform)
+			update_inv_w_uniform()
+		if(slot_w_shoes)
+			update_inv_w_shoes()
 
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)

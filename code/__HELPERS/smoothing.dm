@@ -17,10 +17,14 @@
 /atom/var/list/canSmoothWith = null // TYPE PATHS I CAN SMOOTH WITH~~~~~ If this is null and atom is smooth, it smooths only with itself
 
 /atom/proc/clear_smooth_overlays()
-	overlays -= top_left_corner
-	overlays -= top_right_corner
-	overlays -= bottom_right_corner
-	overlays -= bottom_left_corner
+	cut_overlay(top_left_corner)
+	top_left_corner = null
+	cut_overlay(top_right_corner)
+	top_right_corner = null
+	cut_overlay(bottom_right_corner)
+	bottom_right_corner = null
+	cut_overlay(bottom_left_corner)
+	bottom_left_corner = null
 
 //generic (by snowflake) tile smoothing code; smooth your icons with this!
 /*
@@ -63,18 +67,35 @@
 	spawn(0) //don't remove this, otherwise smoothing breaks
 		if(A && A.smooth)
 			var/adjacencies = calculate_adjacencies(A)
+			var/list/New
 
-			A.clear_smooth_overlays()
+			var/nw = make_nw_corner(adjacencies)
+			var/ne = make_ne_corner(adjacencies)
+			var/sw = make_sw_corner(adjacencies)
+			var/se = make_se_corner(adjacencies)
 
-			A.top_left_corner = make_nw_corner(adjacencies)
-			A.top_right_corner = make_ne_corner(adjacencies)
-			A.bottom_left_corner = make_sw_corner(adjacencies)
-			A.bottom_right_corner = make_se_corner(adjacencies)
+			if(A.top_left_corner != nw)
+				A.cut_overlay(A.top_left_corner)
+				A.top_left_corner = null
+				LAZYADD(New, nw)
 
-			A.overlays += A.top_left_corner
-			A.overlays += A.top_right_corner
-			A.overlays += A.bottom_right_corner
-			A.overlays += A.bottom_left_corner
+			if(A.top_right_corner != ne)
+				A.cut_overlay(A.top_right_corner)
+				A.top_right_corner = null
+				LAZYADD(New, ne)
+
+			if(A.bottom_left_corner != sw)
+				A.cut_overlay(A.bottom_left_corner)
+				A.bottom_left_corner = null
+				LAZYADD(New, sw)
+
+			if(A.bottom_left_corner != se)
+				A.cut_overlay(A.bottom_left_corner)
+				A.bottom_left_corner = null
+				LAZYADD(New, se)
+
+			if(New)
+				A.add_overlay(New)
 
 /proc/make_nw_corner(adjacencies)
 	var/sdir = "i"

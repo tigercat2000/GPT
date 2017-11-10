@@ -4,7 +4,6 @@
 	name = "floor"
 	icon = 'icons/turfs/turf.dmi'
 	icon_state = "floor"
-	plane = PLANE_TURF
 
 	var/list/footstep_sounds = list()
 

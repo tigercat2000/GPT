@@ -9,6 +9,8 @@
 	// Their chat window, sort of important.
 	// See /goon/code/datums/browserOutput.dm
 	var/datum/chatOutput/chatOutput
+	//datum that controls the displaying and hiding of tooltips
+	var/datum/tooltip/tooltips
 
 	parent_type = /datum
 
@@ -17,6 +19,8 @@
 	. = ..()
 	chatOutput.start()
 	GLOB.clients += src
+	if(!tooltips)
+		tooltips = new /datum/tooltip(src)
 
 /client/Topic(href, href_list, hsrc)
 	if(!usr || usr != mob)

@@ -6,4 +6,4 @@
 
 	mob = /mob/living
 
-//#define DEBUGGING
+#define DEBUGGING

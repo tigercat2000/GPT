@@ -182,7 +182,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	LOG_SMC("<span class='boldannounce'>[msg]</span>")
 
 	if (!current_runlevel)
-		SetRunLevel(1)
+		SetRunLevel(RUNLEVEL_GAME)
 
 	// Sort subsystems by display setting for easy access.
 	sortTim(subsystems, /proc/cmp_subsystem_display)

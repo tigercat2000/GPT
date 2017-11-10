@@ -20,6 +20,9 @@
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
 	var/list/inv_slots[slots_amt]			// /obj/screen/inventory objects, ordered by their slot ID.
 
+	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
+	var/action_buttons_hidden = 0
+
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/basic(src)
@@ -27,9 +30,15 @@
 /datum/hud/New(mob/owner)
 	mymob = owner
 
+	hide_actions_toggle = new
+	hide_actions_toggle.InitialiseIcon(src)
+
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
 		mymob.hud_used = null
+
+	qdel(hide_actions_toggle)
+	hide_actions_toggle = null
 
 	if(static_inventory.len)
 		for(var/thing in static_inventory)
@@ -83,6 +92,8 @@
 			if(infodisplay.len)
 				mymob.client.screen += infodisplay
 
+			mymob.client.screen += hide_actions_toggle
+
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
 			hud_shown = 0	//Governs behavior of other procs
 			if(static_inventory.len)
@@ -113,7 +124,7 @@
 
 	hud_version = display_hud_version
 	persistant_inventory_update()
-	//mymob.update_action_buttons()
+	mymob.update_action_buttons(1)
 	//reorganize_alerts()
 	//reload_fullscreen()
 
@@ -127,26 +138,21 @@
 	var/mob/M = mymob
 
 	if(hud_shown)
-		if(M.store)
-			M.store.screen_loc = ui_store
-			M.client.screen += M.store
+		INV_UPDATE_SHOW(store, ui_store)
+		INV_UPDATE_SHOW(w_uniform, ui_w_uniform)
+		INV_UPDATE_SHOW(w_shoes, ui_w_shoes)
 	else
-		if(M.store)
-			M.store.screen_loc = null
+		INV_UPDATE_HIDE(store)
+		INV_UPDATE_HIDE(w_uniform)
+		INV_UPDATE_HIDE(w_shoes)
 
 
 	if(hud_version != HUD_STYLE_NOHUD)
-		if(M.r_hand)
-			M.r_hand.screen_loc = ui_rhand
-			M.client.screen += M.r_hand
-		if(M.l_hand)
-			M.l_hand.screen_loc = ui_lhand
-			M.client.screen += M.l_hand
+		INV_UPDATE_SHOW(r_hand, ui_rhand)
+		INV_UPDATE_SHOW(l_hand, ui_lhand)
 	else
-		if(M.r_hand)
-			M.r_hand.screen_loc = null
-		if(M.l_hand)
-			M.l_hand.screen_loc = null
+		INV_UPDATE_HIDE(r_hand)
+		INV_UPDATE_HIDE(l_hand)
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()

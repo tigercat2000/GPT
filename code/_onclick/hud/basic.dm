@@ -14,6 +14,20 @@
 	inv_box.slot_id = slot_store
 	static_inventory += inv_box
 
+	inv_box = new /obj/screen/inventory()
+	inv_box.name = "uniform"
+	inv_box.icon_state = "w_uniform"
+	inv_box.screen_loc = ui_w_uniform
+	inv_box.slot_id = slot_w_uniform
+	static_inventory += inv_box
+
+	inv_box = new /obj/screen/inventory()
+	inv_box.name = "shoes"
+	inv_box.icon_state = "w_shoes"
+	inv_box.screen_loc = ui_w_shoes
+	inv_box.slot_id = slot_w_shoes
+	static_inventory += inv_box
+
 	inv_box = new /obj/screen/inventory/hand()
 	inv_box.name = "r_hand"
 	inv_box.icon_state = "hand_r"

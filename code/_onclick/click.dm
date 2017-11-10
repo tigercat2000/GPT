@@ -67,7 +67,11 @@
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
-		. = 1
+		return 1
+	if(modifiers["alt"])
+		AltClickOn(A)
+		return 1
+	return 0
 
 
 

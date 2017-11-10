@@ -1,6 +1,20 @@
 /atom
-	var/flags = 0
 	var/initialized = FALSE
+
+	var/list/our_overlays	//our local copy of (non-priority) overlays without byond magic. Use procs in SSoverlays to manipulate
+	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
+
+	// Bitflag fields
+	/* flags_1: Currently used for
+		- Nodrop
+		- Overlay Processing
+	*/
+	var/flags_1 = 0
+	/* flags_2: Currently used for (nothing)*/
+	var/flags_2 = 0
+
+	plane = PLANE_GAME
+
 
 /atom/proc/Bumped(atom/AM)
 	return

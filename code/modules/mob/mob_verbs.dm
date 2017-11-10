@@ -52,6 +52,13 @@
 			W.attack_self(src)
 			update_inv_r_hand()
 
+/mob/verb/drop_held_item()
+	set name = ".drop-held"
+	set category = null
+	set src = usr
+
+	drop_item()
+
 /mob/verb/swap_hand_verb()
 	set name = ".swap-hands"
 	set category = null

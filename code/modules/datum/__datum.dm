@@ -29,7 +29,3 @@
 			qdel(C)
 		dc.Cut()
 	return QDEL_HINT_QUEUE
-
-
-/datum/proc/process()
-	return 0
