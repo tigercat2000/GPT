@@ -38,7 +38,7 @@
 	if(istype(mob, /mob/ghost))
 		var/turf/T = get_step(mob, direct)
 		if(T)
-			mob.loc = T
+			mob.forceMove(T)
 			mob.set_dir(direct)
 			return 1
 

@@ -6,6 +6,11 @@
 	layer = 10
 	mouse_opacity = 0
 
+	var/has_gravity = TRUE
+
+/area/proc/has_gravity()
+	return has_gravity
+
 /area/New()
 	icon_state = ""
 

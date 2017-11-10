@@ -73,7 +73,9 @@
 	var/turf/W = new path(src)
 	smooth_icon_neighbors(src)
 
+	W.post_change()
 	. = W
+	SendSignal(COMSIG_TURF_CHANGED, W)
 
 	lighting_corners_initialised = TRUE
 	recalc_atom_opacity()
@@ -88,3 +90,9 @@
 			lighting_build_overlay()
 		else
 			lighting_clear_overlay()
+
+// Called after turf replaces old one
+/turf/proc/post_change()
+	var/turf/simulated/open/T = GetAbove(src)
+	if(istype(T))
+		T.update_icon()

@@ -32,6 +32,7 @@
 	var/atom/oldloc = loc
 
 	. = ..()
+	set_dir(direct)
 
 	if(.)
 		Moved(oldloc, direct)
