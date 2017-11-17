@@ -9,7 +9,7 @@
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/verb/pulled(atom/movable/AM as mob|obj in oview(1))
 	set name = "Pull"
-	set category = "Object"
+	set category = null
 
 	if(AM.Adjacent(src))
 		src.start_pulling(AM)
@@ -24,7 +24,6 @@
 		if(AM == pulling)
 			return
 		stop_pulling()
-
 	src.pulling = AM
 	AM.pulledby = src
 
@@ -41,30 +40,25 @@
 	set category = null
 	set src = usr
 
-	if(hand)
-		var/obj/item/W = l_hand
-		if(W)
-			W.attack_self(src)
-			update_inv_l_hand()
-	else
-		var/obj/item/W = r_hand
-		if(W)
-			W.attack_self(src)
-			update_inv_r_hand()
+	var/obj/item/W = get_slot(active_hand_slot)
+	if(W)
+		W.attack_self(src)
+		update_slot(active_hand_slot)
+
 
 /mob/verb/drop_held_item()
 	set name = ".drop-held"
 	set category = null
 	set src = usr
 
-	drop_item()
+	drop_hand()
 
 /mob/verb/swap_hand_verb()
 	set name = ".swap-hands"
 	set category = null
 	set src = usr
 
-	swap_hand()
+	change_active_hand()
 
 /mob/verb/toggle_walk_verb()
 	set name = ".toggle-walk"

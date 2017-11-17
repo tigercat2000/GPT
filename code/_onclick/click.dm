@@ -23,7 +23,7 @@
 
 	if(W == A)
 		W.attack_self(src)
-		update_slot_icon(get_slot(W))
+		update_slot(get_slot_by_item(W))
 
 	var/sdepth = A.storage_depth(src)
 	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))

@@ -9,7 +9,7 @@ Configuration:
 - Set file to the correct path for the .html file (remember to actually place the html file)
 - Attach the datum to the user client on login, e.g.
 	/client/New()
-		src.tooltips = new /datum/tooltip(src)
+		tooltips = new /datum/tooltip(src)
 
 Usage:
 - Define mouse event procs on your (probably HUD) object and simply call the show and hide procs respectively:
@@ -28,6 +28,7 @@ Notes:
 - You may have noticed 90% of the work is done via javascript on the client. Gotta save those cycles man.
 - This is entirely untested in any other codebase besides goonstation so I have no idea if it will port nicely. Good luck!
 	- After testing and discussion (Wire, Remie, MrPerson, AnturK) ToolTips are ok and work for /tg/station13
+	- Works perfectly for this project (Tiger)
 */
 
 

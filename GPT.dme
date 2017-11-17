@@ -15,7 +15,7 @@
 
 // BEGIN_INCLUDE
 #include "__defines.dm"
-#include "_maps\primary.dm"
+#include "_maps\multiz.dm"
 #include "code\world.dm"
 #include "code\__DATASTRUCTURES\globals.dm"
 #include "code\__DEFINES\__process_scheduler.dm"
@@ -111,7 +111,7 @@
 #include "code\modules\lighting\lighting_source.dm"
 #include "code\modules\lighting\lighting_turf.dm"
 #include "code\modules\lighting\~lighting_undefs.dm"
-#include "code\modules\mob\inventory.dm"
+#include "code\modules\mob\inventory_new.dm"
 #include "code\modules\mob\life.dm"
 #include "code\modules\mob\login.dm"
 #include "code\modules\mob\logout.dm"
@@ -122,7 +122,6 @@
 #include "code\modules\mob\say.dm"
 #include "code\modules\mob\update_icons.dm"
 #include "code\modules\mob\ghost\ghost.dm"
-#include "code\modules\mob\living\inventory.dm"
 #include "code\modules\mob\living\living.dm"
 #include "code\modules\mob\living\say.dm"
 #include "code\modules\mob\living\update_icons.dm"
@@ -160,6 +159,7 @@
 #include "code\modules\turfs\walls\wall.dm"
 #include "code\modules\world\__init.dm"
 #include "code\modules\world\error_handling.dm"
+#include "code\modules\world\error_viewer.dm"
 #include "goon\code\datums\browserOutput.dm"
 #include "interface\interface.dm"
 #include "interface\byond.dmf"

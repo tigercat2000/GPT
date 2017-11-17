@@ -20,3 +20,10 @@
 	if(istype(A))
 		qdel(A)
 
+
+/client/proc/view_runtimes()
+	set category = "Debug"
+	set name = "View Runtimes"
+	set desc = "Open the Runtime Viewer"
+
+	error_cache.showTo(usr)

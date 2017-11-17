@@ -3,5 +3,6 @@
 *.rsc
 *.dmb
 *.lk
+stddef.dm
 
 data/*

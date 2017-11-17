@@ -26,7 +26,7 @@
 
 /obj/light/street_post
 	name = "Lamppost"
-	icon = 'icons/obj/lamppost.dmi'
+	icon = 'icons/obj/lamppost_32.dmi'
 	icon_state = "lamppost0"
 	on_state = "lamppost1"
 	density = 1

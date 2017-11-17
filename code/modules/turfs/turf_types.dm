@@ -1,12 +1,3 @@
-/turf/wood
-	name = "wood floor"
-	icon_state = "wood"
-	footstep_sounds = list('sound/effects/footstep_wood.ogg')
-
-/turf/wood/missing
-	name = "half wood floor"
-	icon_state = "wood-missing"
-
 /turf/spess
 	name = "space"
 	icon = 'icons/turfs/space.dmi'

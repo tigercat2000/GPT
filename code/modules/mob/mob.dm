@@ -16,3 +16,8 @@
 	var/mob/ghost/G = new(loc, src)
 	G.ckey = ckey
 	G.name = name + " (ghost)"
+
+	var/mutable_appearance/our_appearance = new(src)
+	our_appearance.alpha = 127
+	our_appearance.plane = PLANE_GAME
+	G.appearance = our_appearance

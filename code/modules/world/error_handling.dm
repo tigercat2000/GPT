@@ -50,7 +50,7 @@ var/total_runtimes_skipped = 0
 			error_cooldown[erroruid] = 0
 			if(skipcount > 0)
 				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file],[e.line].")
-				//error_cache.logError(e, skipCount = skipcount)
+				error_cache.logError(e, skipCount = skipcount)
 	error_last_seen[erroruid] = world.time
 	error_cooldown[erroruid] = cooldown
 
@@ -108,8 +108,8 @@ var/total_runtimes_skipped = 0
 	log_world("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
 	for(var/line in desclines)
 		log_world(line)
-	/*if(error_cache)
-		error_cache.logError(e, desclines, e_src = e_src)*/
+	if(error_cache)
+		error_cache.logError(e, desclines, e_src = e_src)
 
 #endif
 

@@ -1,6 +1,6 @@
 /obj/item/clothing/shoes
 	name = "shoes"
-	slot_list = list(slot_w_shoes)
+	slot_list = list(INV_W_SHOES)
 
 /obj/item/clothing/shoes/black
 	name = "black shoes"

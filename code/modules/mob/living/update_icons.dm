@@ -11,95 +11,14 @@
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
 
-/mob/living/update_inv_l_hand()
-	remove_overlay(L_HAND_LAYER)
-	if(l_hand)
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.screen_loc = ui_lhand
-			client.screen += l_hand
-
-		var/t_state = l_hand.item_state
-		if(!t_state)
-			t_state = l_hand.icon_state
-
-		var/icon_file = l_hand.lefthand_file
-
-		var/mutable_appearance/hand_overlay
-
-		if(!hand_overlay)
-			hand_overlay = l_hand.build_worn_icon(state = t_state, default_layer = L_HAND_LAYER, default_icon_file = icon_file, isinhands = TRUE)
-
-		overlays_standing[L_HAND_LAYER] = hand_overlay
-
-	apply_overlay(L_HAND_LAYER)
-
-/mob/living/update_inv_r_hand()
-	remove_overlay(R_HAND_LAYER)
-	if(r_hand)
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.screen_loc = ui_rhand
-			client.screen += r_hand
-
-		var/t_state = r_hand.item_state
-		if(!t_state)
-			t_state = r_hand.icon_state
-
-		var/icon_file = r_hand.righthand_file
-
-		var/mutable_appearance/hand_overlay
-
-		if(!hand_overlay)
-			hand_overlay = r_hand.build_worn_icon(state = t_state, default_layer = R_HAND_LAYER, default_icon_file = icon_file, isinhands = TRUE)
-
-		overlays_standing[R_HAND_LAYER] = hand_overlay
-	apply_overlay(R_HAND_LAYER)
-
-/mob/living/update_inv_w_uniform()
-	remove_overlay(UNIFORM_LAYER)
-
-	if(istype(w_uniform, /obj/item/clothing/uniform))
-		var/obj/item/clothing/uniform/U = w_uniform
-		U.screen_loc = ui_w_uniform
-		if(client && hud_used && hud_used.hud_shown)
-			if(hud_used.inventory_shown)
-				client.screen += w_uniform
-
-		var/t_color = U.item_color
-		if(!t_color)
-			t_color = U.icon_state
-
-		var/mutable_appearance/uniform_overlay
-
-		if(!uniform_overlay)
-			uniform_overlay = U.build_worn_icon(state = "[t_color]", default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/onmob/uniform.dmi', isinhands = FALSE)
-
-		overlays_standing[UNIFORM_LAYER] = uniform_overlay
-
-	apply_overlay(UNIFORM_LAYER)
-
-/mob/living/update_inv_w_shoes()
-	remove_overlay(SHOES_LAYER)
-
-	if(istype(w_shoes, /obj/item/clothing/shoes))
-		var/obj/item/clothing/shoes/S = w_shoes
-		S.screen_loc = ui_w_shoes
-		if(client && hud_used && hud_used.hud_shown)
-			if(hud_used.inventory_shown)
-				client.screen += w_shoes
-
-		var/t_color = S.item_color
-		if(!t_color)
-			t_color = S.icon_state
-
-		var/mutable_appearance/uniform_overlay
-
-		if(!uniform_overlay)
-			uniform_overlay = S.build_worn_icon(state = "[t_color]", default_layer = SHOES_LAYER, default_icon_file = 'icons/mob/onmob/feet.dmi', isinhands = FALSE)
-
-		overlays_standing[SHOES_LAYER] = uniform_overlay
-
-	apply_overlay(SHOES_LAYER)
-
+/mob/living/update_slot(slot)
+	var/datum/inventory_slot/S = ..()
+	if(S && S.overlay_layer)
+		remove_overlay(S.overlay_layer)
+		var/mutable_appearance/slot_overlay = S.get_overlay()
+		if(slot_overlay)
+			overlays_standing[S.overlay_layer] = slot_overlay
+		apply_overlay(S.overlay_layer)
 
 /*
 Does everything in relation to building the /mutable_appearance used in the mob's overlays list

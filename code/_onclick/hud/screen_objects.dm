@@ -36,7 +36,7 @@
 	icon_state = "drop_item"
 
 /obj/screen/drop/Click(location, control, params)
-	usr.drop_item()
+	usr.drop_hand()
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
@@ -49,9 +49,10 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if(usr.attack_ui(slot_id))
-		usr.update_inv_l_hand(0)
-		usr.update_inv_r_hand(0)
+	usr.attack_ui(slot_id)
+	//if(usr.attack_ui(slot_id))
+		//usr.update_inv_l_hand(0)
+		//usr.update_inv_r_hand(0)
 	return 1
 
 /obj/screen/inventory/hand
@@ -65,9 +66,9 @@
 	overlays.Cut()
 
 	if(hud && hud.mymob)
-		if(slot_id == slot_l_hand && hud.mymob.hand)
+		if(slot_id == INV_L_HAND && hud.mymob.active_hand_slot == INV_L_HAND)
 			overlays += active_overlay
-		else if(slot_id == slot_r_hand && !hud.mymob.hand)
+		else if(slot_id == INV_R_HAND && hud.mymob.active_hand_slot == INV_R_HAND)
 			overlays += active_overlay
 
 /obj/screen/inventory/hand/Click()
@@ -80,9 +81,9 @@
 
 	if(ismob(usr))
 		var/mob/M = usr
-		switch(name)
-			if("right hand", "r_hand")
-				M.activate_hand("r")
-			if("left hand", "l_hand")
-				M.activate_hand("l")
+		switch(slot_id)
+			if(INV_R_HAND)
+				M.change_active_hand(INV_R_HAND)
+			if(INV_L_HAND)
+				M.change_active_hand(INV_L_HAND)
 	return 1

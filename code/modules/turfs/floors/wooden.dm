@@ -2,6 +2,28 @@
 	name = "wood floor"
 	icon_state = "wood"
 	footstep_sounds = list('sound/effects/footstep_wood.ogg')
+	appearance_flags = KEEP_TOGETHER
+	var/cardinals = list()
+
+/turf/wood/Initialize()
+	for(var/sdir in cardinal)
+		cardinals += sdir
+		var/turf/spess/T = get_step(src, sdir)
+		if(istype(T, /turf/spess))
+			var/image/siding = image(icon, "wood_siding", dir = sdir)
+			siding.plane = plane + 0.1
+			siding.layer = layer + 1
+			switch(siding.dir)
+				if(NORTH)
+					siding.pixel_y = world.icon_size
+				if(SOUTH)
+					siding.pixel_y = -world.icon_size
+				if(EAST)
+					siding.pixel_x = world.icon_size
+				if(WEST)
+					siding.pixel_x = -world.icon_size
+			add_overlay(siding)
+
 
 /turf/wood/missing
 	name = "half wood floor"

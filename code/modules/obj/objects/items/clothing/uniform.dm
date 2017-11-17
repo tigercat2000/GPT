@@ -1,6 +1,6 @@
 /obj/item/clothing/uniform
 	name = "uniform"
-	slot_list = list(slot_w_uniform)
+	slot_list = list(INV_W_UNIFORM)
 
 /obj/item/clothing/uniform/bluedress
 	name = "blue dress"
@@ -20,7 +20,7 @@
 	actions_types = list(/datum/action/item_action/pick_color)
 
 /obj/item/clothing/uniform/chameleon/item_action_slot_check(slot, mob/user)
-	if(slot == slot_w_uniform)
+	if(slot == INV_W_UNIFORM)
 		return TRUE
 	return FALSE
 
@@ -42,4 +42,4 @@
 		return
 	item_color = possible_options[choice]
 	if(loc == usr)
-		usr.update_inv_w_uniform()
+		usr.update_slot(INV_W_UNIFORM)

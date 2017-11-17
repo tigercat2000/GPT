@@ -18,7 +18,7 @@
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
-	var/list/inv_slots[slots_amt]			// /obj/screen/inventory objects, ordered by their slot ID.
+	var/list/inv_slots = list()				// /obj/screen/inventory objects, ordered by their slot ID.
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
@@ -105,11 +105,16 @@
 			if(infodisplay.len)
 				mymob.client.screen += infodisplay
 
-			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
+			for(var/datum/inventory_slot/S in mymob.get_inv_datums())
+				if(S.hud_minimized)
+					mymob.client.screen += inv_slots[S.slot_id]
+
+			/*//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
 			if(inv_slots[slot_l_hand])
 				mymob.client.screen += inv_slots[slot_l_hand]	//we want the hands to be visible
 			if(inv_slots[slot_r_hand])
 				mymob.client.screen += inv_slots[slot_r_hand]	//we want the hands to be visible
+			*/
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = 0	//Governs behavior of other procs
@@ -136,23 +141,18 @@
 		return
 
 	var/mob/M = mymob
+	for(var/datum/inventory_slot/S in M.get_inv_datums())
+		switch(hud_version)
+			if(HUD_STYLE_STANDARD)
+				INV_UPDATE_SHOW(S)
+			if(HUD_STYLE_REDUCED)
+				if(S.hud_minimized)
+					INV_UPDATE_SHOW(S)
+				else
+					INV_UPDATE_HIDE(S)
+			if(HUD_STYLE_NOHUD)
+				INV_UPDATE_HIDE(S)
 
-	if(hud_shown)
-		INV_UPDATE_SHOW(store, ui_store)
-		INV_UPDATE_SHOW(w_uniform, ui_w_uniform)
-		INV_UPDATE_SHOW(w_shoes, ui_w_shoes)
-	else
-		INV_UPDATE_HIDE(store)
-		INV_UPDATE_HIDE(w_uniform)
-		INV_UPDATE_HIDE(w_shoes)
-
-
-	if(hud_version != HUD_STYLE_NOHUD)
-		INV_UPDATE_SHOW(r_hand, ui_rhand)
-		INV_UPDATE_SHOW(l_hand, ui_lhand)
-	else
-		INV_UPDATE_HIDE(r_hand)
-		INV_UPDATE_HIDE(l_hand)
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()

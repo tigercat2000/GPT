@@ -18,9 +18,9 @@
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
 
-#define INV_UPDATE_SHOW(slot, uislot) \
-if(M.##slot){M.##slot.screen_loc = ##uislot;\
-	M.client.screen += M.##slot;};
+#define INV_UPDATE_SHOW(invslot) \
+if(##invslot && ##invslot.contained){##invslot.contained.screen_loc = ##invslot.hud_position;\
+	M.client.screen += ##invslot.contained;};
 
-#define INV_UPDATE_HIDE(slot) \
-if(M.##slot){M.##slot.screen_loc = null;};
+#define INV_UPDATE_HIDE(invslot) \
+if(##invslot && ##invslot.contained){##invslot.contained.screen_loc = null;};

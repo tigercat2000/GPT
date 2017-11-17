@@ -1,6 +1,7 @@
 var/list/admin_verbs_admin = list(
 	/client/proc/admin_ghost,
-	/client/proc/admin_delete
+	/client/proc/admin_delete,
+	/client/proc/view_runtimes
 )
 
 
