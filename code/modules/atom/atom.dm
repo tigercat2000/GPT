@@ -14,6 +14,7 @@
 	var/flags_2 = 0
 
 	plane = PLANE_GAME
+	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 
 /atom/proc/Bumped(atom/AM)

@@ -195,7 +195,7 @@
 */
 
 // Actually process the falling movement and impacts.
-/atom/movable/proc/handle_fall(var/turf/landing)
+/atom/movable/proc/handle_fall(turf/landing)
 	var/turf/oldloc = loc
 
 	// Check if there is anything in our turf we are standing on to prevent falling.
@@ -231,22 +231,36 @@
 	// If none of them stopped us, then hit the turf itself
 	landing.CheckFall(src)
 
+/mob/living/handle_fall(turf/landing)
+	var/mob/drop_mob = locate(/mob, loc)
+
+	if(locate(/obj/structure/stairs) in landing)
+		for(var/atom/A in landing)
+			if(!A.CanPass(src, src.loc, 1, 0))
+				return FALSE
+			Move(landing)
+			return 1
+
+	if(ismob(drop_mob) && drop_mob != src)
+		drop_mob.fall_impact(src)
+
+	. = ..()
 
 // ## THE FALLING PROCS ###
 
 // Called on everything that falling_atom might hit. Return 1 if you're handling it so handle_fall() will stop checking.
 // If you're soft and break the fall gently, just return 1
 // If the falling atom will hit you hard, call fall_impact() and return its result.
-/atom/proc/CheckFall(var/atom/movable/falling_atom)
+/atom/proc/CheckFall(atom/movable/falling_atom)
 	if(density)
 		return falling_atom.fall_impact(src)
 
 // By default all turfs are gonna let you hit them regardless of density.
-/turf/CheckFall(var/atom/movable/falling_atom)
+/turf/CheckFall(atom/movable/falling_atom)
 	return falling_atom.fall_impact(src)
 
 // Obviously you can't really hit open space.
-/turf/simulated/open/CheckFall(var/atom/movable/falling_atom)
+/turf/simulated/open/CheckFall(atom/movable/falling_atom)
 	// Don't need to print this, the open space it falls into will print it for us!
 	// visible_message("\The [falling_atom] falls from above through \the [src]!", "You hear a whoosh of displaced air.")
 	return 0
@@ -256,15 +270,31 @@
 /obj/structure/stairs/CheckFall(var/atom/movable/falling_atom)
 	return 1
 
+/mob/CheckFall(atom/movable/falling_atom)
+	return falling_atom.fall_impact(src)
+
 // Called by CheckFall when we actually hit something.  Oof
 /atom/movable/proc/fall_impact(var/atom/hit_atom)
 	visible_message("\The [src] falls from above and slams into \the [hit_atom]!", "You hear something slam into \the [hit_atom].")
+
 
 /mob/living/fall_impact(turf/landing)
 	visible_message("<span class='warning'>\The [src] falls from above and slams into \the [landing]!</span>", \
 		"<span class='danger'>You fall off and hit \the [landing]!</span>", \
 		"You hear something slam into \the [landing].")
 	playsound(loc, "punch", 25, 1, -1)
+
+/mob/zshadow/fall_impact(var/atom/hit_atom) //You actually "fall" onto their shadow, first.
+	if(isliving(hit_atom)) //THIS WEAKENS THE PERSON FALLING & NOMS THE PERSON FALLEN ONTO. SRC is person fallen onto.  hit_atom is the person falling. Confusing.
+		var/mob/living/pred = hit_atom
+		pred.visible_message("<span class='danger'>[hit_atom] falls onto [src]!</span>")
+		var/mob/living/prey = owner
+		if(isliving(prey))
+			prey.density = 0
+			spawn(1)
+				prey.density = 1
+		return 1
+
 
 /*
 // Take damage from falling and hitting the ground

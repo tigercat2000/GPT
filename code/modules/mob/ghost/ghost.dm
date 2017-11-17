@@ -41,3 +41,12 @@
 
 /mob/ghost/DblClickOn(atom/A)
 	loc = get_turf(A)
+
+/mob/ghost/MouseDrop(atom/over_object, atom/src_location, atom/over_location)
+	if(ismob(over_object) && isadmin(client))
+		if(real_mob)
+			real_mob.ckey = null
+		var/mob/M = over_object
+		M.ghostize()
+		M.ckey = ckey
+		qdel(src)

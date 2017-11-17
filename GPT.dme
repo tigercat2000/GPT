@@ -15,8 +15,7 @@
 
 // BEGIN_INCLUDE
 #include "__defines.dm"
-#include "_maps\multiz.dm"
-#include "_maps\map_files\multiz\z1-3.dmm"
+#include "_maps\primary.dm"
 #include "code\world.dm"
 #include "code\__DATASTRUCTURES\globals.dm"
 #include "code\__DEFINES\__process_scheduler.dm"

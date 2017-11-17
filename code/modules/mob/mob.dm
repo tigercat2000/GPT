@@ -11,6 +11,8 @@
 	return 0
 
 /mob/proc/ghostize()
+	if(!ckey)
+		return
 	var/mob/ghost/G = new(loc, src)
 	G.ckey = ckey
 	G.name = name + " (ghost)"

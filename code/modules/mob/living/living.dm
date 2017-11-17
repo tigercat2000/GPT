@@ -1,5 +1,6 @@
 /mob/living
 	icon_state = "shadow"
+	appearance_flags = KEEP_TOGETHER
 
 /mob/living/Initialize()
 	remove_overlay(HAIR_LAYER)
