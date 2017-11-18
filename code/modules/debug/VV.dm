@@ -1,4 +1,3 @@
-/****VV Defines****/
 #define VV_NUM "Number"
 #define VV_TEXT "Text"
 #define VV_MESSAGE "Mutiline Text"
@@ -553,7 +552,10 @@
 
 	else if(istype(value, /datum))
 		var/datum/D = value
-		if("[D]" != "[D.type]") //if the thing has a name var, let's use it
+		if(istype(D, /matrix))
+			var/matrix/M = D
+			item = "[VV_HTML_ENCODE(name)] = <span class='value'>/matrix ([M.a] [M.b] [M.c] [M.d] [M.e] [M.f])</span>"
+		else if("[D]" != "[D.type]") //if the thing has a name var, let's use it
 			item = "<a href='?_src_=vars;Vars=\ref[value]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D] [D.type]"
 		else
 			item = "<a href='?_src_=vars;Vars=\ref[value]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
@@ -590,7 +592,8 @@
 		return
 
 	if(href_list["Vars"])
-		debug_variables(locate(href_list["Vars"]))
+		var/x = locate(href_list["Vars"])
+		debug_variables(x)
 
 	else if(href_list["rename"])
 		var/mob/M = locate(href_list["rename"])

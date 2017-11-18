@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(ackey)
+GLOBAL_PROTECT(ackey)
 
 /hook/startup/proc/load_admins()
 	var/list/lines = file2list("config/admins.txt")

@@ -2,7 +2,7 @@
 	name = "wood floor"
 	icon_state = "wood"
 	footstep_sounds = list('sound/effects/footstep_wood.ogg')
-	appearance_flags = KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	var/cardinals = list()
 
 /turf/wood/Initialize()

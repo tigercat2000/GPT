@@ -1,6 +1,6 @@
 /mob/living
 	icon_state = "shadow"
-	appearance_flags = KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 
 /mob/living/Initialize()
 	..()

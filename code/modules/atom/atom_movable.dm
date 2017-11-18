@@ -1,6 +1,7 @@
 /atom/movable
 	var/anchored = 0
 	var/mob/pulledby = null
+	appearance_flags = PIXEL_SCALE
 
 // Previously known as Crossed()
 // This is automatically called when something enters your square

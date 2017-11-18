@@ -9,3 +9,6 @@
 			client.screen += S.contained
 			log_world("Positioned [S.slot_id] on [src] with Itemt [S.contained] [S.contained.screen_loc]")
 	. = S
+
+/mob/proc/update_transform()
+	return

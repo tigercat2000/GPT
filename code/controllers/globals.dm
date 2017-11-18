@@ -39,7 +39,8 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 
 	stat("Globals:", statclick.update("Edit"))
 
-/*/datum/controller/global_vars/can_vv_get(var_name)
+#ifndef DEBUGGING
+/datum/controller/global_vars/can_vv_get(var_name)
 	if(var_name in gvars_datum_protected_varlist)
 		return FALSE
 	return ..()
@@ -47,7 +48,8 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 /datum/controller/global_vars/vv_edit_var(var_name, var_value)
 	if((var_name in gvars_datum_protected_varlist))
 		return FALSE
-	return ..()*/
+	return ..()
+#endif
 
 /datum/controller/global_vars/Initialize()
 	gvars_datum_init_order = list()

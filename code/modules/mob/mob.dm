@@ -7,9 +7,6 @@
 	GLOB.mob_list -= src
 	return QDEL_HINT_HARDDEL_NOW
 
-/mob/proc/incapacitated()
-	return 0
-
 /mob/proc/ghostize()
 	if(!ckey)
 		return

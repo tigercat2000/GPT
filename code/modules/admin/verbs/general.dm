@@ -10,7 +10,7 @@
 		var/mob/M = mob
 		M.ghostize(1)
 		if(M && !M.ckey)
-			M.ckey = "@[key]"
+			M.ckey = "@[ckey]"
 
 
 
@@ -22,7 +22,7 @@
 
 
 /client/proc/view_runtimes()
-	set category = "Debug"
+	set category = "Debug Verbs"
 	set name = "View Runtimes"
 	set desc = "Open the Runtime Viewer"
 

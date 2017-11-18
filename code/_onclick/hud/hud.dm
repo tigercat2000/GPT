@@ -130,8 +130,8 @@
 	hud_version = display_hud_version
 	persistant_inventory_update()
 	mymob.update_action_buttons(1)
-	//reorganize_alerts()
-	//reload_fullscreen()
+	reorganize_alerts()
+	reload_fullscreen()
 
 /datum/hud/proc/hidden_inventory_update()
 	return

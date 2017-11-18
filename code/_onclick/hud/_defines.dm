@@ -6,6 +6,12 @@
 #define ui_drop		"CENTER + 1:12,SOUTH:5"
 #define ui_mov_sel	"EAST:-5,SOUTH:5"
 
+#define ui_alert1 "EAST-1:28,CENTER+4:27"
+#define ui_alert2 "EAST-1:28,CENTER+3:25"
+#define ui_alert3 "EAST-1:28,CENTER+2:23"
+#define ui_alert4 "EAST-1:28,CENTER+1:21"
+#define ui_alert5 "EAST-1:28,CENTER:19"
+
 
 //HUD styles. Please ensure HUD_VERSIONS is the same as the maximum index. Index order defines how they are cycled in F12.
 #define HUD_STYLE_STANDARD 1

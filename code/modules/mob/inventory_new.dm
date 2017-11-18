@@ -218,6 +218,11 @@ var/const
 	var/datum/inventory_slot/S = get_slot_datum(active_hand_slot)
 	return unEquip(S.contained)
 
+/mob/proc/drop_hands()
+	for(var/datum/inventory_slot/S in inventory)
+		if(S.is_hand)
+			unEquip(S.contained)
+
 // Equip/Unequip
 /mob/proc/attack_ui(slot)
 	var/obj/item/I = get_active_hand()

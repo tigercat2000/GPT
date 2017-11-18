@@ -1,36 +1,43 @@
-
-/proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global)
+/proc/playsound(atom/source, soundin, vol, vary, extrarange, falloff, frequency = null, channel = 0)
 	if(isarea(source))
 		error("[source] is an area and is trying to make the sound: [soundin]")
 		return
 
-	var/frequency = get_rand_frequency() // Same frequency for everybody
 	var/turf/turf_source = get_turf(source)
 
+	//allocate a channel if necessary now so its the same for everyone
+	channel = channel || open_sound_channel()
+
  	// Looping through the player list has the added bonus of working for mobs inside containers
+	var/sound/S = sound(get_sfx(soundin))
+	var/maxdistance = (world.view + extrarange) * 3
 	for(var/P in GLOB.players)
 		var/mob/M = P
 		if(!istype(M) || !M.client)
 			continue
 
 		var/distance = get_dist(M, turf_source)
-		if(distance <= (world.view + extrarange) * 3)
+		if(distance <= maxdistance)
 			var/turf/T = get_turf(M)
 
 			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global)
+				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, S)
 
 var/const/FALLOFF_SOUNDS = 0.5
+#define CHANNEL_HIGHEST_AVAILABLE 1015
 
-/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global)
-	if(!client)	return
+/mob/proc/playsound_local(turf/turf_source, soundin, vol, vary, frequency, falloff, channel = 0, sound/S)
+	if(!client || !can_hear())
+		return
 
-	var/sound/S = sound(soundin)
+	if(!S)
+		S = sound(get_sfx(soundin))
+
 	S.wait = 0 //No queue
-	S.channel = 0 //Any channel
+	S.channel = channel || open_sound_channel()
 	S.volume = vol
-	S.environment = -1
-	if (vary)
+
+	if(vary)
 		if(frequency)
 			S.frequency = frequency
 		else
@@ -55,9 +62,23 @@ var/const/FALLOFF_SOUNDS = 0.5
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
 		S.y = 1
 		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)
-	if(!is_global)
-		S.environment = 2
+
 	src << S
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
+
+
+/proc/open_sound_channel()
+	var/static/next_channel = 1	//loop through the available 1024 - (the ones we reserve) channels and pray that its not still being used
+	. = ++next_channel
+	if(next_channel > CHANNEL_HIGHEST_AVAILABLE)
+		next_channel = 1
+
+
+/proc/get_sfx(soundin)
+	if(istext(soundin))
+		switch(soundin)
+			if("bodyfall")
+				soundin = pick('sound/effects/bodyfall1.ogg','sound/effects/bodyfall2.ogg','sound/effects/bodyfall3.ogg','sound/effects/bodyfall4.ogg')
+	return soundin
