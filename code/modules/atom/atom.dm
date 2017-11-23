@@ -13,7 +13,7 @@
 	/* flags_2: Currently used for (nothing)*/
 	var/flags_2 = 0
 
-	plane = PLANE_GAME
+	plane = GAME_PLANE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 
@@ -87,9 +87,6 @@
 /atom/proc/LateInitialize()
 	return
 
-
-
-
 /atom/Destroy()
 	invisibility = 101
 
@@ -137,6 +134,8 @@
 
 	return depth
 
-
 /atom/proc/set_dir(newdir)
 	dir = newdir
+
+/atom/proc/relaymove(mob/M, direct)
+	return

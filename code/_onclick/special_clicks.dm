@@ -1,12 +1,15 @@
-/mob/proc/CtrlClickOn(var/atom/A)
-	if(pulling == A)
-		stop_pulling()
+/mob/proc/CtrlClickOn(var/atom/movable/A)
+	if(istype(A))
+		A.CtrlClick(src)
+
+/atom/movable/proc/CtrlClick(mob/user)
+	if(user.pulling == src)
+		user.stop_pulling()
 	else
-		start_pulling(A)
+		user.start_pulling(src)
 
 /atom/proc/AltClick(mob/user)
 	return
 
 /mob/proc/AltClickOn(atom/A)
 	A.AltClick(src)
-	return

@@ -114,6 +114,8 @@
 "cj" = (/obj/structure/rack/special,/turf,/area/debug)
 "ck" = (/obj/item/clothing/uniform/chameleon,/turf,/area/debug)
 "cl" = (/turf/wall,/area/debug)
+"cm" = (/mob/living,/turf,/area/debug)
+"cn" = (/obj/item/flashlight,/turf,/area/debug)
 
 (1,1,1) = {"
 aaabacadaeafagahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
@@ -159,7 +161,7 @@ asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasascgchciasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasascjasckasasasasasasclasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
-asasasasasasasasasasasasasasclasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
+asasasasascmascnasasasasasasclasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasclasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas

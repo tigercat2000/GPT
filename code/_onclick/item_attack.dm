@@ -7,6 +7,7 @@
 /mob/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(istype(I) && ismob(user))
+		if(attempt_vr(src,"vore_attackby", args)) return //VOREStation Code
 		I.attack(src, user)
 
 /obj/item/proc/attack_self(mob/user)

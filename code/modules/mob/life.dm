@@ -1,2 +1,2 @@
-/mob/proc/Life()
-	return 1
+/mob/proc/Life(seconds, times_fired)
+	return !stat

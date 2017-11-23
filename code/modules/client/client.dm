@@ -1,6 +1,8 @@
 #define TOPIC_SPAM_DELAY 2
 
 /client
+	parent_type = /datum
+
 	var/ambience_played = 0
 	var/next_allowed_topic_time
 
@@ -12,15 +14,25 @@
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
 
-	parent_type = /datum
+	var/datum/preferences/prefs = null
 
 /client/New(TopicData)
 	chatOutput = new /datum/chatOutput(src) // Right off the bat.
+
+	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
+	prefs = preferences_datums[ckey]
+	if(!prefs)
+		prefs = new /datum/preferences(src)
+		preferences_datums[ckey] = prefs
+
 	. = ..()
+
 	chatOutput.start()
 	GLOB.clients += src
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
+
+	callHook("clientNew", list(src))
 
 /client/Topic(href, href_list, hsrc)
 	if(!usr || usr != mob)
@@ -78,3 +90,24 @@
 
 /client/proc/set_dir(newdir)
 	dir = newdir
+
+
+// FPS
+/client/verb/change_fps(new_fps as null|num)
+	set name = "Set FPS"
+	set category = "Preferences"
+
+	if(new_fps == null)
+		fps = world.fps
+		to_chat(src, "FPS Reset to [world.fps]")
+		return
+
+	new_fps = Clamp(new_fps, 10, 144)
+	fps = new_fps
+	if(fps > world.fps)
+		glide_size = 4
+		mob.glide_size = 4
+	else
+		glide_size = 0
+		mob.glide_size = 0
+	to_chat(src, "Your FPS has been set to [fps].")

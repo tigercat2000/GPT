@@ -29,8 +29,14 @@
 	actions_types = null
 
 /obj/item/Destroy()
+	if(ismob(loc))
+		var/mob/M = loc
+		if(M.get_slot_by_item(src) != null)
+			M.unEquip(src, force = 1)
 	for(var/X in actions)
 		qdel(X)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
 
 /obj/item/proc/dropped(mob/user as mob)
 	for(var/X in actions)

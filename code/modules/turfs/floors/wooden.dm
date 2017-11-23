@@ -11,8 +11,8 @@
 		var/turf/spess/T = get_step(src, sdir)
 		if(istype(T, /turf/spess))
 			var/image/siding = image(icon, "wood_siding", dir = sdir)
-			siding.plane = plane + 0.1
-			siding.layer = layer + 1
+			siding.plane = plane + 1
+			siding.layer = ABOVE_NORMAL_TURF_LAYER
 			switch(siding.dir)
 				if(NORTH)
 					siding.pixel_y = world.icon_size

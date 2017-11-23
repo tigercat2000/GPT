@@ -3,7 +3,7 @@
 /area
 	icon = 'icons/turfs/areas.dmi'
 	icon_state = ""
-	layer = 10
+	layer = AREA_LAYER
 	mouse_opacity = 0
 
 	var/has_gravity = TRUE

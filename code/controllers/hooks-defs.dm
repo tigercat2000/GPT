@@ -15,3 +15,16 @@
  * Called in /mob/login.dm whenever a client logs in.
  */
 /hook/mobLogin
+
+/**
+ * Mob created
+ * Called in /mob/mob.dm whenever a mob is created.
+ */
+/hook/mobNew
+
+/**
+ * Client created
+ * Called in /client/client.dm whenever a client is created.
+ */
+/hook/clientNew
+

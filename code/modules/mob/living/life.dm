@@ -1,5 +1,7 @@
-/mob/living/Life()
+/mob/living/Life(seconds, times_fired)
 	. = ..()
+	if(.)
+		attempt_vr(src, "handle_internal_contents", args) //VOREStation Code
 	handle_status_effects()
 
 /mob/living/proc/handle_status_effects()

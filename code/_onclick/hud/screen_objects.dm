@@ -1,8 +1,8 @@
 /obj/screen
 	name = ""
 	icon = 'icons/mob/screen1.dmi'
-	layer = LAYER_HUD
-	plane = PLANE_HUD
+	layer = ABOVE_HUD_LAYER
+	plane = HUD_PLANE
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
 
@@ -40,7 +40,7 @@
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
-	layer = 19
+	layer = ABOVE_HUD_LAYER
 
 /obj/screen/inventory/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -86,4 +86,14 @@
 				M.change_active_hand(INV_R_HAND)
 			if(INV_L_HAND)
 				M.change_active_hand(INV_L_HAND)
+	return 1
+
+
+/obj/screen/grab
+	name = "grab"
+	icon = 'icons/mob/screen_gen.dmi'
+
+/obj/screen/grab/Click()
+	var/obj/item/weapon/grab/G = master
+	G.s_click(src)
 	return 1

@@ -242,10 +242,10 @@ var/const
 	I.screen_loc = null
 	I.forceMove(src)
 	I.equipped(src, S.slot_id)
-	I.layer = LAYER_HUD + 1
-	I.plane = PLANE_HUD
-	if(pulling == I)
-		stop_pulling()
+	I.layer = ABOVE_HUD_LAYER
+	I.plane = HUD_PLANE
+	if(I.pulledby)
+		I.pulledby.stop_pulling()
 
 	S.contained = I
 	update_slot(S.slot_id)

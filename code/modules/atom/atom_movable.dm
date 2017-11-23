@@ -18,8 +18,8 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	loc = null
-	if (pulledby)
-		if (pulledby.pulling == src)
+	if(pulledby)
+		if(pulledby.pulling == src)
 			pulledby.pulling = null
 		pulledby = null
 	..()

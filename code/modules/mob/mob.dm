@@ -2,6 +2,7 @@
 	. = ..()
 
 	GLOB.mob_list |= src
+	callHook("mobNew", list(src))
 
 /mob/Destroy()
 	GLOB.mob_list -= src
@@ -16,5 +17,5 @@
 
 	var/mutable_appearance/our_appearance = new(src)
 	our_appearance.alpha = 127
-	our_appearance.plane = PLANE_GAME
+	our_appearance.plane = GAME_PLANE
 	G.appearance = our_appearance

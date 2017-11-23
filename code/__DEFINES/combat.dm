@@ -9,3 +9,11 @@
 #define CONSCIOUS	0
 #define UNCONSCIOUS	1
 #define DEAD	2
+
+
+//Grab levels
+#define GRAB_PASSIVE  1
+#define GRAB_AGGRESSIVE  2
+#define GRAB_NECK    3
+#define GRAB_UPGRADING  4
+#define GRAB_KILL    5

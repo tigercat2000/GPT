@@ -7,7 +7,7 @@
 
 	icon             = LIGHTING_ICON
 	color            = LIGHTING_BASE_MATRIX
-	plane            = PLANE_LIGHTING
+	plane            = LIGHTING_PLANE
 	mouse_opacity    = 0
 	layer            = LIGHTING_LAYER
 	invisibility     = INVISIBILITY_LIGHTING
@@ -71,14 +71,21 @@
 
 	var/max = max(cr.cache_mx, cg.cache_mx, cb.cache_mx, ca.cache_mx)
 
-	color  = list(
+	var/list/new_matrix = list(
 		cr.cache_r, cr.cache_g, cr.cache_b, 0,
 		cg.cache_r, cg.cache_g, cg.cache_b, 0,
 		cb.cache_r, cb.cache_g, cb.cache_b, 0,
 		ca.cache_r, ca.cache_g, ca.cache_b, 0,
 		0, 0, 0, 1
 	)
-	luminosity = max > LIGHTING_SOFT_THRESHOLD
+	var/lum = max > LIGHTING_SOFT_THRESHOLD
+
+	if(lum)
+		luminosity = 1
+		animate(src, color = new_matrix, time = 5)
+	else
+		animate(src, color = new_matrix, time = 5)
+		animate(luminosity = 0, time = 0)
 
 // Variety of overrides so the overlays don't get affected by weird things.
 

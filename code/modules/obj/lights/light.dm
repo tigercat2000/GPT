@@ -34,4 +34,4 @@
 	light_range = 6
 	light_color = "#a0a080"
 
-	layer = MOB_LAYER+0.1
+	layer = ABOVE_MOB_LAYER

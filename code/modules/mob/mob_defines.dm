@@ -18,3 +18,5 @@
 	see_invisible = 21
 
 	var/list/actions = list()
+
+	var/list/grabbed_by = list()

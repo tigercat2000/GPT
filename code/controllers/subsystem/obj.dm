@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(obj)
 	name = "Objects"
 	priority = 40
 	flags = SS_NO_INIT
+	wait = 10
 
 	var/list/processing = list()
 	var/list/currentrun = list()
