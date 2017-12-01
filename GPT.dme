@@ -153,7 +153,7 @@
 #include "code\modules\obj\lights\light.dm"
 #include "code\modules\obj\objects\landmark.dm"
 #include "code\modules\obj\objects\items\_debug_items.dm"
-#include "code\modules\obj\objects\items\flashlight.dm"
+#include "code\modules\obj\objects\items\zippo.dm"
 #include "code\modules\obj\objects\items\clothing\clothing.dm"
 #include "code\modules\obj\objects\items\clothing\shoes.dm"
 #include "code\modules\obj\objects\items\clothing\uniform.dm"

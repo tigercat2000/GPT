@@ -89,7 +89,29 @@
 	set_dir(NORTH)
 
 /client/proc/set_dir(newdir)
-	dir = newdir
+	var/obj/screen/fullscreen/F = mob.overlay_fullscreen("client_dir_rotation", /obj/screen/fullscreen/dirchange, 1)
+
+	var/const/spintime = 10
+
+	var/angle = SimplifyDegrees(dir2angle(newdir) - dir2angle(dir))
+	if(angle == 90)
+		animate(F, transform = turn(matrix(), 120), time = spintime/3)
+		animate(transform = turn(matrix(), 240), time = spintime/3)
+		animate(transform = null, time = spintime/3)
+	else if(angle == 270)
+		animate(F, transform = turn(matrix(), -120), time = spintime/3)
+		animate(transform = turn(matrix(), -240), time = spintime/3)
+		animate(transform = null, time = spintime/3)
+	else
+		var/matrix/M = matrix()
+		M.Scale(1.25)
+		animate(F, transform = M, time = spintime/2)
+		animate(transform = null, time = spintime/2)
+
+	spawn(1)
+		dir = newdir
+	spawn(spintime)
+		mob.clear_fullscreen("client_dir_rotation")
 
 
 // FPS

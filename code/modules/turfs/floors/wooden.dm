@@ -5,26 +5,6 @@
 	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	var/cardinals = list()
 
-/turf/wood/Initialize()
-	for(var/sdir in cardinal)
-		cardinals += sdir
-		var/turf/spess/T = get_step(src, sdir)
-		if(istype(T, /turf/spess))
-			var/image/siding = image(icon, "wood_siding", dir = sdir)
-			siding.plane = plane + 1
-			siding.layer = ABOVE_NORMAL_TURF_LAYER
-			switch(siding.dir)
-				if(NORTH)
-					siding.pixel_y = world.icon_size
-				if(SOUTH)
-					siding.pixel_y = -world.icon_size
-				if(EAST)
-					siding.pixel_x = world.icon_size
-				if(WEST)
-					siding.pixel_x = -world.icon_size
-			add_overlay(siding)
-
-
 /turf/wood/missing
 	name = "half wood floor"
 	icon_state = "wood-missing"

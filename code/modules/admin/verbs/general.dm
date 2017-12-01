@@ -18,7 +18,11 @@
 	set name = "Delete"
 	set category = "Admin"
 	if(istype(A))
-		qdel(A)
+		if(isturf(A))
+			var/turf/T = A
+			T.ChangeTurf(world.turf)
+		else
+			qdel(A)
 
 
 /client/proc/view_runtimes()
