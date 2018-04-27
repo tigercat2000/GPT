@@ -1,7 +1,7 @@
 /obj/screen
 	name = ""
 	icon = 'icons/mob/screen1.dmi'
-	layer = ABOVE_HUD_LAYER
+	layer = HUD_LAYER
 	plane = HUD_PLANE
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
@@ -40,7 +40,7 @@
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
-	layer = ABOVE_HUD_LAYER
+	layer = HUD_LAYER
 
 /obj/screen/inventory/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else

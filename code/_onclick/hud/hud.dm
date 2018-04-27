@@ -19,6 +19,7 @@
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
 	var/list/inv_slots = list()				// /obj/screen/inventory objects, ordered by their slot ID.
+	var/list/plane_masters = list()			// See "appearance_flags" in the ref, assoc list of "[plane]" = object
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
@@ -32,6 +33,11 @@
 
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(src)
+
+	for(var/mytype in subtypesof(/obj/screen/plane_master))
+		var/obj/screen/plane_master/instance = new mytype()
+		plane_masters["[instance.plane]"] = instance
+		instance.backdrop(mymob)
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -61,6 +67,11 @@
 		for(var/thing in infodisplay)
 			qdel(thing)
 		infodisplay.Cut()
+
+	if(plane_masters.len)
+		for(var/thing in plane_masters)
+			qdel(plane_masters[thing])
+		plane_masters.Cut()
 
 	mymob = null
 	return ..()
@@ -126,6 +137,10 @@
 				mymob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
 				mymob.client.screen -= infodisplay
+
+
+	for(var/thing in plane_masters)
+		mymob.client.screen += plane_masters[thing]
 
 	hud_version = display_hud_version
 	persistant_inventory_update()

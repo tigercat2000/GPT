@@ -11,6 +11,7 @@
 #define OPENSPACE_PLANE_START -23
 #define OPENSPACE_PLANE_END -8
 #define OVER_OPENSPACE_PLANE -7
+#define FLOOR_PLANE -2
 #define GAME_PLANE -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 #define SPACE_LAYER 1.8
@@ -79,12 +80,11 @@
 //HUD layer defines
 
 #define FULLSCREEN_PLANE 18
-#define FLASH_LAYER 18
-#define FULLSCREEN_LAYER 18.1
-#define UI_DAMAGE_LAYER 18.2
-#define BLIND_LAYER 18.3
-#define CRIT_LAYER 18.4
-#define CURSE_LAYER 18.5
+#define FULLSCREEN_LAYER 18
+#define DAMAGE_LAYER FULLSCREEN_LAYER + 0.1
+#define BLIND_LAYER DAMAGE_LAYER + 0.1
+#define CRIT_LAYER BLIND_LAYER + 0.1
+#define FLASH_LAYER CRIT_LAYER + 0.1
 
 #define HUD_PLANE 19
 #define HUD_LAYER 19

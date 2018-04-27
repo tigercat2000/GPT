@@ -11,8 +11,8 @@ SUBSYSTEM_DEF(openspace)
 	..("P:[processing.len]")
 
 /datum/controller/subsystem/openspace/Initialize()
-	over_OS_darkness.plane = OVER_OPENSPACE_PLANE
 	over_OS_darkness.layer = MOB_LAYER
+	over_OS_darkness.plane = OVER_OPENSPACE_PLANE
 	initialize_open_space()
 
 /datum/controller/subsystem/openspace/fire(resumed = 0)

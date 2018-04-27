@@ -1,8 +1,3 @@
-#define FULLSCREEN_LAYER 18
-#define DAMAGE_LAYER FULLSCREEN_LAYER + 0.1
-#define BLIND_LAYER DAMAGE_LAYER + 0.1
-#define CRIT_LAYER BLIND_LAYER + 0.1
-
 /mob
 	var/list/screens = list()
 
@@ -61,6 +56,7 @@
 	icon_state = "default"
 	screen_loc = "CENTER-5,CENTER-5"
 	layer = FULLSCREEN_LAYER
+	plane = FULLSCREEN_PLANE
 	mouse_opacity = 0
 	var/view = 5
 	var/severity = 0
@@ -110,8 +106,3 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
-
-#undef FULLSCREEN_LAYER
-#undef BLIND_LAYER
-#undef DAMAGE_LAYER
-#undef CRIT_LAYER

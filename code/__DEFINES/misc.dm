@@ -46,3 +46,6 @@
 #define TARGETED_LAYER			32	//BS12: Layer for the target overlay from weapon targeting system
 #define FIRE_LAYER				33	//If you're on fire
 #define TOTAL_LAYERS	33
+
+// Filters
+#define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
