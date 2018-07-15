@@ -1,6 +1,7 @@
 /obj/structure/mirror
 	name = "mirror"
 	icon_state = "alientable_full"
+	dir = NORTH
 
 /obj/structure/mirror/Initialize()
 	. = ..()

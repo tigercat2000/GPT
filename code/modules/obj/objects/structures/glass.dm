@@ -16,3 +16,6 @@
 	if(get_dir(O.loc, target) == dir)
 		return 0
 	return 1
+
+/obj/structure/window/opaque
+	opacity = TRUE

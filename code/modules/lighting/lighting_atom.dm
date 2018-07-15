@@ -1,3 +1,5 @@
+#define MINIMUM_USEFUL_LIGHT_RANGE 1.4
+
 /atom
 	var/light_power = 1 // Intensity of the light.
 	var/light_range = 0 // Range in tiles of the light.
@@ -10,6 +12,8 @@
 // Nonesensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
 /atom/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
+	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
+		l_range = MINIMUM_USEFUL_LIGHT_RANGE	//Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
 	if (l_power != null)
 		light_power = l_power
 
@@ -19,6 +23,8 @@
 	if (l_color != NONSENSICAL_VALUE)
 		light_color = l_color
 
+	SendSignal(COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color)
+
 	update_light()
 
 #undef NONSENSICAL_VALUE
@@ -27,15 +33,13 @@
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
 /atom/proc/update_light()
 	set waitfor = FALSE
-	if (gc_destroyed)
+	if (QDELETED(src))
 		return
 
 	if (!light_power || !light_range) // We won't emit light anyways, destroy the light source.
-		if(light)
-			light.destroy()
-			light = null
+		QDEL_NULL(light)
 	else
-		if (!istype(loc, /atom/movable)) // We choose what atom should be the top atom of the light here.
+		if (!ismovableatom(loc)) // We choose what atom should be the top atom of the light here.
 			. = src
 		else
 			. = loc
@@ -45,31 +49,15 @@
 		else
 			light = new/datum/light_source(src, .)
 
-// Incase any lighting vars are on in the typepath we turn the light on in New().
-/atom/New()
-	. = ..()
-
-	if (light_power && light_range)
-		update_light()
-
-	if (opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
-
-// Destroy our light source so we GC correctly.
-/atom/Destroy()
-	if (light)
-		light.destroy()
-		light = null
-	. = ..()
-
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
 	var/turf/T = loc
-	if (opacity && istype(T))
-		T.reconsider_lights()
-
 	. = ..()
+	if (opacity && istype(T))
+		var/old_has_opaque_atom = T.has_opaque_atom
+		T.recalc_atom_opacity()
+		if (old_has_opaque_atom != T.has_opaque_atom)
+			T.reconsider_lights()
 
 // Should always be used to change the opacity of an atom.
 // It notifies (potentially) affected light sources so they can update (if needed).
@@ -92,18 +80,26 @@
 			T.reconsider_lights()
 
 
-// This code makes the light be queued for update when it is moved.
-// Entered() should handle it, however Exited() can do it if it is being moved to nullspace (as there would be no Entered() call in that situation).
-/atom/Entered(var/atom/movable/Obj, var/atom/OldLoc) //Implemented here because forceMove() doesn't call Move()
+/atom/movable/Moved(atom/OldLoc, Dir)
 	. = ..()
+	var/datum/light_source/L
+	var/thing
+	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
+		L = thing
+		L.source_atom.update_light()
 
-	if (Obj && OldLoc != src)
-		for (var/datum/light_source/L in Obj.light_sources) // Cycle through the light sources on this atom and tell them to update.
-			L.source_atom.update_light()
+/atom/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("light_range")
+			set_light(l_range=var_value)
+			return TRUE
 
-/atom/Exited(var/atom/movable/Obj, var/atom/newloc)
-	. = ..()
+		if("light_power")
+			set_light(l_power=var_value)
+			return TRUE
 
-	if (!newloc && Obj && newloc != src) // Incase the atom is being moved to nullspace, we handle queuing for a lighting update here.
-		for (var/datum/light_source/L in Obj.light_sources) // Cycle through the light sources on this atom and tell them to update.
-			L.source_atom.update_light()
+		if("light_color")
+			set_light(l_color=var_value)
+			return TRUE
+
+	return ..()

@@ -21,7 +21,7 @@
 	else
 		to_chat(user, "<span class='warning'>So be it.</span>")*/
 
-/obj/structure/rack/special/proc/interact(mob/user)
+/obj/structure/rack/special/interact(mob/user)
 	var/dat = ""
 	dat += "<a href='?src=\ref[src];summon=light'>Summon Light</a>"
 

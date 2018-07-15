@@ -13,6 +13,10 @@
 	if(smooth)
 		smooth_icon(src)
 
+	var/area/A = loc
+	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
+		add_overlay(/obj/effect/fullbright)
+
 	global.turfs += src
 
 /turf/Destroy()
@@ -68,7 +72,7 @@
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/old_affecting_lights = affecting_lights
-	var/old_lighting_overlay = lighting_overlay
+	var/old_lighting_object = lighting_object
 	var/old_corners = corners
 
 	var/turf/W = new path(src)
@@ -80,14 +84,14 @@
 
 	lighting_corners_initialised = TRUE
 	recalc_atom_opacity()
-	lighting_overlay = old_lighting_overlay
+	lighting_object = old_lighting_object
 	affecting_lights = old_affecting_lights
 	corners = old_corners
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting) || force_lighting_update)
 		reconsider_lights()
 
 	if(dynamic_lighting != old_dynamic_lighting)
-		if(dynamic_lighting)
+		if(IS_DYNAMIC_LIGHTING(src))
 			lighting_build_overlay()
 		else
 			lighting_clear_overlay()

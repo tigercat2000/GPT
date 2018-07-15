@@ -1,5 +1,6 @@
 /datum/hud/basic/New(mob/owner)
 	. = ..()
+	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 
 	var/obj/screen/using
 

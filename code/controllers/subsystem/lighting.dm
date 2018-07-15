@@ -1,100 +1,90 @@
-#define STAGE_SOURCES  1
-#define STAGE_CORNERS  2
-#define STAGE_OVERLAYS 3
-
-var/list/lighting_update_lights    = list() // List of lighting sources  queued for update.
-var/list/lighting_update_corners   = list() // List of lighting corners  queued for update.
-var/list/lighting_update_overlays  = list() // List of lighting overlays queued for update.
-
+GLOBAL_LIST_EMPTY(lighting_update_lights) // List of lighting sources  queued for update.
+GLOBAL_LIST_EMPTY(lighting_update_corners) // List of lighting corners  queued for update.
+GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued for update.
 
 SUBSYSTEM_DEF(lighting)
 	name = "Lighting"
 	wait = 1
 	init_order = INIT_ORDER_LIGHTING
-	priority = SS_PRIORITY_LIGHTING
 	flags = SS_TICKER
 
-	var/list/currentrun_lights
-	var/list/currentrun_corners
-	var/list/currentrun_overlays
-
-	var/initialized = FALSE
-	var/resuming_stage = 0
-
 /datum/controller/subsystem/lighting/stat_entry()
-	..("L:[lighting_update_lights.len]|C:[lighting_update_corners.len]|O:[lighting_update_overlays.len]")
+	..("L:[GLOB.lighting_update_lights.len]|C:[GLOB.lighting_update_corners.len]|O:[GLOB.lighting_update_objects.len]")
 
 
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	if(!initialized)
-		create_all_lighting_overlays()
+		create_all_lighting_objects()
 		initialized = TRUE
+
+	fire(FALSE, TRUE)
 
 	..()
 
-/datum/controller/subsystem/lighting/fire(resumed=FALSE)
-	if (resuming_stage == 0 || !resumed)
-		currentrun_lights   = lighting_update_lights
-		lighting_update_lights   = list()
+/datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
+	MC_SPLIT_TICK_INIT(3)
+	if(!init_tick_checks)
+		MC_SPLIT_TICK
+	var/i = 0
+	for (i in 1 to GLOB.lighting_update_lights.len)
+		var/datum/light_source/L = GLOB.lighting_update_lights[i]
 
-		resuming_stage = STAGE_SOURCES
+		L.update_corners()
 
-	while (currentrun_lights.len)
-		var/datum/light_source/L = currentrun_lights[currentrun_lights.len]
-		currentrun_lights.len--
+		L.needs_update = LIGHTING_NO_UPDATE
 
-		if (L.check() || L.destroyed || L.force_update)
-			L.remove_lum()
-			if (!L.destroyed)
-				L.apply_lum()
+		if(init_tick_checks)
+			CHECK_TICK
+		else if (MC_TICK_CHECK)
+			break
+	if (i)
+		GLOB.lighting_update_lights.Cut(1, i+1)
+		i = 0
 
-		else if (L.vis_update) //We smartly update only tiles that became (in) visible to use.
-			L.smart_vis_update()
+	if(!init_tick_checks)
+		MC_SPLIT_TICK
 
-		L.vis_update   = FALSE
-		L.force_update = FALSE
-		L.needs_update = FALSE
+	for (i in 1 to GLOB.lighting_update_corners.len)
+		var/datum/lighting_corner/C = GLOB.lighting_update_corners[i]
 
-		if (MC_TICK_CHECK)
-			return
-
-	if (resuming_stage == STAGE_SOURCES || !resumed)
-		// PJB left this in, was causing crashes.
-		//if (currentrun_corners && currentrun_corners.len)
-		//	to_chat(world, "we still have corners to do, but we're gonna override them?")
-
-		currentrun_corners  = lighting_update_corners
-		lighting_update_corners  = list()
-
-		resuming_stage = STAGE_CORNERS
-
-	while (currentrun_corners.len)
-		var/datum/lighting_corner/C = currentrun_corners[currentrun_corners.len]
-		currentrun_corners.len--
-
-		C.update_overlays()
+		C.update_objects()
 		C.needs_update = FALSE
-		if (MC_TICK_CHECK)
-			return
+		if(init_tick_checks)
+			CHECK_TICK
+		else if (MC_TICK_CHECK)
+			break
+	if (i)
+		GLOB.lighting_update_corners.Cut(1, i+1)
+		i = 0
 
-	if (resuming_stage == STAGE_CORNERS || !resumed)
-		currentrun_overlays = lighting_update_overlays
-		lighting_update_overlays = list()
 
-		resuming_stage = STAGE_OVERLAYS
+	if(!init_tick_checks)
+		MC_SPLIT_TICK
 
-	while (currentrun_overlays.len)
-		var/atom/movable/lighting_overlay/O = currentrun_overlays[currentrun_overlays.len]
-		currentrun_overlays.len--
+	for (i in 1 to GLOB.lighting_update_objects.len)
+		var/atom/movable/lighting_object/O = GLOB.lighting_update_objects[i]
 
-		O.update_overlay()
+		if (QDELETED(O))
+			continue
+
+		O.update()
 		O.needs_update = FALSE
-		if (MC_TICK_CHECK)
-			return
-
-	resuming_stage = 0
+		if(init_tick_checks)
+			CHECK_TICK
+		else if (MC_TICK_CHECK)
+			break
+	if (i)
+		GLOB.lighting_update_objects.Cut(1, i+1)
 
 
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized
 	..()
+
+
+/datum/controller/subsystem/lighting/proc/initialize_lighting_objects(list/turfs)
+	for(var/turf/T in turfs)
+		if(!IS_DYNAMIC_LIGHTING(T))
+			continue
+		new/atom/movable/lighting_object(T)
+		CHECK_TICK

@@ -116,7 +116,9 @@
 "cl" = (/obj/item/clothing/uniform/chameleon,/turf,/area/debug)
 "cm" = (/turf/wall,/area/debug)
 "cn" = (/mob/living,/turf,/area/debug)
-"co" = (/obj/item/flashlight,/turf,/area/debug)
+"co" = (/obj/item/lighter,/turf,/area/debug)
+"cp" = (/obj/structure/mirror,/turf,/area/debug)
+"cq" = (/obj/radio/transmitter,/turf,/area/debug)
 
 (1,1,1) = {"
 aaabacadaeafagahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah
@@ -160,10 +162,10 @@ cececececececececececececececececececeasasasasasasasasasasasasasasasasasasasasas
 cececececececececececececececececececeasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
-asasasasaschcicjasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
+ascpcpasaschcicjasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasckasclasasasasasascmasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasascnascoasasasasasascmasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
-asasasasasasasasasasasasasascmasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
+asasasasasascqasasasasasasascmasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas
 asasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasas

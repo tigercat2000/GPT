@@ -10,7 +10,6 @@ PROCESSING_SUBSYSTEM_DEF(overlays)
 	currentrun = null
 	var/list/overlay_icon_state_caches
 	var/list/overlay_icon_cache
-	var/initialized = FALSE
 
 /datum/controller/subsystem/processing/overlays/PreInit()
 	LAZYINITLIST(overlay_icon_state_caches)

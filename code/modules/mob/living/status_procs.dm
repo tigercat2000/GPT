@@ -487,6 +487,9 @@ STATUS EFFECTS
 	var/new_value = directional_bounded_sum(GET_VALUE(weakened), amount, bound_lower, bound_upper)
 	SetWeakened(new_value, updating, force)
 
+/mob/living/proc/IsKnockdown()
+	return GET_VALUE(paralysis) || GET_VALUE(sleeping)
+
 /mob/living/update_stat()
 	if(stat != DEAD)
 		if(effects.paralysis || effects.sleeping)

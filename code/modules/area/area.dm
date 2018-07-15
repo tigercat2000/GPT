@@ -13,6 +13,8 @@
 
 /area/New()
 	icon_state = ""
+	if(!IS_DYNAMIC_LIGHTING(src))
+		add_overlay(/obj/effect/fullbright)
 
 /area/Entered(A)
 	. = ..()

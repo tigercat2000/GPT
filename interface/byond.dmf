@@ -141,10 +141,13 @@ window "mainwindow"
 		anchor2 = none
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Dream Seeker"
+		title = "GPT"
 		is-maximized = true
 		macro = "macro"
 		menu = "menu"
+	elem "asset_cache_browser"
+		type = BROWSER
+		is-visible = false		
 	elem "mainvsplit"
 		type = CHILD
 		pos = 3,0
