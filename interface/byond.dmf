@@ -45,6 +45,9 @@ macro "macro"
 		name = "Q"
 		command = ".drop-held"
 	elem 
+		name = "R"
+		command = ".toggle-throw"
+	elem 
 		name = "S+REP"
 		command = ".movedown"
 	elem 

@@ -25,3 +25,4 @@
 	var/list/progressbars
 
 	var/datum/component/storage/active_storage = null
+	var/in_throw_mode = FALSE

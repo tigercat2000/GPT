@@ -190,3 +190,12 @@
 
 /atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
+
+/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
+	return
+	//if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	//	addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
+
+/atom/proc/hitby_react(atom/movable/AM)
+	if(AM && isturf(AM.loc))
+		step(AM, turn(AM.dir, 180))

@@ -71,6 +71,7 @@
 // Subsystem Priority Levels
 #define SS_PRIORITY_GARBAGE 15
 #define SS_PRIORITY_LIGHTING 20
+#define FIRE_PRIORITY_THROWING	25
 #define FIRE_PRIORITY_OVERLAYS	500
 
 // SS runlevels

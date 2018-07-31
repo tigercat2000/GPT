@@ -112,3 +112,6 @@
 //Checks before we get to here are: mob is alive, mob is not restrained, stunned, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
 	attack_self(user)
+
+/obj/item/proc/override_throw(mob/user, target)
+	return FALSE

@@ -5,6 +5,7 @@
 #define ui_w_shoes	"WEST + 1,SOUTH:5"
 #define ui_w_backpack	"WEST + 2,SOUTH:5"
 #define ui_drop		"CENTER + 1:12,SOUTH:5"
+#define ui_throw	"CENTER - 1:-14,SOUTH:5"
 #define ui_mov_sel	"EAST:-5,SOUTH:5"
 
 #define ui_alert1 "EAST-1:28,CENTER+4:27"

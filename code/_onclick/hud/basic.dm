@@ -13,6 +13,10 @@
 	using = new /obj/screen/drop()
 	static_inventory += using
 
+	using = new /obj/screen/throw()
+	static_inventory += using
+	throw_button = using
+
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src

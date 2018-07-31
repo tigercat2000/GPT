@@ -60,6 +60,13 @@
 	adjust_position()
 	START_PROCESSING(SSobj, src)
 
+
+/obj/item/weapon/grab/override_throw(mob/user, target)
+	if(affecting && user.Adjacent(affecting))
+		if(state >= GRAB_AGGRESSIVE)
+			user.__throw(target, affecting)
+	return TRUE
+
 //Used by throw code to hand over the mob, instead of throwing the grab. The grab is then deleted by the throw code.
 /obj/item/weapon/grab/proc/get_mob_if_throwable()
 	if(affecting && assailant.Adjacent(affecting))

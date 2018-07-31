@@ -37,3 +37,37 @@
 
 /mob/proc/can_interact_with(atom/A)
 	return Adjacent(A)
+
+/mob/proc/throw_mode_off()
+	in_throw_mode = FALSE
+	if(hud_used && hud_used.throw_button)
+		hud_used.throw_button.update_icon(src)
+
+/mob/proc/throw_mode_on()
+	in_throw_mode = TRUE
+	if(hud_used && hud_used.throw_button)
+		hud_used.throw_button.update_icon(src)
+
+/mob/proc/throw_item(atom/target)
+	if(!target || !isturf(loc) || istype(target, /obj/screen))
+		return
+
+	var/obj/item/I = get_active_hand()
+
+	if(!I || I.override_throw(src, target) || (I.item_flags & NODROP))
+		throw_mode_off()
+		return
+
+	throw_mode_off()
+	var/atom/movable/thrown_thing
+	if(TRUE) //!(I.item_flags & ABSTRACT))
+		thrown_thing = I
+		if(!unEquip(I))
+			to_chat(src, "<span class='danger'>[I] is stuck to your hand!</span>")
+			return
+	__throw(target, thrown_thing)
+
+/mob/proc/__throw(atom/target, atom/movable/thrown_thing)
+	if(thrown_thing)
+		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)

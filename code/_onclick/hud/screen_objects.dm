@@ -38,6 +38,25 @@
 /obj/screen/drop/Click(location, control, params)
 	usr.drop_hand()
 
+/obj/screen/throw
+	name = "throw item"
+	screen_loc = ui_throw
+
+	icon_state = "throw_off"
+
+/obj/screen/throw/Click(location, control, params)
+	if(usr.in_throw_mode)
+		usr.throw_mode_off()
+	else
+		usr.throw_mode_on()
+
+/obj/screen/throw/update_icon(mob/user)
+	if(istype(user))
+		if(user.in_throw_mode)
+			icon_state = "throw_on"
+		else
+			icon_state = "throw_off"
+
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 	layer = HUD_LAYER

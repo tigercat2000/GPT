@@ -13,6 +13,7 @@
 
 	//special screen objects
 	var/obj/screen/action_intent
+	var/obj/screen/throw/throw_button
 
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden

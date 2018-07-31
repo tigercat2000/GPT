@@ -20,9 +20,9 @@
 	if(next_move > world.time)
 		return
 
-	/*if(in_throw_mode)
+	if(in_throw_mode)
 		throw_item(A)
-		return*/
+		return
 
 	var/obj/item/W = get_active_hand()
 

@@ -157,3 +157,8 @@
 //Ouch my toes!
 #define CALTROP_BYPASS_SHOES 1
 #define CALTROP_IGNORE_WALKERS 2
+
+#define COMSIG_MOVABLE_BUMP "movable_bump"	//from base of atom/movable/Bump(): (/atom)
+#define COMSIG_MOVABLE_PRE_THROW "movable_pre_throw"			//from base of atom/movable/throw_at(): (list/args)
+	#define COMPONENT_CANCEL_THROW 1
+#define COMSIG_MOVABLE_POST_THROW "movable_post_throw"	//from base of atom/movable/throw_at(): (datum/thrownthing, spin)

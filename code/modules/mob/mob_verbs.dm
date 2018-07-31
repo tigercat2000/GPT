@@ -55,6 +55,16 @@
 
 	drop_hand()
 
+/mob/verb/throw_toggle()
+	set name = ".toggle-throw"
+	set category = null
+	set src = usr
+
+	if(in_throw_mode)
+		throw_mode_off()
+	else
+		throw_mode_on()
+
 /mob/verb/swap_hand_verb()
 	set name = ".swap-hands"
 	set category = null
