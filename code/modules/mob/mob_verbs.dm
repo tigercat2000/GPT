@@ -26,6 +26,7 @@
 		stop_pulling()
 	src.pulling = AM
 	AM.pulledby = src
+	throw_alert("pulling", /obj/screen/alert/pulling)
 
 /mob/verb/stop_pulling()
 	set name = "Stop Pulling"
@@ -34,6 +35,7 @@
 	if(pulling)
 		pulling.pulledby = null
 		pulling = null
+	clear_alert("pulling")
 
 /mob/verb/activate_held_item()
 	set name = "Activate Held Object"

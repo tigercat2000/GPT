@@ -542,6 +542,16 @@ so as to remain in compliance with the most up-to-date laws."
 			G.ManualFollow(target)
 */
 //OBJECT-BASED
+/obj/screen/alert/pulling
+	name = "Pulling"
+	desc = "You're pulling something. Click the alert to stop doing that."
+	icon_state = "pulling"
+
+/obj/screen/alert/pulling/Click()
+	var/mob/M = usr
+	if(!istype(M))
+		return
+	M.stop_pulling()
 
 /obj/screen/alert/restrained/buckled
 	name = "Buckled"
