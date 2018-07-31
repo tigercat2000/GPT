@@ -13,3 +13,8 @@
 
 	var/obj/item/clothing/shoes/black/B = new
 	equip_to_slot(B, INV_W_SHOES, disable_warning = TRUE)
+
+/mob/living/Move(atom/newloc, direct)
+	. = ..()
+	if(active_storage && !(CanReach(active_storage.parent, view_only = TRUE)))
+		active_storage.close(src)

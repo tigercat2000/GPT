@@ -23,3 +23,5 @@
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 	var/list/progressbars
+
+	var/datum/component/storage/active_storage = null

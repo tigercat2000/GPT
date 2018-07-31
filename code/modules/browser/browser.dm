@@ -173,5 +173,3 @@
 			src.Topic("close=1", list("close"="1"), hsrc)	// this will direct to the atom's
 			return										// Topic() proc via client.Topic()
 
-
-/obj/proc/interact(mob/user)

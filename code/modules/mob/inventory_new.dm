@@ -5,6 +5,7 @@ var/const
 
 	INV_W_UNIFORM = "w_uniform"
 	INV_W_SHOES = "w_shoes"
+	INV_W_BACKPACK = "w_backpack"
 
 /datum/inventory_slot
 	var/name
@@ -125,6 +126,17 @@ var/const
 
 	overlay_layer = SHOES_LAYER
 	overlay_default_icon = 'icons/mob/onmob/feet.dmi'
+
+/datum/inventory_slot/wear_backpack
+	name = "Backpack"
+	slot_id = INV_W_BACKPACK
+
+	hud_type = /obj/screen/inventory
+	hud_position = ui_w_backpack
+	hud_icon_state = "back"
+
+	overlay_layer = BACK_LAYER
+	overlay_default_icon = 'icons/mob/onmob/back.dmi'
 
 /mob/proc/initialize_inventory()
 	if(inventory.len > 0)
@@ -266,11 +278,11 @@ var/const
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
 		return TRUE
-	if((I.flags_1 & NODROP_f1) && !force)
+	if((I.item_flags & NODROP) && !force)
 		return FALSE
 	return TRUE
 
-/mob/proc/unEquip(obj/item/I, force)
+/mob/proc/unEquip(obj/item/I, force, newloc = loc, no_move)
 	if(!canUnEquip(I, force))
 		return FALSE
 
@@ -280,7 +292,12 @@ var/const
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(loc)
+		
+		if(!no_move)
+			if(isnull(newloc))
+				I.moveToNullspace()
+			else
+				I.forceMove(newloc)
 		I.dropped(src)
 		if(I) // dropped() might delete the item
 			I.layer = initial(I.layer)
@@ -288,3 +305,6 @@ var/const
 
 	update_slot(S.slot_id)
 	return TRUE
+
+/mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE)
+	return unEquip(I, force, null, TRUE)

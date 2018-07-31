@@ -2,6 +2,7 @@
 	var/gc_destroyed //Time when this object was destroyed.
 	var/list/active_timers //for SStimer
 	var/list/datum_components //for /datum/components
+	var/list/comp_lookup //for /datum/components
 
 // Default implementation of clean-up code.
 // This should be overridden to remove all references pointing to the object being destroyed.
@@ -18,14 +19,26 @@
 	var/list/dc = datum_components
 	if(dc)
 		var/all_components = dc[/datum/component]
-		if(islist(all_components))
+		if(length(all_components))
 			for(var/I in all_components)
 				var/datum/component/C = I
-				C._RemoveNoSignal()
-				qdel(C)
+				qdel(C, FALSE, TRUE)
 		else
 			var/datum/component/C = all_components
-			C._RemoveNoSignal()
-			qdel(C)
+			qdel(C, FALSE, TRUE)
 		dc.Cut()
+
+	var/list/lookup = comp_lookup
+	if(lookup)
+		for(var/sig in lookup)
+			var/list/comps = lookup[sig]
+			if(length(comps))
+				for(var/i in comps)
+					var/datum/component/comp = i
+					comp.UnregisterSignal(src, sig)
+			else
+				var/datum/component/comp = comps
+				comp.UnregisterSignal(src, sig)
+		comp_lookup = lookup = null
+
 	return QDEL_HINT_QUEUE

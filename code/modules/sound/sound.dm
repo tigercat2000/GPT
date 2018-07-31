@@ -81,4 +81,6 @@ var/const/FALLOFF_SOUNDS = 0.5
 		switch(soundin)
 			if("bodyfall")
 				soundin = pick('sound/effects/bodyfall1.ogg','sound/effects/bodyfall2.ogg','sound/effects/bodyfall3.ogg','sound/effects/bodyfall4.ogg')
+			if("rustle")
+				soundin = pick('sound/effects/rustle1.ogg','sound/effects/rustle2.ogg','sound/effects/rustle3.ogg','sound/effects/rustle4.ogg','sound/effects/rustle5.ogg')
 	return soundin

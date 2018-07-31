@@ -16,15 +16,19 @@
 	. = ..()
 
 /atom/movable/Destroy()
+	//unbuckle_all_mobs(force=1)
+
+	. = ..()
+	if(loc)
+		loc.handle_atom_del(src)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	loc = null
+
+	moveToNullspace()
+	
 	if(pulledby)
-		if(pulledby.pulling == src)
-			pulledby.pulling = null
-		pulledby = null
-	..()
-	return QDEL_HINT_QUEUE
+		pulledby.stop_pulling()
 
 /*** MOVEMENT ***/
 
@@ -94,5 +98,14 @@
 
 //Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir)
-	SendSignal(COMSIG_MOVABLE_MOVED, OldLoc, Dir)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir)
 	return 1
+
+
+// called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
+/atom/movable/proc/on_exit_storage(datum/component/storage/concrete/S)
+	return
+
+// called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
+/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S)
+	return

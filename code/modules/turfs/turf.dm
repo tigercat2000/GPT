@@ -80,7 +80,7 @@
 
 	W.post_change()
 	. = W
-	SendSignal(COMSIG_TURF_CHANGED, W)
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGED, W)
 
 	lighting_corners_initialised = TRUE
 	recalc_atom_opacity()

@@ -20,13 +20,16 @@
 	var/mob/owner
 
 /datum/action/New(Target)
-	target = Target
+	link_to(Target)
 	button = new
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
 	if(desc)
 		button.desc = desc
+
+/datum/action/proc/link_to(Target)
+	target = Target
 
 /datum/action/Destroy()
 	if(owner)
@@ -367,3 +370,5 @@
 		var/datum/language_holder/H = M.get_language_holder()
 		H.open_language_menu(usr)*/
 
+/datum/action/item_action/storage_gather_mode
+	// todo

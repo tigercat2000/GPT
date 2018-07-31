@@ -3,6 +3,7 @@
 #define ui_store	"CENTER + 2,SOUTH:5"
 #define ui_w_uniform	"WEST + 1,SOUTH + 1:5"
 #define ui_w_shoes	"WEST + 1,SOUTH:5"
+#define ui_w_backpack	"WEST + 2,SOUTH:5"
 #define ui_drop		"CENTER + 1:12,SOUTH:5"
 #define ui_mov_sel	"EAST:-5,SOUTH:5"
 

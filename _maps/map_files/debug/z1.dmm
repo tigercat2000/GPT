@@ -113,7 +113,7 @@
 "ci" = (/obj/landmark/start,/turf,/area/debug)
 "cj" = (/obj/item/debugger,/turf,/area/debug)
 "ck" = (/obj/structure/rack/special,/turf,/area/debug)
-"cl" = (/obj/item/clothing/uniform/chameleon,/turf,/area/debug)
+"cl" = (/obj/item/clothing/uniform/chameleon,/obj/item/storage/bag,/turf,/area/debug)
 "cm" = (/turf/wall,/area/debug)
 "cn" = (/mob/living,/turf,/area/debug)
 "co" = (/obj/item/lighter,/turf,/area/debug)

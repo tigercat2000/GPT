@@ -19,6 +19,9 @@
 	var/icon/alternate_worn_icon = null//If this is set, update_icons() will find on mob (WORN, NOT INHANDS) states in this file instead, primary use: badminnery/events
 	var/alternate_worn_layer = null//If this is set, update_icons() will force the on mob state (WORN, NOT INHANDS) onto this layer, instead of it's default
 
+	var/w_class = WEIGHT_CLASS_NORMAL
+	var/item_flags = NONE
+
 	var/list/actions //list of /datum/action's that this item has.
 	var/list/actions_types //list of paths of action datums to give to the item on New().
 
@@ -42,10 +45,20 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
+	if(item_flags & DROPDEL)
+		qdel(src)
+	item_flags &= ~IN_INVENTORY
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	return 0
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
+	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	item_flags |= IN_INVENTORY
+	return
+
+// called when "found" in pockets and storage items. Returns 1 if the search should end.
+/obj/item/proc/on_found(mob/finder)
 	return
 
 // called after an item is placed in an equipment slot
@@ -65,15 +78,34 @@
 	return TRUE
 
 /obj/item/attack_hand(mob/user)
-	if(!istype(user))
-		return 0
+	. = ..()
+	if(.)
+		return
+	if(!user)
+		return
+	if(anchored)
+		return
+
+	// Storage components
+	SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user.loc, TRUE)
+
+	/*if(throwing)
+		throwing.finalize(FALSE)*/
 
 	if(loc == user)
 		if(!user.unEquip(src))
 			return 0
 
 	pickup(user)
-	user.put_in_active_hand(src)
+	if(!user.put_in_active_hand(src))
+		dropped(user)
+
+/obj/item/proc/remove_item_from_storage(atom/newLoc)
+	if(!newLoc)
+		return FALSE
+	if(SEND_SIGNAL(loc, COMSIG_CONTAINS_STORAGE))
+		return SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, newLoc, TRUE)
+	return FALSE
 
 //This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().

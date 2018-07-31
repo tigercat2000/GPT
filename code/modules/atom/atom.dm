@@ -9,9 +9,11 @@
 		- Nodrop
 		- Overlay Processing
 	*/
-	var/flags_1 = 0
+	var/flags_1 = NONE
 	/* flags_2: Currently used for (nothing)*/
-	var/flags_2 = 0
+	var/flags_2 = NONE
+
+	var/interaction_flags_atom = NONE
 
 	plane = GAME_PLANE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -81,10 +83,17 @@
 	if(opacity && isturf(loc))
 		var/turf/T = loc
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
+
+	ComponentInitialize()
+
 	return INITIALIZE_HINT_NORMAL
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
+	return
+
+// Put your AddComponent() calls here
+/atom/proc/ComponentInitialize()
 	return
 
 /atom/Destroy()
@@ -139,3 +148,45 @@
 
 /atom/proc/relaymove(mob/M, direct)
 	return
+
+/atom/proc/drop_location()
+	var/atom/L = loc
+	if(!L)
+		return null
+	return L.AllowDrop() ? L : get_turf(L)
+
+/atom/Entered(atom/movable/AM, atom/oldLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
+
+/atom/Exited(atom/movable/AM, atom/newLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+
+/atom/proc/handle_atom_del(atom/A)
+	SEND_SIGNAL(src, COMSIG_ATOM_CONTENTS_DEL, A)
+
+/atom/proc/AllowDrop()
+	return FALSE
+
+
+/atom/proc/storage_contents_dump_act(obj/item/storage/src_object, mob/user)
+	if(GetComponent(/datum/component/storage))
+		return component_storage_contents_dump_act(src_object, user)
+	return FALSE
+
+/atom/proc/component_storage_contents_dump_act(datum/component/storage/src_object, mob/user)
+	var/list/things = src_object.contents()
+	var/datum/progressbar/progress = new(user, things.len, src)
+	GET_COMPONENT(STR, /datum/component/storage)
+	while (do_after(user, 10, TRUE, src, FALSE, CALLBACK(STR, /datum/component/storage.proc/handle_mass_item_insertion, things, src_object, user, progress)))
+		stoplag(1)
+	qdel(progress)
+	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
+	STR.orient2hud(user)
+	src_object.orient2hud(user)
+	if(user.active_storage) //refresh the HUD to show the transfered contents
+		user.active_storage.close(user)
+		user.active_storage.show_to(user)
+	return TRUE
+
+/atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
+	return null

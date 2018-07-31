@@ -34,3 +34,6 @@
 	switch(var_name)
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+/mob/proc/can_interact_with(atom/A)
+	return Adjacent(A)

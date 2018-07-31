@@ -97,3 +97,42 @@
 	var/obj/item/weapon/grab/G = master
 	G.s_click(src)
 	return 1
+
+/obj/screen/close
+	name = "close"
+	layer = ABOVE_HUD_LAYER
+	plane = ABOVE_HUD_PLANE
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "backpack_close"
+
+/obj/screen/close/Initialize(mapload, new_master)
+	. = ..()
+	master = new_master
+
+/obj/screen/close/Click()
+	var/datum/component/storage/S = master
+	S.hide_from(usr)
+	return TRUE
+
+/obj/screen/storage
+	name = "storage"
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "block"
+	screen_loc = "7,7 to 10,8"
+	layer = HUD_LAYER
+	plane = HUD_PLANE
+
+/obj/screen/storage/Initialize(mapload, new_master)
+	. = ..()
+	master = new_master
+
+/obj/screen/storage/Click(location, control, params)
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.stat) // todo
+		return TRUE
+	if(master)
+		var/obj/item/I = usr.get_active_hand()
+		if(I)
+			master.attackby(I, usr, params)
+	return TRUE
