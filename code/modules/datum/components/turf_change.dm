@@ -3,7 +3,7 @@
 
 /datum/component/turfchange/Initialize(turf/T)
 	myturf = T
-	RegisterSignal(list(COMSIG_TURF_CHANGED), .proc/callback)
+	RegisterSignal(T, list(COMSIG_TURF_CHANGED), .proc/callback)
 
 /datum/component/turfchange/proc/callback()
 	myturf.update_icon()
