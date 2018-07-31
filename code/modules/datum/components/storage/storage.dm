@@ -41,6 +41,13 @@
 
 	var/obj/screen/storage/boxes					//storage display object
 	var/obj/screen/close/closer						//close button object
+	// Space_orient
+	var/obj/screen/storage/storage_start = null //storage UI
+	var/obj/screen/storage/storage_continue = null
+	var/obj/screen/storage/storage_end = null
+	var/obj/screen/storage/stored_start = null
+	var/obj/screen/storage/stored_continue = null
+	var/obj/screen/storage/stored_end = null
 
 	var/allow_big_nesting = FALSE					//allow storage objects of the same or greater size.
 
@@ -58,13 +65,15 @@
 	var/screen_start_y = 2
 	//End
 
+	// For legacy slots display
+	var/use_slots_display = FALSE
+
 /datum/component/storage/Initialize(datum/component/storage/concrete/master)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(master)
 		change_master(master)
-	boxes = new(null, src)
-	closer = new(null, src)
+	create_hud_elements()
 	orient2hud()
 
 	RegisterSignal(parent, COMSIG_CONTAINS_STORAGE, .proc/on_check)
@@ -102,10 +111,40 @@
 
 	update_actions()
 
+/datum/component/storage/proc/create_hud_elements()
+	boxes = new(null, src)
+	closer = new(null, src)
+	
+	storage_start = new(null, src)
+	storage_start.icon_state = "storage_start"
+	storage_continue = new(null, src)
+	storage_continue.icon_state = "storage_continue"
+	storage_end = new(null, src)
+	storage_end.icon_state = "storage_end"
+
+	stored_start = new /obj
+	stored_start.icon = 'icons/mob/screen_gen.dmi'
+	stored_start.icon_state = "stored_start"
+	stored_continue = new /obj
+	stored_continue.icon = 'icons/mob/screen_gen.dmi'
+	stored_continue.icon_state = "stored_continue"
+	stored_end = new /obj
+	stored_end.icon = 'icons/mob/screen_gen.dmi'
+	stored_end.icon_state = "stored_end"
+
 /datum/component/storage/Destroy()
 	close_all()
+	// Slots display
 	QDEL_NULL(boxes)
 	QDEL_NULL(closer)
+	// Space display
+	QDEL_NULL(storage_start)
+	QDEL_NULL(storage_continue)
+	QDEL_NULL(storage_end)
+	QDEL_NULL(stored_start)
+	QDEL_NULL(stored_continue)
+	QDEL_NULL(stored_end)
+
 	LAZYCLEARLIST(is_using)
 	return ..()
 
@@ -291,9 +330,13 @@
 		numbered_contents = _process_numerical_display()
 		adjusted_contents = numbered_contents.len
 
-	var/columns = CLAMP(max_items, 1, screen_max_columns)
-	var/rows = CLAMP(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
-	standard_orient_objs(rows, columns, numbered_contents)
+	if(use_slots_display)
+		var/columns = CLAMP(max_items, 1, screen_max_columns)
+		var/rows = CLAMP(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
+		standard_orient_objs(rows, columns, numbered_contents)
+		return
+
+	space_orient_objs(numbered_contents)
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /datum/component/storage/proc/standard_orient_objs(rows, cols, list/obj/item/numerical_display_contents)
@@ -332,6 +375,59 @@
 					break
 	closer.screen_loc = "[screen_start_x + cols]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y]"
 
+/datum/component/storage/proc/space_orient_objs(list/obj/item/display_contents)
+	var/baseline_max_combined_w_class = STANDARD_INVENTORY_SPACE / 2 //should be equal to default backpack capacity // This is a lie.
+	// Above var is misleading, what it does upon changing is makes smaller inventory sizes have smaller space on the UI.
+	// It's cut in half because otherwise boxes of IDs and other tiny items are unbearably cluttered.
+
+	var/storage_cap_width = 2 //length of sprite for start and end of the box representing total storage space
+	var/stored_cap_width = 4 //length of sprite for start and end of the box representing the stored item
+	// ORIGINAL 
+	//var/storage_width = min(round(224 * max_combined_w_class/baseline_max_combined_w_class, 1), 274) //length of sprite for the box representing total storage space
+	// TWEAKED FOR view=5
+	var/storage_width = min(round(160 * max_combined_w_class/baseline_max_combined_w_class, 1), 174) //length of sprite for the box representing total storage space
+
+	storage_start.overlays.Cut()
+
+	var/matrix/M = matrix()
+	M.Scale((storage_width-storage_cap_width*2+3)/32,1)
+	storage_continue.transform = M
+
+	storage_start.screen_loc = "4:16,2:16"
+	storage_continue.screen_loc = "4:[storage_cap_width+(storage_width-storage_cap_width*2)/2+2],2:16"
+	storage_end.screen_loc = "4:[19+storage_width-storage_cap_width],2:16"
+
+	var/startpoint = 0
+	var/endpoint = 1
+
+	var/atom/real_location = real_location()
+	for(var/obj/item/I in real_location)
+		startpoint = endpoint + 1
+		endpoint += storage_width * I.w_class / max_combined_w_class
+
+		var/matrix/M_start = matrix()
+		var/matrix/M_continue = matrix()
+		var/matrix/M_end = matrix()
+		M_start.Translate(startpoint,0)
+		M_continue.Scale((endpoint-startpoint-stored_cap_width*2)/32,1)
+		M_continue.Translate(startpoint+stored_cap_width+(endpoint-startpoint-stored_cap_width*2)/2 - 16,0)
+		M_end.Translate(endpoint-stored_cap_width,0)
+		stored_start.transform = M_start
+		stored_continue.transform = M_continue
+		stored_end.transform = M_end
+		storage_start.overlays += stored_start
+		storage_start.overlays += stored_continue
+		storage_start.overlays += stored_end
+
+		I.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
+		I.screen_loc = "4:[round((startpoint+endpoint)/2)+2],2:16"
+		I.maptext = ""
+		I.layer = ABOVE_HUD_LAYER
+		I.plane = ABOVE_HUD_PLANE
+
+	closer.screen_loc = "4:[storage_width+19],2:16"
+
+
 /datum/component/storage/proc/show_to(mob/M)
 	if(!M.client)
 		return FALSE
@@ -343,20 +439,45 @@
 	if(M.active_storage)
 		M.active_storage.hide_from(M)
 	orient2hud()
-	M.client.screen |= boxes
-	M.client.screen |= closer
-	M.client.screen |= real_location.contents
+	apply_screen(M, real_location)
 	M.active_storage = src
 	LAZYOR(is_using, M)
 	return TRUE
+
+/datum/component/storage/proc/apply_screen(mob/M, atom/real_location)
+	// Remove both-display items
+	M.client.screen -= closer
+	M.client.screen -= real_location.contents
+	// Remove slots display
+	M.client.screen -= boxes
+	// Remove space display
+	M.client.screen -= storage_start
+	M.client.screen -= storage_continue
+	M.client.screen -= storage_end
+
+	// Add combined
+	M.client.screen += closer
+	M.client.screen += real_location.contents
+	if(use_slots_display)
+		M.client.screen += boxes
+	else
+		M.client.screen += storage_start
+		M.client.screen += storage_continue
+		M.client.screen += storage_end
 
 /datum/component/storage/proc/hide_from(mob/M)
 	if(!M.client)
 		return TRUE
 	var/atom/real_location = real_location()
-	M.client.screen -= boxes
+	// Remove both-display items
 	M.client.screen -= closer
 	M.client.screen -= real_location.contents
+	// Remove slots display
+	M.client.screen -= boxes
+	// Remove space display
+	M.client.screen -= storage_start
+	M.client.screen -= storage_continue
+	M.client.screen -= storage_end
 	if(M.active_storage == src)
 		M.active_storage = null
 	LAZYREMOVE(is_using, M)

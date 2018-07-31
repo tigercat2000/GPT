@@ -15,6 +15,9 @@
 #define WEIGHT_CLASS_HUGE     5 //Usually represents objects that require two hands to operate, ex: Shotgun, Two Handed Melee Weapons
 #define WEIGHT_CLASS_GIGANTIC 6 //Essentially means it cannot be picked up or placed in an inventory, ex: Mech Parts, Safe
 
+// Standard max_w_class defines for storage
+#define STANDARD_INVENTORY_SPACE 21
+
 //Inventory depth: limits how many nested storage items you can access directly.
 //1: stuff in mob, 2: stuff in backpack, 3: stuff in box in backpack, etc
 #define INVENTORY_DEPTH		3
