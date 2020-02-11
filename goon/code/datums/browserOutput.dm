@@ -233,4 +233,4 @@ var/to_chat_src
 				return
 
 
-		target << output(url_encode(message), "browseroutput:output")
+		target << output(url_encode(url_encode(message)), "browseroutput:output")

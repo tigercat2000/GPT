@@ -247,7 +247,8 @@
 		return
 
 /obj/item/weapon/grab/dropped()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/weapon/grab/Destroy()
 	if(affecting)

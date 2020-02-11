@@ -40,6 +40,7 @@
 	var/tmp/emotePend = 0						// If there's already a spawned thing counting for the next emote
 	var/tmp/list/items_preserved = list()		// Stuff that wont digest.
 	var/tmp/list/checked_slots = list()			// Checked gear slots for strip digest.
+	var/list/alerts = list()				// Alerts for digesting
 	var/list/slots = list() //todo
 
 
@@ -274,6 +275,9 @@
 	for(var/obj/item/W in M)
 		M.unEquip(W, force = 1)
 		internal_contents += W
+
+	// Clear alerts
+	owner.clear_alert("digestion_[M.name]", clear_override = TRUE)
 
 	// Delete the digested mob
 	qdel(M)

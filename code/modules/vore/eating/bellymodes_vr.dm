@@ -32,7 +32,27 @@ var/macro_to_proc_mapping = list(
 		if(M.absorbed)
 			M.Weaken(5)
 
+	handle_screenalerts()
 	call(src, macro_to_proc_mapping[digest_mode])()
+
+/datum/belly/proc/handle_screenalerts()
+	switch(digest_mode)
+		if(DM_DIGEST, DM_DIGEST_NUMB, DM_ITEMWEAK, DM_ABSORB, DM_DRAIN, DM_SHRINK, DM_GROW, DM_SIZE_STEAL)
+			for(var/mob/living/L in internal_contents)
+				if(!L.absorbed)
+					var/obj/screen/alert/digestion/D = owner.throw_alert("digestion_[L.name]", /obj/screen/alert/digestion, override = TRUE)
+					if(istype(D))
+						alerts += "digestion_[L.name]"
+						D.set_target(L, owner)
+		else
+			for(var/A in alerts)
+				owner.clear_alert(A, clear_override = TRUE)
+				to_chat(owner, "owner.clear_alert([A])")
+				alerts -= A
+		//owner.clear_alert("digestion_[M.name]")
+		//var/obj/screen/alert/digestion/D = owner.throw_alert("digestion_[M.name]", /obj/screen/alert/digestion)
+		//if(istype(D))
+		//	D.set_target(M, owner)
 
 
 /*** DM_HOLD ***/

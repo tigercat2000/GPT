@@ -583,6 +583,18 @@ so as to remain in compliance with the most up-to-date laws."
 	if(L.last_special <= world.time)
 		return L.resist_buckle()
 */
+/* VORE ALERTS */
+/obj/screen/alert/digestion
+	name = "Digestion"
+	desc = "You're digesting someone."
+	var/category_name = ""
+
+/obj/screen/alert/digestion/proc/set_target(var/mob/living/prey, var/mob/living/pred)
+	desc = "You're digesting [prey]."
+	category_name = "digestion_[prey.name]"
+
+	
+
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
