@@ -6,7 +6,7 @@
 	var/allow_pissy = 0
 
 /mob/syndie/hear_say(var/formatted_message, var/mob/speaker)
-	if(speaker.type == /mob && allow_pissy)
+	if(istype(speaker, /mob/living) && speaker != src && allow_pissy)
 		spawn(2) //to make their text appear AFTER the mob's text
 			face_atom(speaker)
 			say("Shutup, Subject [speaker], or I will be forced to terminate you.")

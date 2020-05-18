@@ -49,6 +49,7 @@ var/cinematic_playing = 0
 	sleep(get_dist(syndicate_position, synd_walk) * 7)
 	M.face_atom(pick(players))
 	sleep(ARBITRARY_CINE_DELAY)
+	M.allow_pissy = 1
 	M.say("Oh. Hello there.")
 
 	sleep(ARBITRARY_CINE_DELAY)
@@ -78,7 +79,6 @@ var/cinematic_playing = 0
 	sci.say("According to my list, we have [scitext].")
 	sci.face_atom(pick(players))
 	M.face_atom(pick(players))
-	M.allow_pissy = 1
 	sleep(ARBITRARY_CINE_DELAY)
 	sci.say("[players.len==1?"They":"These"] will do quite nicely, don't you think?")
 	sci.face_atom(M)

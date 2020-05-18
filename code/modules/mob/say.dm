@@ -15,7 +15,9 @@
 	say_broadcast(formatted_message)
 
 /mob/proc/say_broadcast(formatted_message)
-	return 0
+	for(var/mob/M in hearers(world.view, src))
+		M.hear_say(formatted_message, src)
+	return 1
 
 /mob/proc/hear_say(formatted_message, mob/speaker)
 	to_chat(src, formatted_message)
