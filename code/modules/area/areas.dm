@@ -13,3 +13,6 @@
 /area/debug/lit
 	dynamic_lighting = 1
 	icon_state = "debuglit"
+
+/area/space
+	name = "spess"

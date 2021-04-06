@@ -1,6 +1,7 @@
 #define TOPIC_SPAM_DELAY 2
 
 /client
+	fps = 90
 	parent_type = /datum
 
 	var/ambience_played = 0
@@ -124,7 +125,12 @@
 	set category = "Preferences"
 	set_dir(NORTH)
 
+/client/var/tmp/dirtimer = null
 /client/proc/set_dir(newdir)
+	if(dirtimer != null)
+		deltimer(dirtimer)
+		dirtimer=null
+		mob.clear_fullscreen("client_dir_rotation", 0)
 	var/obj/screen/fullscreen/F = mob.overlay_fullscreen("client_dir_rotation", /obj/screen/fullscreen/dirchange, 1)
 
 	var/const/spintime = 10
@@ -144,10 +150,8 @@
 		animate(F, transform = M, time = spintime/2)
 		animate(transform = null, time = spintime/2)
 
-	spawn(1)
-		dir = newdir
-	spawn(spintime)
-		mob.clear_fullscreen("client_dir_rotation")
+	dir = newdir
+	dirtimer = addtimer(CALLBACK(mob, /mob/proc/clear_fullscreen, "client_dir_rotation"), spintime, TIMER_STOPPABLE)
 
 
 // FPS

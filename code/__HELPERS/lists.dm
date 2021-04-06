@@ -101,6 +101,9 @@
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
+///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)
+#define LAZYADDASSOCLIST(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+#define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
 
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
@@ -238,3 +241,71 @@
 		var/atom/A = thing
 		if(typecache_include[A.type] && !typecache_exclude[A.type])
 			. += A
+
+//Copies a list, and all lists inside it recusively
+//Does not copy any other reference type
+/proc/deepCopyList(list/l)
+	if(!islist(l))
+		return l
+	. = l.Copy()
+	for(var/i = 1 to l.len)
+		var/key = .[i]
+		if(isnum(key))
+			// numbers cannot ever be associative keys
+			continue
+		var/value = .[key]
+		if(islist(value))
+			value = deepCopyList(value)
+			.[key] = value
+		if(islist(key))
+			key = deepCopyList(key)
+			.[i] = key
+			.[key] = value
+
+
+//Picks a random element from a list based on a weighting system:
+//1. Adds up the total of weights for each element
+//2. Gets a number between 1 and that total
+//3. For each element in the list, subtracts its weighting from that number
+//4. If that makes the number 0 or less, return that element.
+//Will output null sometimes if you use decimals (e.g. 0.1 instead of 10) as rand() uses integers, not floats
+/proc/pickweight(list/L)
+	var/total = 0
+	var/item
+	for (item in L)
+		if (!L[item])
+			L[item] = 1
+		total += L[item]
+
+	total = rand(1, total)
+	for (item in L)
+		total -=L [item]
+		if (total <= 0)
+			return item
+
+	return null
+
+/proc/pickweightAllowZero(list/L) //The original pickweight proc will sometimes pick entries with zero weight.  I'm not sure if changing the original will break anything, so I left it be.
+	var/total = 0
+	var/item
+	for (item in L)
+		if (!L[item])
+			L[item] = 0
+		total += L[item]
+
+	total = rand(0, total)
+	for (item in L)
+		total -=L [item]
+		if (total <= 0 && L[item])
+			return item
+
+	return null
+
+
+/// Pick a random element from the list and remove it from the list.
+/proc/pick_n_take(list/L)
+	RETURN_TYPE(L[_].type)
+	if(L.len)
+		var/picked = rand(1,L.len)
+		. = L[picked]
+		L.Cut(picked,picked+1) //Cut is far more efficient that Remove()

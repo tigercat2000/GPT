@@ -153,5 +153,5 @@
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			master.attackby(I, usr, params)
+			master.attackby(src, I, usr, params)
 	return TRUE

@@ -21,6 +21,7 @@
 
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/item_flags = NONE
+	var/reach = 1
 
 	var/list/actions //list of /datum/action's that this item has.
 	var/list/actions_types //list of paths of action datums to give to the item on New().

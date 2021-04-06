@@ -56,3 +56,37 @@
 #define MOUSE_OPACITY_TRANSPARENT 0
 #define MOUSE_OPACITY_ICON 1
 #define MOUSE_OPACITY_OPAQUE 2
+
+// Maploader bounds indices
+#define MAP_MINX 1
+#define MAP_MINY 2
+#define MAP_MINZ 3
+#define MAP_MAXX 4
+#define MAP_MAXY 5
+#define MAP_MAXZ 6
+
+//Force the log directory to be something specific in the data/logs folder
+#define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
+//Prevent the master controller from starting automatically
+#define NO_INIT_PARAMETER "no-init"
+//Force the config directory to be something other than "config"
+#define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
+
+#define TRANSITIONEDGE 7 //Distance from edge to move to another z-level
+
+#define TEXT_NORTH "[NORTH]"
+#define TEXT_SOUTH "[SOUTH]"
+#define TEXT_EAST "[EAST]"
+#define TEXT_WEST "[WEST]"
+
+#define SHUTTLE_TRANSIT_BORDER 8// Storage component defines
+
+// Storage collection defines
+#define COLLECT_ONE 0
+#define COLLECT_EVERYTHING 1
+#define COLLECT_SAME 2
+
+// Drop style defines
+#define DROP_NOTHING 0
+#define DROP_AT_PARENT 1
+#define DROP_AT_LOCATION 2

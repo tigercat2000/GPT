@@ -222,3 +222,37 @@ var/mob/dview/dview_mob = new
 	fcopy(file, filename)
 	. = md5filepath(filename)
 	fdel(filename)
+
+//Repopulates sortedAreas list
+/proc/repopulate_sorted_areas()
+	GLOB.sortedAreas = list()
+
+	for(var/area/A in world)
+		GLOB.sortedAreas.Add(A)
+
+	sortTim(GLOB.sortedAreas, /proc/cmp_name_asc)
+
+/area/proc/addSorted()
+	GLOB.sortedAreas.Add(src)
+	sortTim(GLOB.sortedAreas, /proc/cmp_name_asc)
+
+//datum may be null, but it does need to be a typed var
+#define NAMEOF(datum, X) (#X || ##datum.##X)
+
+/proc/CallAsync(datum/source, proctype, list/arguments)
+	set waitfor = FALSE
+	return call(source, proctype)(arglist(arguments))
+
+#define UNTIL(X) while(!(X)) stoplag()
+
+/atom/proc/GetAllContentsIgnoring(list/ignore_typecache)
+	if(!length(ignore_typecache))
+		return GetAllContents()
+	var/list/processing = list(src)
+	. = list()
+	var/i = 0
+	while(i < length(processing))
+		var/atom/A = processing[++i]
+		if(!ignore_typecache[A.type])
+			processing += A.contents
+			. += A

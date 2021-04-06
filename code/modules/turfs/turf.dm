@@ -78,9 +78,9 @@
 	var/turf/W = new path(src)
 	smooth_icon_neighbors(src)
 
-	W.post_change()
+	W.AfterChange()
 	. = W
-	SEND_SIGNAL(src, COMSIG_TURF_CHANGED, W)
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, W)
 
 	lighting_corners_initialised = TRUE
 	recalc_atom_opacity()
@@ -97,7 +97,21 @@
 			lighting_clear_overlay()
 
 // Called after turf replaces old one
-/turf/proc/post_change()
+/turf/proc/AfterChange()
 	var/turf/simulated/open/T = GetAbove(src)
 	if(istype(T))
 		T.update_icon()
+
+/turf/proc/empty(turf_type=RESERVED_TURF_TYPE, baseturf_type, list/ignore_typecache, flags)
+	// Remove all atoms except observers, landmarks, docking ports
+	var/static/list/ignored_atoms = typecacheof(list(/* /mob/dead, /obj/effect/landmark, /obj/docking_port,  *//atom/movable/lighting_object))
+	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
+	allowed_contents -= src
+	for(var/i in 1 to allowed_contents.len)
+		var/thing = allowed_contents[i]
+		qdel(thing, force=TRUE)
+
+	if(turf_type)
+		/* var/turf/newT =  */ChangeTurf(turf_type, baseturf_type, flags)
+		// SSair.remove_from_active(newT)
+		// CALCULATE_ADJACENT_TURFS(newT, KILL_EXCITED)

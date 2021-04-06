@@ -3,9 +3,24 @@
 	var/datum_flags = NONE
 
 	var/gc_destroyed //Time when this object was destroyed.
-	var/list/active_timers //for SStimer
-	var/list/datum_components //for /datum/components
-	var/list/comp_lookup //for /datum/components
+	/// Active timers with this datum as the target
+	var/list/active_timers
+
+	/**
+	  * Components attached to this datum
+	  *
+	  * Lazy associated list in the structure of `type:component/list of components`
+	  */
+	var/list/datum_components
+	/**
+	  * Any datum registered to receive signals from this datum is in this list
+	  *
+	  * Lazy associated list in the structure of `signal:registree/list of registrees`
+	  */
+	var/list/comp_lookup
+	/// Lazy associated list in the structure of `signals:proctype` that are run when the datum receives that signal
+	var/list/list/datum/callback/signal_procs
+
 
 // Default implementation of clean-up code.
 // This should be overridden to remove all references pointing to the object being destroyed.

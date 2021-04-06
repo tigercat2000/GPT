@@ -25,7 +25,7 @@
 
 	var/turf/below
 
-/turf/simulated/open/post_change()
+/turf/simulated/open/AfterChange()
 	..()
 	update()
 

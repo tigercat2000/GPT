@@ -87,7 +87,7 @@
 	. = FALSE
 	// if(!(interaction_flags_atom & INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND))
 		// add_fingerprint(user)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_NO_ATTACK_HAND)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
 	if(interaction_flags_atom & INTERACT_ATOM_ATTACK_HAND)
 		. = _try_interact(user)
@@ -135,9 +135,11 @@
 		else		direction = WEST
 	set_dir(direction)
 
+/**
+ * A backwards depth-limited breadth-first-search to see if the target is
+ * logically "in" anything adjacent to us.
+ */
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
-	// A backwards depth-limited breadth-first-search to see if the target is
-	// logically "in" anything adjacent to us.
 	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
@@ -151,28 +153,19 @@
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
 			closed[target] = TRUE
-			if(isturf(target) || isturf(target.loc) || (target in direct_access)) //Directly accessible atoms
-				if(Adjacent(target)) //  || (tool && CheckToolReach(src, target, tool.reach)) //Adjacent or reaching attacks
+			if(isturf(target) || isturf(target.loc) || (target in direct_access) || (ismovable(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
+				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
 			if (!target.loc)
 				continue
-			GET_COMPONENT_FROM(storage, /datum/component/storage, target.loc)
-			if (storage)
-				var/datum/component/storage/concrete/master = storage.master()
-				if (master)
-					next += master.parent
-					for(var/S in master.slaves)
-						var/datum/component/storage/slave = S
-						next += slave.parent
-				else
-					next += target.loc
-			else
+
+			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
+			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
 				next += target.loc
 
 		checking = next
 	return FALSE
-
 /atom/movable/proc/DirectAccess()
 	return list(src, loc)
 
@@ -187,3 +180,25 @@
 
 /turf/AllowClick()
 	return TRUE
+
+/proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
+	if(!here || !there)
+		return
+	switch(reach)
+		if(0)
+			return FALSE
+		if(1)
+			return FALSE //here.Adjacent(there)
+		if(2 to INFINITY)
+			var/obj/dummy = new(get_turf(here))
+			// dummy.pass_flags |= PASSTABLE
+			dummy.invisibility = INVISIBILITY_ABSTRACT
+			for(var/i in 1 to reach) //Limit it to that many tries
+				var/turf/T = get_step(dummy, get_dir(dummy, there))
+				if(dummy.CanReach(there))
+					qdel(dummy)
+					return TRUE
+				if(!dummy.Move(T)) //we're blocked!
+					qdel(dummy)
+					return
+			qdel(dummy)

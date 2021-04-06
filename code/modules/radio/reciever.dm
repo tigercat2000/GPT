@@ -13,6 +13,7 @@
 	interact(user)
 
 /datum/asset/simple/ntsl2
+	keep_local_name = TRUE
 	assets = list(
 		"bundle.css" = 'html/ntsl2/dist/bundle.css',
 		"bundle.js" = 'html/ntsl2/dist/bundle.js',
