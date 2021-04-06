@@ -8,7 +8,7 @@
 	var/last_move = null
 
 	appearance_flags = PIXEL_SCALE
-	//glide_size = 8
+	glide_size = 8
 
 // Previously known as Crossed()
 // This is automatically called when something enters your square
@@ -44,18 +44,34 @@
 
 /*** MOVEMENT ***/
 
-/atom/movable/Move(atom/newloc, direct = 0)
+/atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc)
 		return 0
 	var/atom/oldloc = loc
 
-	. = ..()
-	last_move = direct
-	set_dir(direct)
+	if(loc != newloc)
+		glide_for(movetime)
+
+		. = ..(newloc, direct)
+
+		set_dir(direct)
+
+	if(!loc || (loc == oldloc && oldloc != newloc))
+		last_move = 0
+		return
 
 	if(.)
 		Moved(oldloc, direct)
+	last_move = direct
 
+// Change glide size for the duration of one movement
+/atom/movable/proc/glide_for(movetime)
+	if(movetime)
+		glide_size = world.icon_size/max(DS2TICKS(movetime), 1)
+		spawn(movetime)
+			glide_size = initial(glide_size)
+	else
+		glide_size = initial(glide_size)
 
 /atom/movable/proc/forceMove(atom/destination)
 	. = FALSE

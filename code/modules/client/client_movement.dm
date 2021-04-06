@@ -31,6 +31,7 @@
 
 	move_delay = world.time
 	move_delay += mob.movement_delay()
+	move_delay = TICKS2DS(-round(-(DS2TICKS(move_delay))))
 
 	if(!mob.canmove)
 		return 0
@@ -48,6 +49,8 @@
 
 	if(Process_Grab())
 		return
+
+	mob.glide_size = world.icon_size / max(DS2TICKS(move_delay), 1)
 
 	var/list/grabs = mob.grabbed()
 	if(islist(grabs) && grabs.len > 0)

@@ -15,7 +15,7 @@
 /obj/screen/speed
 	name = "walking/running"
 
-	icon_state = "wkwalk"
+	icon_state = "wkrun"
 	screen_loc = ui_mov_sel
 
 /obj/screen/speed/Click()

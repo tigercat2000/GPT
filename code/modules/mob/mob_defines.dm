@@ -3,7 +3,7 @@
 	icon_state = "human"
 	density = 1
 
-	var/movement_delay = 2
+	var/movement_delay = 1
 	var/next_move = null
 	var/canmove = 1
 	var/walking = 0
