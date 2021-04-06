@@ -189,3 +189,36 @@ var/mob/dview/dview_mob = new
 			processing_list += A.contents
 			assembled += A
 	return assembled
+
+/proc/REF(input)
+	if(istype(input, /datum))
+		var/datum/thing = input
+		if(thing.datum_flags & DF_USE_TAG)
+			if(!thing.tag)
+				stack_trace("A ref was requested of an object with DF_USE_TAG set but no tag: [thing]")
+				thing.datum_flags &= ~DF_USE_TAG
+			else
+				return "\[[url_encode(thing.tag)]\]"
+	return "\ref[input]"
+
+/atom/proc/contains(atom/A)
+	if(!A)
+		return FALSE
+	for(var/atom/location = A.loc, location, location = location.loc)
+		if(location == src)
+			return TRUE
+
+/// Returns the md5 of a file at a given path.
+/proc/md5filepath(path)
+	. = md5(file(path))
+
+/// Save file as an external file then md5 it.
+/// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
+/proc/md5asfile(file)
+	var/static/notch = 0
+	// its importaint this code can handle md5filepath sleeping instead of hard blocking, if it's converted to use rust_g.
+	var/filename = "tmp/md5asfile.[world.realtime].[world.timeofday].[world.time].[world.tick_usage].[notch]"
+	notch = WRAP(notch+1, 0, 2^15)
+	fcopy(file, filename)
+	. = md5filepath(filename)
+	fdel(filename)

@@ -16,6 +16,13 @@
 
 	var/datum/preferences/prefs = null
 
+	///world.time they connected
+	var/connection_time
+	///world.realtime they connected
+	var/connection_realtime
+	///world.timeofday they connected
+	var/connection_timeofday
+
 /client/New(TopicData)
 	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 
@@ -26,6 +33,9 @@
 		preferences_datums[ckey] = prefs
 
 	. = ..()
+	connection_time = world.time
+	connection_realtime = world.realtime
+	connection_timeofday = world.timeofday
 
 	chatOutput.start()
 	GLOB.clients += src
@@ -33,6 +43,8 @@
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
+	//load info on what assets the client has
+	src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
 
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
@@ -54,10 +66,24 @@
 		world.log << "Attempted use of scripts within a topic call, by [src]"
 		return
 
+	// asset_cache
+	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
-//		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
-		var/job = text2num(href_list["asset_cache_confirm_arrival"])
-		completed_asset_jobs += job
+		asset_cache_job = asset_cache_confirm_arrival(href_list["asset_cache_confirm_arrival"])
+		if (!asset_cache_job)
+			return
+
+	// Tgui Topic middleware
+	if(tgui_Topic(href_list))
+		return
+
+	//byond bug ID:2256651
+	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
+		to_chat(src, "<span class='danger'>An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
+		src << browse("...", "window=asset_cache_browser")
+		return
+	if (href_list["asset_cache_preload_data"])
+		asset_cache_preload_data(href_list["asset_cache_preload_data"])
 		return
 
 	switch(href_list["_src_"])

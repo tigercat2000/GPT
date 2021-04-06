@@ -89,6 +89,8 @@
 		"%pred's %belly kneads on every fiber of your body, softening you down into mush to fuel their next hunt.",
 		"%pred's %belly churns you down into a hot slush. Your nutrient-rich remains course through their digestive track with a series of long, wet glorps.")
 
+	var/digest_range = 1
+
 	var/list/examine_messages = list(
 		"They have something solid in their %belly!",
 		"It looks like they have something in their %belly!")

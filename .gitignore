@@ -6,3 +6,4 @@
 stddef.dm
 
 data/*
+tmp/*

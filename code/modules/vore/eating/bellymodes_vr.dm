@@ -93,7 +93,7 @@ var/macro_to_proc_mapping = list(
 
 			//owner.nutrition += 20 // so eating dead mobs gives you *something* (that's 0.66u nutriment yo)
 			var/deathsound = pick(GLOB.death_sounds)
-			for(var/mob/hearer in range(1,owner))
+			for(var/mob/hearer in range(digest_range,owner))
 				hearer << deathsound
 			digestion_death(M)
 			owner.update_icons()

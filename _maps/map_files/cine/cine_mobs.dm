@@ -36,3 +36,6 @@
 	if(speaker != src)
 		last_heard_message = formatted_message
 	. = ..()
+
+/mob/scientist/proc/get_taste_message()
+	return

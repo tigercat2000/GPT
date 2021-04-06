@@ -49,15 +49,7 @@
 					M.vore_selected = M.vore_organs[1]
 
 			if(!M.vore_organs || !M.vore_organs.len)
-				if(!M.vore_organs)
-					M.vore_organs = list()
-				var/datum/belly/B = new /datum/belly(M)
-				B.immutable = 1
-				B.name = "Stomach"
-				B.inside_flavor = "It appears to be rather warm and wet. Makes sense, considering it's inside \the [M.name]."
-				B.can_taste = 1
-				M.vore_organs[B.name] = B
-				M.vore_selected = B.name
+				M.create_default_belly()
 
 				//Simple_animal gets emotes. move this to that hook instead?
 				/*
@@ -80,6 +72,18 @@
 
 	//Return 1 to hook-caller
 	return 1
+
+/mob/living/proc/create_default_belly()
+	if(!vore_organs)
+		vore_organs = list()
+	var/datum/belly/B = new /datum/belly(src)
+	B.immutable = 1
+	B.name = "Stomach"
+	B.inside_flavor = "It appears to be rather warm and wet. Makes sense, considering it's inside [src]."
+	B.can_taste = 1
+	vore_organs[B.name] = B
+	vore_selected = B.name
+	return B
 
 //
 // Handle being clicked, perhaps with something to devour

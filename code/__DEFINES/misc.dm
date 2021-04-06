@@ -18,7 +18,7 @@
 #define MARKINGS_LAYER			4
 #define UNDERWEAR_LAYER			5
 #define MUTATIONS_LAYER			6
-#define DAMAGE_LAYER			7
+#define HUMAN_DAMAGE_LAYER		7
 #define SHOES_LAYER				8
 #define ID_LAYER				9
 #define UNIFORM_LAYER			10
@@ -48,7 +48,7 @@
 #define TOTAL_LAYERS	33
 
 // Filters
-#define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
+#define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
 
 #define APPEARANCE_UI_IGNORE_ALPHA	(RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
 

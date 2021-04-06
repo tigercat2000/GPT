@@ -3,12 +3,60 @@ var/cinematic_playing = 0
 /hook/mobNewLogin/proc/__cinematic_map_trigger(mob/M)
 	if(!cinematic_playing)
 		spawn(1)
-			show_cinematic()
+			show_cinematic(M)
 	wait_for_cine_canmove(M)
 	return 1
 
+/proc/show_cinematic(mob/player)
+	var/mob/living/scientist = new(get_turf(locate("landmark*sciSpawn")))
+	for(var/obj/item/I in scientist)
+		scientist.unEquip(I, force=TRUE)
+	scientist.cut_overlays()
+	scientist.icon_state = "scientist"
+	scientist.name = "Scientist"
 
-/proc/show_cinematic()
+	// Set up the monster
+	var/mob/living/monster = new(get_turf(locate("landmark*syndSpawn")))
+	monster.name = "Unholy Creature"
+	var/datum/belly/B = monster.create_default_belly()
+	B.human_prey_swallow_time = 10
+	B.digest_range = 4
+
+	for(var/obj/item/I in monster)
+		monster.unEquip(I, force=TRUE)
+
+	sleep(30)
+	// Start the cutscene
+	walk_to(scientist, player, 2, 7)
+	sleep((get_dist(scientist, player) - 2) * 7)
+	scientist.say("HELP ME!!")
+
+	sleep(20)
+
+	walk_to(monster, scientist, 1, 2)
+	sleep((get_dist(monster, scientist) - 1) * 2)
+	monster.say("RAWRAWRRGAWRARG")
+	monster.feed_grabbed_to_self(monster, scientist)
+	
+	sleep(5)
+
+	step(monster, get_dir(monster, player))
+	monster.say("AAAAAAARRRRRGGGGGH")
+	monster.visible_message("<span class='danger'>[monster] bangs on the window!</span>")
+	sleep(10)
+	scientist.say("MMHHFFFHH!!!")
+	sleep(10)
+	monster.visible_message("<span class='warning'>[monster] pauses... and <b>clenches their abs!</b></span>")
+	sleep(5)
+	scientist.say("AAAAAAAAHHH!!!")
+	sleep(10)
+	scientist.stat = 2
+	B._dm_digest()
+	sleep(10)
+	monster.visible_message("<span class='notice'>[monster] purrrrs, as their gut flattens out with the rush of nutrients deeper into their system...</span>")
+
+
+/proc/show_cinematic_old()
 	var/syndicate_position = get_turf(locate("landmark*syndSpawn"))
 	var/synd_walk = get_turf(locate("landmark*syndWalk"))
 	var/scientist_position = get_turf(locate("landmark*sciSpawn"))

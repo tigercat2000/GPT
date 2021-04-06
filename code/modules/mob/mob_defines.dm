@@ -6,7 +6,7 @@
 	var/movement_delay = 2
 	var/next_move = null
 	var/canmove = 1
-	var/walking = 1
+	var/walking = 0
 
 	animate_movement = 2 //SLIDE
 

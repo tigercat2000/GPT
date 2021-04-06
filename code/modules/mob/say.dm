@@ -15,7 +15,7 @@
 	say_broadcast(formatted_message)
 
 /mob/proc/say_broadcast(formatted_message)
-	for(var/mob/M in hearers(world.view, src))
+	for(var/mob/M in hearers(world.view, get_turf(src)))
 		M.hear_say(formatted_message, src)
 	return 1
 
