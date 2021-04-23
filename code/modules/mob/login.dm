@@ -17,6 +17,9 @@
 				forceMove(pick(prefered_starting_pos)) //prioritize unoccupied turfs over occupied turfs
 			else
 				forceMove(pick(starting_pos)) //but don't just leave them hanging if not
+		else
+			spawn(5)
+				forceMove(locate(1,1,1))
 
 		callHook("mobNewLogin", list(src))
 

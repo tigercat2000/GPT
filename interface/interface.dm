@@ -2,7 +2,7 @@
 	set name = ".toggle focus"
 	set hidden = 1
 
-	if(winget(usr, "mainwindow.input", "focus") == "true")
+	if(winget(usr, "outputwindow.input", "focus") == "true")
 		winset(usr, "mapwindow.map", "focus=true")
 	else
-		winset(usr, "mainwindow.input", "focus=true")
+		winset(usr, "outputwindow.input", "focus=true")

@@ -90,3 +90,5 @@
 #define DROP_NOTHING 0
 #define DROP_AT_PARENT 1
 #define DROP_AT_LOCATION 2
+
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : null))

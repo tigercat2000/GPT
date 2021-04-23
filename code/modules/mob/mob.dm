@@ -71,3 +71,6 @@
 	if(thrown_thing)
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src)
+
+/mob/proc/get_status_tab_items()
+	. = list()

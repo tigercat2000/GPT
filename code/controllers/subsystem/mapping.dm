@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(tmp_world_parsed_maps)
+
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING
@@ -233,7 +235,7 @@ Used by the AI doomsday and the self-destruct nuke.
 	// load the station
 	station_start = world.maxz + 1
 	INIT_ANNOUNCE("Loading [config.map_name]...")
-	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION)
+	GLOB.tmp_world_parsed_maps = LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION)
 
 	// if(SSdbcore.Connect())
 	// 	var/datum/db_query/query_round_map_name = SSdbcore.NewQuery({"

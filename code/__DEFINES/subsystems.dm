@@ -66,13 +66,17 @@
 #define INIT_ORDER_LIGHTING -20
 #define INIT_ORDER_SHUTTLE -21
 #define INIT_ORDER_SQUEAK -40
+#define INIT_ORDER_STATPANELS -98
 #define INIT_ORDER_PERSISTENCE -100
+#define INIT_ORDER_CHAT -101 //Should be last to ensure chat remains smooth during init.
 
 // Subsystem Priority Levels
 #define SS_PRIORITY_GARBAGE 15
 #define SS_PRIORITY_LIGHTING 20
 #define FIRE_PRIORITY_THROWING	25
 #define FIRE_PRIORITY_TGUI 110
+#define FIRE_PRIORITY_STATPANEL 390
+#define FIRE_PRIORITY_CHAT 400
 #define FIRE_PRIORITY_OVERLAYS	500
 
 // SS runlevels

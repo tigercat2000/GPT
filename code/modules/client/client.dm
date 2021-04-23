@@ -10,13 +10,24 @@
 	var/ghosting = 0
 
 	// Their chat window, sort of important.
-	// See /goon/code/datums/browserOutput.dm
-	var/datum/chatOutput/chatOutput
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
 
+	/// our current tab
+	var/stat_tab
+
+	/// whether our browser is ready or not yet
+	var/statbrowser_ready = FALSE
+
+	/// list of all tabs
+	var/list/panel_tabs = list()
+
 	var/datum/preferences/prefs = null
 
+	///Last ping of the client
+	var/lastping = 0
+	///Average ping of the client
+	var/avgping = 0
 	///world.time they connected
 	var/connection_time
 	///world.realtime they connected
@@ -25,7 +36,7 @@
 	var/connection_timeofday
 
 /client/New(TopicData)
-	chatOutput = new /datum/chatOutput(src) // Right off the bat.
+	tgui_panel = new(src)
 
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = preferences_datums[ckey]
@@ -38,8 +49,12 @@
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 
-	chatOutput.start()
 	GLOB.clients += src
+	
+	// initialize rightpane
+	src << browse(file('html/statbrowser.html'), "window=statbrowser")
+	addtimer(CALLBACK(src, .proc/check_panel_loaded), 30 SECONDS)
+	tgui_panel.initialize()
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
@@ -55,9 +70,6 @@
 /client/Topic(href, href_list, hsrc)
 	if(!usr || usr != mob)
 		return
-
-	if(href_list["_src_"] == "chat")
-		return chatOutput.Topic(href, href_list)
 
 	if(next_allowed_topic_time > world.time)
 		return
@@ -77,6 +89,10 @@
 	// Tgui Topic middleware
 	if(tgui_Topic(href_list))
 		return
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
+	if(href_list["reload_statbrowser"])
+		src << browse(file('html/statbrowser.html'), "window=statbrowser")
 
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
@@ -173,3 +189,30 @@
 		glide_size = 0
 		mob.glide_size = 0
 	to_chat(src, "Your FPS has been set to [fps].")
+
+/// compiles a full list of verbs and sends it to the browser
+/client/proc/init_verbs()
+	var/list/verblist = list()
+	var/list/verbstoprocess = verbs.Copy()
+	if(mob)
+		verbstoprocess += mob.verbs
+		for(var/AM in mob.contents)
+			var/atom/movable/thing = AM
+			verbstoprocess += thing.verbs
+	panel_tabs.Cut() // panel_tabs get reset in init_verbs on JS side anyway
+	for(var/thing in verbstoprocess)
+		var/procpath/verb_to_init = thing
+		if(!verb_to_init)
+			continue
+		if(verb_to_init.hidden)
+			continue
+		if(!istext(verb_to_init.category))
+			continue
+		panel_tabs |= verb_to_init.category
+		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+	src << output("[url_encode(json_encode(panel_tabs))];[url_encode(json_encode(verblist))]", "statbrowser:init_verbs")
+	
+/client/proc/check_panel_loaded()
+	if(statbrowser_ready)
+		return
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='?src=[REF(src)];reload_statbrowser=1'>here</a> to reload the panel </span>")
